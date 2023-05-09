@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_community"
+        android:enabled="true"
+        android:icon="@drawable/nav_community"
+        android:title="커뮤니티"/>
+
+    <item
+        android:id="@+id/menu_location"
+        android:enabled="true"
+        android:icon="@drawable/nav_location"
+        android:title="추천장소"/>
+
+    <item
+        android:id="@+id/menu_mypage"
+        android:enabled="true"
+        android:icon="@drawable/nav_mypage"
+        android:title="마이페이지"/>
+</menu>

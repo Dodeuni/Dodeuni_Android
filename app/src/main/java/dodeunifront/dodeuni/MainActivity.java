@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -22,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         init(); //객체 정의
         SettingListener(); //리스너 등록
 
-        //맨 처음 시작할 탭 설정
         bottomNavigationView.setSelectedItemId(R.id.menu_community);
     }
     private void init() {
@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.menu_location: {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_layout, new CommunityFragment())
+                            .replace(R.id.content_layout, new CommunityFragment())  //임시
                             .commit();
                     return true;
                 }
                 case R.id.menu_mypage: {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_layout, new CommunityFragment ())
+                            .replace(R.id.content_layout, new CommunityFragment ()) //임시
                             .commit();
                     return true;
                 }

@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/item1"
+        android:id="@+id/menu_hue"
         android:enabled="true"
-        android:title="메뉴1"
+        android:title="휴"
         android:icon="@drawable/nav_hue"
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/item2"
+        android:id="@+id/menu_alarm"
         android:enabled="true"
-        android:icon="@drawable/nav_bell"
-        android:title="메뉴2"
+        android:icon="@drawable/bell"
+        android:title="알림"
         app:showAsAction="always"/>
 
 </menu>

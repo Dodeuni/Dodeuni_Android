@@ -3,18 +3,18 @@
     <item
         android:id="@+id/menu_community"
         android:enabled="true"
-        android:icon="@drawable/nav_community"
+        android:icon="@drawable/community"
         android:title="커뮤니티"/>
 
     <item
         android:id="@+id/menu_location"
         android:enabled="true"
-        android:icon="@drawable/nav_location"
+        android:icon="@drawable/location"
         android:title="추천장소"/>
 
     <item
         android:id="@+id/menu_mypage"
         android:enabled="true"
-        android:icon="@drawable/nav_mypage"
+        android:icon="@drawable/mypage"
         android:title="마이페이지"/>
 </menu>

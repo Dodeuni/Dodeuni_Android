@@ -11,6 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dodeuni"
         tools:targetApi="31">
+        <service
+            android:name="dodeunifront.dodeuni.FirebaseMessagingService"
+            android:enabled="true"
+            android:exported="false"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".alert.AlertActivity"
             android:exported="true" >
@@ -24,6 +34,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/bell_new" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/main_color" />
     </application>
 
 </manifest>

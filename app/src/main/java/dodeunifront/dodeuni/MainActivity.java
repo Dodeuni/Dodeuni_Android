@@ -3,13 +3,22 @@ package dodeunifront.dodeuni;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import dodeunifront.dodeuni.community.CommunityFragment;
+import dodeunifront.dodeuni.map.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = this.getClass().getSimpleName();
@@ -22,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init(); //객체 정의
         SettingListener(); //리스너 등록
-
         bottomNavigationView.setSelectedItemId(R.id.menu_community);
     }
     private void init() {
@@ -46,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.menu_location: {
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_layout, new CommunityFragment())  //임시
+                            .replace(R.id.content_layout, new MapFragment())  //임시
                             .commit();
                     return true;
                 }

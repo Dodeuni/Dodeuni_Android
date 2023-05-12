@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import dodeunifront.dodeuni.R;
 
-public class DetailMapActivity extends AppCompatActivity {
+public class PostLocationMapActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_map);
+        setContentView(R.layout.activity_post_location_map);
     }
 }

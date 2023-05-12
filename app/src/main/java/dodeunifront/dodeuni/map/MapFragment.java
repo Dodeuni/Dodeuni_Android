@@ -14,8 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import net.daum.mf.map.api.MapView;
 
-import org.w3c.dom.Text;
-
 import dodeunifront.dodeuni.R;
 
 /**
@@ -85,7 +83,7 @@ public class MapFragment extends Fragment {
         tv_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), FindLocationMapActivity.class);
+                Intent intent = new Intent(getContext(), ReviewMapActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

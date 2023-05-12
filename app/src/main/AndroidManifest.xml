@@ -17,6 +17,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".PostLocationMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailMapFragment"
+            android:exported="false" />
+        <activity
             android:name=".map.FindLocationMapActivity"
             android:exported="false" />
 
@@ -35,8 +44,11 @@
         </service>
 
         <activity
+            android:name=".map.ReviewMapActivity"
+            android:exported="true" />
+        <activity
             android:name=".alert.AlertActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

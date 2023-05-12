@@ -3,6 +3,7 @@ package dodeunifront.dodeuni;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -30,6 +31,23 @@ public class TopView extends FrameLayout {
             a.recycle();
         }
         setTitle(title);
+
+        btn_back.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                mButtonClickListener.onButtonClicked();
+            }
+        });
+    }
+
+    public interface OnButtonClickListener {
+        void onButtonClicked();
+    }
+
+    private OnButtonClickListener mButtonClickListener;
+
+    public void setOnButtonClickListener(OnButtonClickListener a_listener){
+        mButtonClickListener = a_listener;
     }
 
     public void setTitle(String title) {

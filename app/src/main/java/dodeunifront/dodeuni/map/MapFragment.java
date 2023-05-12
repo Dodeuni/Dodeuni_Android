@@ -85,7 +85,6 @@ public class MapFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ReviewMapActivity.class);
                 startActivity(intent);
-                getActivity().finish();
             }
         });
 
@@ -93,9 +92,9 @@ public class MapFragment extends Fragment {
         return v;
     }
 
-    @Override
+    /*@Override
     public void onStop() {
         mapViewContainer.removeView(mapView);
         super.onStop();
-    }
+    }*/
 }

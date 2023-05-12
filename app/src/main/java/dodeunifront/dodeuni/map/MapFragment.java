@@ -7,11 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import net.daum.mf.map.api.MapView;
-
-import org.w3c.dom.Text;
 
 import dodeunifront.dodeuni.R;
 
@@ -69,6 +68,11 @@ public class MapFragment extends Fragment {
         MapView mapView = new MapView(getContext());
         ViewGroup mapViewContainer = (ViewGroup) v.findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
+
+        BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(
+                v.findViewById(R.id.drawer_location_recommend)
+        );
+        behavior.setPeekHeight(350);
 
         // Inflate the layout for this fragment
         return v;

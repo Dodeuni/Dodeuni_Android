@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,8 +14,16 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dodeuni"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="a2c8eaee5b39a2fbd5899ef954a85e7b"/>
+        <activity
+            android:name=".map.FindLocationMapActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="a2c8eaee5b39a2fbd5899ef954a85e7b" />
+
         <service
             android:name="dodeunifront.dodeuni.FirebaseMessagingService"
             android:enabled="true"
@@ -29,8 +36,7 @@
 
         <activity
             android:name=".alert.AlertActivity"
-            android:exported="true" >
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -40,6 +46,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/bell_new" />

@@ -1,5 +1,6 @@
 package dodeunifront.dodeuni.community;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,29 +28,53 @@ public class Bigtab_info extends Fragment {
         fragment1_2 = new Smalltab_worry();
         fragment1_3 = new Smalltab_review();
 
-        getChildFragmentManager().beginTransaction().replace(R.id.tab1_container, fragment1_1).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.ss_tab1_container, fragment1_1).commit();
 
-        Button btn = rootView.findViewById(R.id.btn_changeinfo);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button btn_info = rootView.findViewById(R.id.btn_changeinfo);
+        Button btn_worry = rootView.findViewById(R.id.btn_worry);
+        Button btn_review = rootView.findViewById(R.id.btn_review);
+
+
+        btn_info.setBackgroundResource(R.drawable.btn_clicked_color);
+        btn_info.setTextColor(Color.WHITE);
+
+        btn_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.tab1_container, fragment1_1).commit();
+                btn_info.setBackgroundResource(R.drawable.btn_clicked_color);
+                btn_info.setTextColor(Color.WHITE);
+                btn_worry.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_worry.setTextColor(Color.BLACK);
+                btn_review.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_review.setTextColor(Color.BLACK);
+                getChildFragmentManager().beginTransaction().replace(R.id.ss_tab1_container, fragment1_1).commit();
+            }
+        });
+        btn_worry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btn_info.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_info.setTextColor(Color.BLACK);
+                btn_worry.setBackgroundResource(R.drawable.btn_clicked_color);
+                btn_worry.setTextColor(Color.WHITE);
+                btn_review.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_review.setTextColor(Color.BLACK);
+                getChildFragmentManager().beginTransaction().replace(R.id.ss_tab1_container, fragment1_2).commit();
+
+
             }
         });
 
-        btn = rootView.findViewById(R.id.btn_worry);
-        btn.setOnClickListener(new View.OnClickListener() {
+        btn_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.tab1_container, fragment1_2).commit();
-            }
-        });
-
-        btn = rootView.findViewById(R.id.btn_review);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getChildFragmentManager().beginTransaction().replace(R.id.tab1_container, fragment1_3).commit();
+                btn_info.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_info.setTextColor(Color.BLACK);
+                btn_worry.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_worry.setTextColor(Color.BLACK);
+                btn_review.setBackgroundResource(R.drawable.btn_clicked_color);
+                btn_review.setTextColor(Color.WHITE);
+                getChildFragmentManager().beginTransaction().replace(R.id.ss_tab1_container, fragment1_3).commit();
             }
         });
 

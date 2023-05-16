@@ -7,4 +7,10 @@
             @font/dohyeon
         </item>
     </style>
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/black</item>
+    </style>
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/dohyeon</item>
+    </style>
 </resources>

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
 
         <dodeunifront.dodeuni.TopView
+            android:id="@+id/topview_post_location"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="장소 추천하기" />

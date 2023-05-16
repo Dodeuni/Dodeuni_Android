@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +59,21 @@ public class MapFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if(mapViewContainer != null && mapViewContainer.indexOfChild(mapView) == -1){
+            try {
+                System.out.println("no view");
+                initMapView();
+            } catch (RuntimeException re){
+                re.printStackTrace();
+            }
+        }
+
+        System.out.println("view view");
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -70,9 +86,7 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_map, container, false);
-        mapView = new MapView(getContext());
-        mapViewContainer = (ViewGroup) v.findViewById(R.id.map_view);
-        mapViewContainer.addView(mapView);
+        initMapView();
 
         BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(
                 v.findViewById(R.id.drawer_location_recommend)
@@ -80,21 +94,24 @@ public class MapFragment extends Fragment {
         behavior.setPeekHeight(350);
 
         TextView tv_new = v.findViewById(R.id.tv_location_new);
-        tv_new.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), ReviewMapActivity.class);
-                startActivity(intent);
-            }
+        tv_new.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), FindLocationMapActivity.class);
+            startActivity(intent);
         });
 
         // Inflate the layout for this fragment
         return v;
     }
 
-    /*@Override
-    public void onStop() {
+    private void initMapView(){
+        mapView = new MapView(getContext());
+        mapViewContainer = v.findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         mapViewContainer.removeView(mapView);
-        super.onStop();
-    }*/
+    }
 }

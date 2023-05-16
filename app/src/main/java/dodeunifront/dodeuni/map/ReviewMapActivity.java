@@ -15,7 +15,6 @@ public class ReviewMapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review_map);
 
         TopView topView = findViewById(R.id.topview_review);
-
         topView.setOnButtonClickListener(() -> finish());
     }
 }

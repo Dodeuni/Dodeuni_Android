@@ -17,12 +17,22 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
+import dodeunifront.dodeuni.community.API_Postcommunity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HueActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -97,7 +107,6 @@ public class HueActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (et_send.getText().length() !=0)
                 {
-                    Log.e("dfdfd","");
                     String text = et_send.getText().toString();
                     long mNow = System.currentTimeMillis();
                     Date mDate = new Date(mNow);
@@ -108,6 +117,37 @@ public class HueActivity extends AppCompatActivity {
 
                     imsiAdapter.notifyItemInserted(0);
                     imsiAdapter.notifyDataSetChanged();
+
+                    Gson gson = new GsonBuilder()
+                            .setLenient()
+                            .create();
+
+                    Retrofit retrofit = new Retrofit.Builder()
+                            .baseUrl(API_Hyu.URL)
+                            .addConverterFactory(GsonConverterFactory.create(gson))
+                            .build();
+
+                    API_Hyu api_hyu = retrofit.create(API_Hyu.class);
+                    HueData hueData5 = new HueData(text,Long.valueOf(1234));
+                    api_hyu.postDataActive(hueData5).enqueue(new Callback<List<HyuResponseDto>>() {
+                        @Override
+                        public void onResponse(Call<List<HyuResponseDto>> call, Response<List<HyuResponseDto>> response) {
+                            if (response.isSuccessful()) {
+                                List<HyuResponseDto> body = response.body();
+                                if (body != null) {
+                                }
+                            } else {
+                                //실패
+                                Log.e("YMC", "stringToJson msg: 실패" + response.code());
+                            }
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<HyuResponseDto>> call, Throwable t) {
+
+                        }
+                    });
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(),"입력해주세요",Toast.LENGTH_SHORT);
                     toast.show();

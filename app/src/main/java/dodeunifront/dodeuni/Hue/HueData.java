@@ -4,6 +4,13 @@ public class HueData {
     String ev_huemessage;
     String sendtime;
     int viewType;
+    Long uid;
+    String content;
+
+    public HueData( String content,Long uid) {
+        this.uid = uid;
+        this.content = content;
+    }
 
     public HueData(String ev_huemessage, String sendtime, int viewType) {
         this.ev_huemessage = ev_huemessage;

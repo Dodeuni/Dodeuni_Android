@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/write_community_toolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ToolbarTheme"
+        app:menu="@menu/community_nav"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="글수정하기"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="세부 카테고리는 수정할 수 없습니다."
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_changeinfo"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/custombtn_smallcommunity"
+            android:layout_gravity="center"
+            android:fontFamily="@font/dohyeon"
+            android:text="정보교환"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_worry"
+            android:layout_width="80dp"
+            android:fontFamily="@font/dohyeon"
+            android:layout_height="30dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/custombtn_smallcommunity"
+            android:text="고민상담" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_gravity="center"
+            android:id="@+id/btn_review"
+            android:background="@drawable/custombtn_smallcommunity"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:fontFamily="@font/dohyeon"
+            android:text="제품후기" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="     제목을 입력해주세요."/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:hint="     내용을 입력해주세요."
+        android:gravity="top"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:background="@drawable/dialog_radius"
+            app:srcCompat="@drawable/add_picture"
+            />
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/dialog_radius"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/dialog_radius"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/dialog_radius"/>
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/dialog_radius"/>
+    </LinearLayout>
+</LinearLayout>

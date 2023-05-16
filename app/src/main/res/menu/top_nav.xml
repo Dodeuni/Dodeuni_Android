@@ -6,7 +6,7 @@
         android:id="@+id/menu_hue"
         android:enabled="true"
         android:title="휴"
-        android:icon="@drawable/nav_hue"
+        android:icon="@drawable/nav_hue_big"
         app:showAsAction="always"/>
 
     <item

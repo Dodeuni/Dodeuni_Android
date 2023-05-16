@@ -17,13 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".PostLocationMapActivity"
+            android:name=".map.PostLocationMapActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailMapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetailMapFragment"
+            android:name=".map.DetailMapActivity"
             android:exported="false" />
         <activity
             android:name=".map.FindLocationMapActivity"

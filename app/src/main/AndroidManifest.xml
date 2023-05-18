@@ -23,6 +23,7 @@
             android:name=".map.DetailMapActivity"
             android:exported="false" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".map.FindLocationMapActivity"
             android:exported="false" />
 

@@ -81,10 +81,9 @@ public class FindLocationMapActivity extends AppCompatActivity {
     }
 
     public void initBottomSheet(){
-        bottomSheet = BottomSheetBehavior.from(
-                bottomSheetLayout
-        );
+        bottomSheet = BottomSheetBehavior.from(bottomSheetLayout);
         bottomSheet.setPeekHeight(500);
+        bottomSheet.setMaxHeight(2000);
     }
 
     public void initMapView(){
@@ -110,6 +109,7 @@ public class FindLocationMapActivity extends AppCompatActivity {
             if(keyword.length() != 0){
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
                 searchKeyword(keyword);
             }
         });
@@ -124,7 +124,6 @@ public class FindLocationMapActivity extends AppCompatActivity {
     }
 
     public void searchKeyword(String keyword){
-
         MapPoint centerPoint = mapView.getMapCenterPoint();
         Gson gson = new GsonBuilder()
                 .setLenient()

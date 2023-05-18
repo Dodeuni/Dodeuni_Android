@@ -34,10 +34,9 @@ public class ResponseEnrollLocationDTO {
     }
 
     public ResponseEnrollLocationDTO(int id, String name, String category, String address, String contact, String createdDateTime, String modifiedDateTime, String x, String y, int uid, String nickname, List<ReviewPreviewDTO> reviews){
-    //public ResponseEnrollLocationDTO(ResponseEnrollLocationDTO response){
         this.id = id;
         this.name = name;
-        //this.category = category;
+        this.category = category;
         this.address = address;
         this.contact = contact;
         this.createdDateTime = createdDateTime;

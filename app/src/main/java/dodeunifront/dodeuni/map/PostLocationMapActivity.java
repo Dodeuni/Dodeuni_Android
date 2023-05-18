@@ -31,6 +31,7 @@ public class PostLocationMapActivity extends AppCompatActivity {
     TextView tvName, tvCate, tvAddress, tvPhone;
     EditText editTitle, editContent;
     CardView enrollBtn;
+    String title, content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class PostLocationMapActivity extends AppCompatActivity {
         Intent intent = getIntent();
         System.out.println(intent.getStringExtra("name"));
         postLocationData.setPlaceName(intent.getStringExtra("name"));
-        //postLocationData.setCetegory(intent.getStringExtra("category"));
+        postLocationData.setCategory(intent.getStringExtra("category"));
         postLocationData.setAddress(intent.getStringExtra("address"));
         postLocationData.setPhone(intent.getStringExtra("phone"));
         postLocationData.setX(intent.getStringExtra("x"));
@@ -62,7 +63,7 @@ public class PostLocationMapActivity extends AppCompatActivity {
         postLocationData.setUid(1);
 
         tvName.setText(postLocationData.getPlaceName());
-        //tvCate.setText(postLocationData.getCategory());
+        tvCate.setText(postLocationData.getCategory());
         tvAddress.setText(postLocationData.getAddress());
         tvPhone.setText(postLocationData.getPhone());
     }
@@ -85,8 +86,8 @@ public class PostLocationMapActivity extends AppCompatActivity {
 
             LocationAPI locationAPI = retrofit.create(LocationAPI.class);
 
-            String title = editTitle.getText().toString();
-            String content = editContent.getText().toString();
+            title = editTitle.getText().toString();
+            content = editContent.getText().toString();
 
             if(title != ""  && content != "") {
                 locationAPI.postLocation(postLocationData).enqueue(new Callback<ResponseEnrollLocationDTO>() {

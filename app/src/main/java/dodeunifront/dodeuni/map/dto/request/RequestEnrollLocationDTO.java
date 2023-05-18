@@ -7,8 +7,9 @@ public class RequestEnrollLocationDTO {
     @SerializedName("name")
     @Expose
     private String name;
-
-    //private String category;
+    @SerializedName("category")
+    @Expose
+    private String category;
     @SerializedName("address")
     @Expose
     private String address;
@@ -27,9 +28,9 @@ public class RequestEnrollLocationDTO {
 
     public RequestEnrollLocationDTO(){}
 
-    public RequestEnrollLocationDTO(String name, String address, String contact, String x, String y, int uid){
+    public RequestEnrollLocationDTO(String name, String category, String address, String contact, String x, String y, int uid){
         this.name = name;
-        //this.category = category;
+        this.category = category;
         this.address = address;
         this.contact = contact;
         this.x = x;
@@ -44,10 +45,10 @@ public class RequestEnrollLocationDTO {
         this.name = name;
     }
 
-    /*public String getCategory(){
+    public String getCategory(){
         return category;
     }
-    public void setCetegory(String category){ this.category = category;}*/
+    public void setCategory(String category){ this.category = category;}
 
     public String getAddress(){
         return address;

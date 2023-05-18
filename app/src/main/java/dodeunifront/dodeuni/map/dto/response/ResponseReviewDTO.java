@@ -1,10 +1,6 @@
 package dodeunifront.dodeuni.map.dto.response;
 
-import java.util.List;
-
-import dodeunifront.dodeuni.map.dto.ReviewPreviewDTO;
-
-public class ResponseEnrollReviewDTO {
+public class ResponseReviewDTO {
     private int id;
 
     private String title;
@@ -21,11 +17,11 @@ public class ResponseEnrollReviewDTO {
 
     private String nickname;
 
-    public ResponseEnrollReviewDTO(){
+    public ResponseReviewDTO(){
 
     }
 
-    public ResponseEnrollReviewDTO(int id, String title, String content, String createdDateTime, String modifiedDateTime, int pid, int uid, String nickname){
+    public ResponseReviewDTO(int id, String title, String content, String createdDateTime, String modifiedDateTime, int pid, int uid, String nickname){
         this.id = id;
         this.title = title;
         this.content = content;

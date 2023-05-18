@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +94,7 @@ public class MapFragment extends Fragment {
 
         TextView tv_new = v.findViewById(R.id.tv_location_new);
         tv_new.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), FindLocationMapActivity.class);
+            Intent intent = new Intent(getContext(), LocationFindActivity.class);
             startActivity(intent);
         });
 

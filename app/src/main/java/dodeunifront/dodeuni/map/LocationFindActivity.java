@@ -25,8 +25,6 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
-import java.util.Map;
-
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.map.adapter.FindLocationRecyclerAdapter;
@@ -39,15 +37,15 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class FindLocationMapActivity extends AppCompatActivity {
+public class LocationFindActivity extends AppCompatActivity {
 
     MapView mapView;
     ImageButton btnSearch, btnCurrentLocation;
     EditText editSearch;
     ViewGroup mapViewContainer;
     RecyclerView mRecyclerView;
-    LinearLayout bottomSheetLayout;
     FindLocationRecyclerAdapter mRecyclerAdapter;
+    LinearLayout bottomSheetLayout;
     ResponseLocationListDTO searchResult;
     BottomSheetBehavior<View> bottomSheet;
     CurrentLocation.Geocoord geocoord;
@@ -55,7 +53,7 @@ public class FindLocationMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_find_location_map);
+        setContentView(R.layout.activity_find_location);
 
         btnSearch = findViewById(R.id.imgBtn_location_search);
         editSearch = findViewById(R.id.edit_location);
@@ -144,7 +142,7 @@ public class FindLocationMapActivity extends AppCompatActivity {
                     initRecyclerView();
                     Log.d("성공", searchResult.getDocuments().get(0).getAddress());
                 } else {
-                    Toast.makeText(FindLocationMapActivity.this, "검색 결과 없음", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LocationFindActivity.this, "검색 결과 없음", Toast.LENGTH_LONG).show();
                 }
             }
             @Override
@@ -156,7 +154,6 @@ public class FindLocationMapActivity extends AppCompatActivity {
 
     public void setMarkers(){
         for(ResponseLocationDTO info: searchResult.getDocuments()){
-            System.out.println(info.getPlaceName());
             double lon = Double.parseDouble(info.getY());
             double lat = Double.parseDouble(info.getX());
             MapPOIItem marker = new MapPOIItem();
@@ -175,7 +172,7 @@ public class FindLocationMapActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mRecyclerAdapter.setLocationResult(searchResult);
         mRecyclerAdapter.setOnItemClickListener((locationData) -> {
-            Intent intent = new Intent(this, PostLocationMapActivity.class);
+            Intent intent = new Intent(this, LocationPostActivity.class);
             intent.putExtra("name", locationData.getPlaceName());
             intent.putExtra("category", locationData.getCategory() == null ? "" : locationData.getCategory());
             intent.putExtra("address", locationData.getAddress());

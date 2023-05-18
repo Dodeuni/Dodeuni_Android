@@ -9,10 +9,6 @@ public class ReviewPreviewDTO {
 
     private int uid;
 
-    public ReviewPreviewDTO(){
-
-    }
-
     public ReviewPreviewDTO(int id, String title, String content, int uid){
         this.id = id;
         this.title = title;

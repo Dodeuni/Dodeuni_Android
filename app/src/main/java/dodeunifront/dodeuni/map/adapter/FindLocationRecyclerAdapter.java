@@ -7,14 +7,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.daum.mf.map.api.MapPOIItem;
-import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.List;
 
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.map.FindLocationMapActivity;
 import dodeunifront.dodeuni.map.dto.response.ResponseLocationListDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseLocationDTO;
 

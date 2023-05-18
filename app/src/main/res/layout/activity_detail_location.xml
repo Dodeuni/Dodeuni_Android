@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".map.DetailMapActivity"
+    tools:context=".map.LocationDetailActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_review_list"
+        android:id="@+id/rv_detail_preview_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="25dp"/>

@@ -17,13 +17,9 @@ public class ResponseDetailLocationDTO {
 
     private int uid;
 
-    private List<ReviewPreviewDTO> reviews;
+    private List<ResponseReviewDTO> reviews;
 
-    public ResponseDetailLocationDTO(){
-
-    }
-
-    public ResponseDetailLocationDTO(int id, String name, String category, String address, String contact, int uid, List<ReviewPreviewDTO> reviews){
+    public ResponseDetailLocationDTO(int id, String name, String category, String address, String contact, int uid, List<ResponseReviewDTO> reviews){
         this.id = id;
         this.name = name;
         this.category = category;
@@ -65,6 +61,9 @@ public class ResponseDetailLocationDTO {
     public int getUid() { return uid;}
     public void setUid(int uid) {this.uid = uid;}
 
-    public List<ReviewPreviewDTO> getReviews() { return reviews;}
-    public void setReviews(List<ReviewPreviewDTO> nickname) {this.reviews = reviews;}
+    public List<ResponseReviewDTO> getReviews() { return reviews;}
+    public void setReviews(List<ResponseReviewDTO> reviews) {this.reviews = reviews;}
+    public int getReviewsLength(){
+        return reviews.size();
+    }
 }

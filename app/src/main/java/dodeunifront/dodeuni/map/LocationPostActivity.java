@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -16,25 +15,23 @@ import com.google.gson.GsonBuilder;
 import dodeunifront.dodeuni.LocationDetailView;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
-import dodeunifront.dodeuni.map.api.KakaoMapAPI;
 import dodeunifront.dodeuni.map.api.LocationAPI;
 import dodeunifront.dodeuni.map.api.ReviewAPI;
 import dodeunifront.dodeuni.map.dto.request.RequestEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.request.RequestEnrollReviewDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseEnrollLocationDTO;
-import dodeunifront.dodeuni.map.dto.response.ResponseEnrollReviewDTO;
+import dodeunifront.dodeuni.map.dto.response.ResponseReviewDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PostLocationMapActivity extends AppCompatActivity {
+public class LocationPostActivity extends AppCompatActivity {
     RequestEnrollLocationDTO LocationData = new RequestEnrollLocationDTO();
     RequestEnrollReviewDTO reviewData = new RequestEnrollReviewDTO();
     ResponseEnrollLocationDTO locationResultData;
-    ResponseEnrollReviewDTO reviewResultData;
-    //TextView tvName, tvCate, tvAddress, tvPhone;
+    ResponseReviewDTO reviewResultData;
     LocationDetailView locationDetailView;
     EditText editTitle, editContent;
     CardView enrollBtn;
@@ -43,7 +40,7 @@ public class PostLocationMapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_location_map);
+        setContentView(R.layout.activity_post_location);
         locationDetailView = findViewById(R.id.ldview_post_location);
         editTitle = findViewById(R.id.edit_post_location_title);
         editContent = findViewById(R.id.edit_post_location_content);
@@ -132,12 +129,12 @@ public class PostLocationMapActivity extends AppCompatActivity {
                 .build();
 
         ReviewAPI reviewAPI = retrofit.create(ReviewAPI.class);
-        reviewAPI.postReview(reviewData).enqueue(new Callback<ResponseEnrollReviewDTO>() {
+        reviewAPI.postReview(reviewData).enqueue(new Callback<ResponseReviewDTO>() {
             @Override
-            public void onResponse(Call<ResponseEnrollReviewDTO> call, Response<ResponseEnrollReviewDTO> response) {
+            public void onResponse(Call<ResponseReviewDTO> call, Response<ResponseReviewDTO> response) {
                 if (response.body() != null) {
                     reviewResultData = response.body();
-                    Intent intent = new Intent(getApplicationContext(), DetailMapActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), LocationDetailActivity.class);
                     intent.putExtra("id", reviewResultData.getPid());
                     startActivity(intent);
                     finish();
@@ -147,7 +144,7 @@ public class PostLocationMapActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseEnrollReviewDTO> call, Throwable t) {
+            public void onFailure(Call<ResponseReviewDTO> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "등록 실패", Toast.LENGTH_LONG).show();
                 Log.d("실패", "통신 실패: " + t.getMessage());
             }

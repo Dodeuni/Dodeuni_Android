@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import dodeunifront.dodeuni.LocationDetailView;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.map.api.KakaoMapAPI;
@@ -33,7 +34,8 @@ public class PostLocationMapActivity extends AppCompatActivity {
     RequestEnrollReviewDTO reviewData = new RequestEnrollReviewDTO();
     ResponseEnrollLocationDTO locationResultData;
     ResponseEnrollReviewDTO reviewResultData;
-    TextView tvName, tvCate, tvAddress, tvPhone;
+    //TextView tvName, tvCate, tvAddress, tvPhone;
+    LocationDetailView locationDetailView;
     EditText editTitle, editContent;
     CardView enrollBtn;
     String title, content;
@@ -42,10 +44,7 @@ public class PostLocationMapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_location_map);
-        tvName = findViewById(R.id.tv_post_location_name);
-        tvCate = findViewById(R.id.tv_post_location_category);
-        tvAddress = findViewById(R.id.tv_post_location_address);
-        tvPhone = findViewById(R.id.tv_post_location_phone);
+        locationDetailView = findViewById(R.id.ldview_post_location);
         editTitle = findViewById(R.id.edit_post_location_title);
         editContent = findViewById(R.id.edit_post_location_content);
         enrollBtn = findViewById(R.id.cv_location_enroll);
@@ -69,10 +68,10 @@ public class PostLocationMapActivity extends AppCompatActivity {
         LocationData.setY(intent.getStringExtra("y"));
         LocationData.setUid(1);
 
-        tvName.setText(LocationData.getPlaceName());
-        tvCate.setText(LocationData.getCategory());
-        tvAddress.setText(LocationData.getAddress());
-        tvPhone.setText(LocationData.getPhone());
+        locationDetailView.setName(LocationData.getPlaceName());
+        locationDetailView.setCategory(LocationData.getCategory());
+        locationDetailView.setAddress(LocationData.getAddress());
+        locationDetailView.setCategory(LocationData.getPhone());
     }
 
     public void initTopView(){
@@ -139,6 +138,7 @@ public class PostLocationMapActivity extends AppCompatActivity {
                 if (response.body() != null) {
                     reviewResultData = response.body();
                     Intent intent = new Intent(getApplicationContext(), DetailMapActivity.class);
+                    intent.putExtra("id", reviewResultData.getPid());
                     startActivity(intent);
                     finish();
                 } else {

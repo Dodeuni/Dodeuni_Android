@@ -40,36 +40,51 @@
         </androidx.cardview.widget.CardView>
     </FrameLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <dodeunifront.dodeuni.LocationDetailView
+            android:id="@+id/ldview_post_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
+
+        <EditText
+            android:id="@+id/edit_post_location_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="none"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:ellipsize="end"
+            android:hint="제목을 입력해주세요."
+            android:text="수내역 근처 사시는 분들" />
 
-            <dodeunifront.dodeuni.LocationDetailView
-                android:id="@+id/ldview_post_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
 
-            <EditText
-                android:id="@+id/edit_post_location_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
-
-            <EditText
-                android:id="@+id/edit_post_location_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
-        </LinearLayout>
-    </ScrollView>
+        <EditText
+            android:id="@+id/edit_post_location_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="none"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:gravity="start"
+            android:hint="분당 수내역 근처에 복지센터가 생겼다네요! 근처사시는분들은 함 가보세요~ 저는 오늘 가봤는데 좋더라구요 ㅎㅎ"
+            android:text="" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -32,7 +32,6 @@ public class LocationDetailActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     long locationId;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,6 +103,9 @@ public class LocationDetailActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mRecyclerAdapter.setReviewResult(locationData.getReviews(), locationData.getReviewsLength());
         mRecyclerAdapter.setOnItemClickListener((locationData) -> {
+            Intent intent = new Intent(this, ReviewDetailActivity.class);
+            intent.putExtra("id", locationData.getId());
+            startActivity(intent);
             Toast.makeText(this, "clicked: " + locationData.getTitle(), Toast.LENGTH_LONG).show();
         });
     }

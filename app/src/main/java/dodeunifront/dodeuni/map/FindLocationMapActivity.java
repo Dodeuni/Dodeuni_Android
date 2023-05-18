@@ -183,6 +183,7 @@ public class FindLocationMapActivity extends AppCompatActivity {
             intent.putExtra("x", locationData.getX());
             intent.putExtra("y", locationData.getY());
             startActivity(intent);
+            finish();
             Toast.makeText(this, "clicked: " + locationData.getPlaceName(), Toast.LENGTH_LONG).show();
         });
     }

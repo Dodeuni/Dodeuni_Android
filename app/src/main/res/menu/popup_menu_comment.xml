@@ -1,10 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/popup_delete"
+        android:id="@+id/popup_deleteco"
         android:title="삭제하기" />
-    <item
-        android:id="@+id/popup_modify"
-        android:title="수정하기" />
-
 </menu>

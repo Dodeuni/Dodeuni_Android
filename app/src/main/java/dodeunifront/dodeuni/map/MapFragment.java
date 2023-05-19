@@ -1,6 +1,8 @@
 package dodeunifront.dodeuni.map;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,10 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import dodeunifront.dodeuni.R;
@@ -34,6 +38,9 @@ public class MapFragment extends Fragment {
     private View v;
     private ViewGroup mapViewContainer;
     private MapView mapView;
+    BottomSheetBehavior<View> bottomSheet;
+    CurrentLocation.Geocoord currentGeocoord;
+    ImageButton btnCurrentLocation;
 
     public MapFragment() {
         // Required empty public constructor
@@ -85,14 +92,16 @@ public class MapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_map, container, false);
-        initMapView();
-
-        BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(
-                v.findViewById(R.id.drawer_location_recommend)
-        );
-        behavior.setPeekHeight(350);
-
+        btnCurrentLocation = v.findViewById(R.id.imgBtn_location_current);
         TextView tv_new = v.findViewById(R.id.tv_location_new);
+
+        getCurrentLocation();
+
+        initMapView();
+        initBottomSheet();
+
+        setCurrentLocationBtn();
+
         tv_new.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), LocationFindActivity.class);
             startActivity(intent);
@@ -102,15 +111,37 @@ public class MapFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapViewContainer.removeView(mapView);
+    }
+
+    public void getCurrentLocation(){
+        final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        CurrentLocation currentLocation = new CurrentLocation(lm, getActivity());
+        currentGeocoord = currentLocation.getCurrentLocation();
+    }
+
+    public void initBottomSheet(){
+        bottomSheet = BottomSheetBehavior.from(
+                v.findViewById(R.id.drawer_location_recommend)
+        );
+        bottomSheet.setPeekHeight(500);
+        bottomSheet.setMaxHeight(2000);
+    }
+
     private void initMapView(){
         mapView = new MapView(getContext());
         mapViewContainer = v.findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapViewContainer.removeView(mapView);
+    public void setCurrentLocationBtn(){
+        btnCurrentLocation.setOnClickListener(view -> {
+            if(currentGeocoord != null){
+                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.latitude, currentGeocoord.longitude), true);
+            }
+        });
     }
 }

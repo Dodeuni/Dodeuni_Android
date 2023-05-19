@@ -48,7 +48,7 @@ public class LocationFindActivity extends AppCompatActivity {
     LinearLayout bottomSheetLayout;
     ResponseLocationListDTO searchResult;
     BottomSheetBehavior<View> bottomSheet;
-    CurrentLocation.Geocoord geocoord;
+    CurrentLocation.Geocoord currentGeocoord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +74,7 @@ public class LocationFindActivity extends AppCompatActivity {
     public void getCurrentLocation(){
         final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         CurrentLocation currentLocation = new CurrentLocation(lm, this);
-        geocoord = currentLocation.getCurrentLocation();
-
+        currentGeocoord = currentLocation.getCurrentLocation();
     }
 
     public void initBottomSheet(){
@@ -87,9 +86,8 @@ public class LocationFindActivity extends AppCompatActivity {
     public void initMapView(){
         mapView = new MapView(this);
         //mapView.setPOIItemEventListener(poiItemEventListener);
-        mapViewContainer = findViewById(R.id.map_view);
+        mapViewContainer = findViewById(R.id.map_location_view);
         mapViewContainer.addView(mapView);
-
     }
 
     public void initTopView(){
@@ -115,8 +113,8 @@ public class LocationFindActivity extends AppCompatActivity {
 
     public void setCurrentLocationBtn(){
         btnCurrentLocation.setOnClickListener(view -> {
-            if(geocoord != null){
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(geocoord.latitude, geocoord.longitude), true);
+            if(currentGeocoord != null){
+                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.latitude, currentGeocoord.longitude), true);
             }
         });
     }

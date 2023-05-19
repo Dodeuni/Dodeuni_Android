@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
     FrameLayout home;
     BottomNavigationView bottomNavigationView;
+    Long userId;
+    String name;
+    String email;
+    String naverToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar (toolbar); //액티비티의 앱바(App Bar)로 지정
         bottomNavigationView.setSelectedItemId(R.id.menu_community);
 
+        Intent intent = getIntent();
+        userId = intent.getLongExtra("userId",-1);
+        name = intent.getStringExtra("name");
+        email = intent.getStringExtra("email");
+        naverToken = intent.getStringExtra("naverToken");
+        Log.e("","id:"+userId+"\ntoken:"+ naverToken +"\nname:"+ name+"\nemail:"+email);
 
     }
 

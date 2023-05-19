@@ -1,9 +1,8 @@
 package dodeunifront.dodeuni.community.DTO;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-public class DTO_ResponseCommunity {
+public class ResponseCommunityDTO {
     private Long id;
 
     private String createdDateTime;
@@ -26,7 +25,7 @@ public class DTO_ResponseCommunity {
 
     private List<String> photoUrl;
 
-    public DTO_ResponseCommunity(String createdDateTime, String nickname, String title, String content) {
+    public ResponseCommunityDTO(String createdDateTime, String nickname, String title, String content) {
         this.createdDateTime = createdDateTime;
         this.nickname = nickname;
         this.title = title;

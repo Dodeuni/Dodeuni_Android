@@ -1,8 +1,6 @@
 package dodeunifront.dodeuni.community.DTO;
 
-import java.time.LocalDateTime;
-
-public class CommunityListResponseDto {
+public class CommunityListResponseDTO {
     private Long id;
 
     private String createdDateTime;
@@ -26,8 +24,8 @@ public class CommunityListResponseDto {
     private String thumbnailUrl;
 
 
-    public CommunityListResponseDto(Long id,String createdDateTime, String nickname, String title, String content,String thumbnailUrl,
-    Long userId) {
+    public CommunityListResponseDTO(Long id, String createdDateTime, String nickname, String title, String content, String thumbnailUrl,
+                                    Long userId) {
         this.id = id;
         this.createdDateTime = createdDateTime;
         this.nickname = nickname;

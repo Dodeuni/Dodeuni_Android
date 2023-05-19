@@ -1,6 +1,5 @@
 package dodeunifront.dodeuni.community;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,31 +26,21 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import dodeunifront.dodeuni.ErrorModel;
-import dodeunifront.dodeuni.Hue.API_Hyu;
+import dodeunifront.dodeuni.Hue.HueAPI;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.Adapter.CommentAdapter;
 import dodeunifront.dodeuni.community.Adapter.DatailImageAdapter;
-import dodeunifront.dodeuni.community.Adapter.RegAdapter;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
 import dodeunifront.dodeuni.community.DTO.CommentSaveRequestDTO;
 import dodeunifront.dodeuni.community.DTO.CommunityDeatilDTO;
-import dodeunifront.dodeuni.community.DTO.CommunityListResponseDto;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.Converter;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class DetailCommunityActivity extends AppCompatActivity {
     private ArrayList<CommentResponseDTO> commentResponseDTOArrayList;
@@ -74,7 +62,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
             .create();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(API_Hyu.URL)
+            .baseUrl(HueAPI.URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
@@ -113,8 +101,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
             btn_write_menu.setVisibility(View.VISIBLE);
         }
 
-        API_Postcommunity api_postcommunity = retrofit.create(API_Postcommunity.class);
-        api_postcommunity.getDatadetail(id).enqueue(new Callback<CommunityDeatilDTO>() {
+        PostcommunityAPI _postcommunityAPI = retrofit.create(PostcommunityAPI.class);
+        _postcommunityAPI.getDatadetail(id).enqueue(new Callback<CommunityDeatilDTO>() {
             @Override
             public void onResponse(Call<CommunityDeatilDTO> call, Response<CommunityDeatilDTO> response) {
                 if (response.body() != null) {
@@ -144,7 +132,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
 
             }
         });
-        api_postcommunity.getDataComment(main_writer_id).enqueue(new Callback<List<CommentResponseDTO>>() {
+        _postcommunityAPI.getDataComment(main_writer_id).enqueue(new Callback<List<CommentResponseDTO>>() {
             @Override
             public void onResponse(Call<List<CommentResponseDTO>> call, Response<List<CommentResponseDTO>> response) {
                 if (response.isSuccessful()){
@@ -199,9 +187,9 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     commentResponseDTOArrayList.add(dict_0);
                     commentAdapter.notifyDataSetChanged();
 
-                    API_Postcommunity api_postcommunity_comment = retrofit.create(API_Postcommunity.class);
+                    PostcommunityAPI _postcommunity_API_comment = retrofit.create(PostcommunityAPI.class);
                     CommentSaveRequestDTO commentSaveRequestDTO = new CommentSaveRequestDTO(text,Long.valueOf(0),null,cid,uid);
-                    api_postcommunity_comment.postcomment(commentSaveRequestDTO).enqueue(new Callback<List<CommentResponseDTO>>() {
+                    _postcommunity_API_comment.postcomment(commentSaveRequestDTO).enqueue(new Callback<List<CommentResponseDTO>>() {
                         @Override
                         public void onResponse(Call<List<CommentResponseDTO>> call, Response<List<CommentResponseDTO>> response) {
                             if(response.isSuccessful()){
@@ -278,8 +266,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // 원하는 기능 구현
-                API_Postcommunity api_postcommunity_comment = retrofit.create(API_Postcommunity.class);
-                api_postcommunity_comment.deletecommunity(main_writer_userid,main_writer_id).enqueue(new Callback<Object>() {
+                PostcommunityAPI _postcommunity_API_comment = retrofit.create(PostcommunityAPI.class);
+                _postcommunity_API_comment.deletecommunity(main_writer_userid,main_writer_id).enqueue(new Callback<Object>() {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
                         Log.e("삭제성공",response.body()+"");

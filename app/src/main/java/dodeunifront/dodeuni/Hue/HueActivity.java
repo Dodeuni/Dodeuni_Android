@@ -1,17 +1,14 @@
 package dodeunifront.dodeuni.Hue;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,7 +24,6 @@ import java.util.List;
 
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.community.API_Postcommunity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,11 +32,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HueActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    HueAdapter adapter;
-    ImsiAdapter imsiAdapter;
+    HueAdapter hueAdapter;
     EditText et_send;
     Button btn_send;
-    private ArrayList<HueData> huearrayList;
+    private ArrayList<HuePostDTO> huearrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +67,8 @@ public class HueActivity extends AppCompatActivity {
         });
 
         huearrayList = new ArrayList<>();
-        //adapter = new HueAdapter(huearrayList);
-        imsiAdapter = new ImsiAdapter(huearrayList);
-        recyclerView.setAdapter(imsiAdapter);
+        hueAdapter = new HueAdapter(huearrayList);
+        recyclerView.setAdapter(hueAdapter);
 
 
 
@@ -89,16 +83,16 @@ public class HueActivity extends AppCompatActivity {
         String imsi2 = "잠이 너무 부족해서 머리가 아파 힘들어";
         String imsi3 = "여행가고싶다 떠나고싶어라";
         String timea = mFormat.format(mDate);
-        HueData hueData4 = new HueData(imsi0,timea,ViewType.LEFT_CHAT);
-        HueData hueData0 = new HueData(imsi,timea,ViewType.LEFT_CHAT);
-        HueData hueData1 = new HueData(imsi2,timea, ViewType.LEFT_CHAT);
-        HueData hueData2 = new HueData(imsi1,timea,ViewType.LEFT_CHAT);
-        HueData hueData3 = new HueData(imsi3,timea,ViewType.LEFT_CHAT);
-        huearrayList.add(hueData0);
-        huearrayList.add(hueData1);
-        huearrayList.add(hueData2);
-        huearrayList.add(hueData3);
-        huearrayList.add(hueData4);
+        HuePostDTO huePostDTO4 = new HuePostDTO(imsi0,timea,ViewType.LEFT_CHAT);
+        HuePostDTO huePostDTO0 = new HuePostDTO(imsi,timea,ViewType.LEFT_CHAT);
+        HuePostDTO huePostDTO1 = new HuePostDTO(imsi2,timea, ViewType.LEFT_CHAT);
+        HuePostDTO huePostDTO2 = new HuePostDTO(imsi1,timea,ViewType.LEFT_CHAT);
+        HuePostDTO huePostDTO3 = new HuePostDTO(imsi3,timea,ViewType.LEFT_CHAT);
+        huearrayList.add(huePostDTO0);
+        huearrayList.add(huePostDTO1);
+        huearrayList.add(huePostDTO2);
+        huearrayList.add(huePostDTO3);
+        huearrayList.add(huePostDTO4);
 
         et_send = (EditText)findViewById(R.id.et_hue_send);
         btn_send = (Button) findViewById(R.id.btn_hue_send);
@@ -112,28 +106,28 @@ public class HueActivity extends AppCompatActivity {
                     Date mDate = new Date(mNow);
                     SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm:ss");
                     String time = mFormat.format(mDate);
-                    HueData hueData = new HueData(text,time,ViewType.RIGHT_CHAT);
-                    huearrayList.add(hueData);
+                    HuePostDTO huePostDTO = new HuePostDTO(text,time,ViewType.RIGHT_CHAT);
+                    huearrayList.add(huePostDTO);
 
-                    imsiAdapter.notifyItemInserted(0);
-                    imsiAdapter.notifyDataSetChanged();
+                    hueAdapter.notifyItemInserted(0);
+                    hueAdapter.notifyDataSetChanged();
 
                     Gson gson = new GsonBuilder()
                             .setLenient()
                             .create();
 
                     Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(API_Hyu.URL)
+                            .baseUrl(HueAPI.URL)
                             .addConverterFactory(GsonConverterFactory.create(gson))
                             .build();
 
-                    API_Hyu api_hyu = retrofit.create(API_Hyu.class);
-                    HueData hueData5 = new HueData(text,Long.valueOf(1234));
-                    api_hyu.postDataActive(hueData5).enqueue(new Callback<List<HyuResponseDto>>() {
+                    HueAPI _hueAPI = retrofit.create(HueAPI.class);
+                    HuePostDTO huePostDTO5 = new HuePostDTO(text,Long.valueOf(1234));
+                    _hueAPI.postDataActive(huePostDTO5).enqueue(new Callback<List<HyuResponseDTO>>() {
                         @Override
-                        public void onResponse(Call<List<HyuResponseDto>> call, Response<List<HyuResponseDto>> response) {
+                        public void onResponse(Call<List<HyuResponseDTO>> call, Response<List<HyuResponseDTO>> response) {
                             if (response.isSuccessful()) {
-                                List<HyuResponseDto> body = response.body();
+                                List<HyuResponseDTO> body = response.body();
                                 if (body != null) {
                                 }
                             } else {
@@ -144,7 +138,7 @@ public class HueActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onFailure(Call<List<HyuResponseDto>> call, Throwable t) {
+                        public void onFailure(Call<List<HyuResponseDTO>> call, Throwable t) {
 
                         }
                     });

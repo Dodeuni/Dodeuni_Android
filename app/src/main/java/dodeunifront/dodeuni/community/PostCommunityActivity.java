@@ -50,7 +50,7 @@ import dodeunifront.dodeuni.ErrorModel;
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
-import dodeunifront.dodeuni.community.DTO.DTO_ResponseCommunity;
+import dodeunifront.dodeuni.community.DTO.ResponseCommunityDTO;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -208,15 +208,15 @@ public class PostCommunityActivity extends AppCompatActivity {
                         .create();
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(API_Postcommunity.URL)
+                        .baseUrl(PostcommunityAPI.URL)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .build();
 
-                API_Postcommunity api_postcommunity = retrofit.create(API_Postcommunity.class);
-                api_postcommunity.postData(userid,map,names).enqueue(new Callback<DTO_ResponseCommunity>() {
+                PostcommunityAPI _postcommunityAPI = retrofit.create(PostcommunityAPI.class);
+                _postcommunityAPI.postData(userid,map,names).enqueue(new Callback<ResponseCommunityDTO>() {
                     @Override
-                    public void onResponse(@NonNull Call<DTO_ResponseCommunity> call, @NonNull Response<DTO_ResponseCommunity> response) {
+                    public void onResponse(@NonNull Call<ResponseCommunityDTO> call, @NonNull Response<ResponseCommunityDTO> response) {
                         if(response.isSuccessful()){
                             if (response.body()!=null){
                                 Log.e("?????????????????????????????","+");
@@ -240,7 +240,7 @@ public class PostCommunityActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<DTO_ResponseCommunity> call, Throwable t) {
+                    public void onFailure(Call<ResponseCommunityDTO> call, Throwable t) {
                         Log.e("통신에러","+"+t.toString());
                         Toast.makeText(getApplicationContext(), "통신에러", Toast.LENGTH_SHORT).show();
 

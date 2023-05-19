@@ -7,12 +7,10 @@ import java.util.Map;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
 import dodeunifront.dodeuni.community.DTO.CommentSaveRequestDTO;
 import dodeunifront.dodeuni.community.DTO.CommunityDeatilDTO;
-import dodeunifront.dodeuni.community.DTO.CommunityListResponseDto;
-import dodeunifront.dodeuni.community.DTO.CommunityUpdateRequestDTO;
-import dodeunifront.dodeuni.community.DTO.DTO_ResponseCommunity;
+import dodeunifront.dodeuni.community.DTO.CommunityListResponseDTO;
+import dodeunifront.dodeuni.community.DTO.ResponseCommunityDTO;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -26,12 +24,12 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface API_Postcommunity {
+public interface PostcommunityAPI {
     String URL = "http://192.168.0.18:8080/";
 
     @Multipart
     @POST("/api/community")
-    Call <DTO_ResponseCommunity> postData(
+    Call <ResponseCommunityDTO> postData(
             @Part("userId") Long userId,
            // @Part("title") String title,
            // @Part("content") String content,
@@ -47,7 +45,7 @@ public interface API_Postcommunity {
     );
     @Headers({"Accept: application/json"})
     @GET("api/community/list")
-    Call<List<CommunityListResponseDto>> getDatalist(
+    Call<List<CommunityListResponseDTO>> getDatalist(
             @Query("main") String main,
             @Query("sub") String sub
     );

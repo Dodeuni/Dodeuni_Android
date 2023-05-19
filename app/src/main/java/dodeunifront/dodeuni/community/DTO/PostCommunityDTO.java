@@ -4,9 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import dodeunifront.dodeuni.community.DTO.Data_photo;
-
-public class Data_PostCommunity {
+public class PostCommunityDTO {
     @SerializedName("userId")
     private Long userId;
 
@@ -23,9 +21,9 @@ public class Data_PostCommunity {
     private String content;
 
     @SerializedName("photo")
-    private List<Data_photo> photo;
+    private List<PhotoDTO> photo;
 
-    public Data_PostCommunity(Long userId, String main, String sub, String title, String content, List<Data_photo> photo) {
+    public PostCommunityDTO(Long userId, String main, String sub, String title, String content, List<PhotoDTO> photo) {
         this.userId = userId;
         this.main = main;
         this.sub = sub;
@@ -74,11 +72,11 @@ public class Data_PostCommunity {
         this.content = content;
     }
 
-    public List<Data_photo> getPhotoList() {
+    public List<PhotoDTO> getPhotoList() {
         return photo;
     }
 
-    public void setPhotoList(List<Data_photo> photoList) {
+    public void setPhotoList(List<PhotoDTO> photoList) {
         this.photo = photoList;
     }
 }

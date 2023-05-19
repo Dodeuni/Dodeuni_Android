@@ -2,16 +2,11 @@ package dodeunifront.dodeuni.community.Adapter;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -20,21 +15,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dodeunifront.dodeuni.Hue.API_Hyu;
+import dodeunifront.dodeuni.Hue.HueAPI;
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.community.API_Postcommunity;
+import dodeunifront.dodeuni.community.PostcommunityAPI;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
-import dodeunifront.dodeuni.community.DTO.CommunityListResponseDto;
-import dodeunifront.dodeuni.community.DetailCommunityActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,7 +40,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             .create();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(API_Hyu.URL)
+            .baseUrl(HueAPI.URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
@@ -140,7 +130,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //            @Override
 //            public void onClick(View view) {
 //                // 원하는 기능 구현
-//                API_Postcommunity api_postcommunity_comment = retrofit.create(API_Postcommunity.class);
+//                PostcommunityAPI api_postcommunity_comment = retrofit.create(PostcommunityAPI.class);
 //                api_postcommunity_comment.deletecomment(id,cid).enqueue(new Callback<List<CommentResponseDTO>>() {
 //                    @Override
 //                    public void onResponse(Call<List<CommentResponseDTO>> call, Response<List<CommentResponseDTO>> response) {
@@ -159,8 +149,8 @@ public class CommentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //        });
 //    }
     public void showDialog_delete(Long id, Long cid,int positions,View view){
-        API_Postcommunity api_postcommunity_comment = retrofit.create(API_Postcommunity.class);
-        api_postcommunity_comment.deletecomment(id,cid).enqueue(new Callback<List<CommentResponseDTO>>() {
+        PostcommunityAPI _postcommunity_API_comment = retrofit.create(PostcommunityAPI.class);
+        _postcommunity_API_comment.deletecomment(id,cid).enqueue(new Callback<List<CommentResponseDTO>>() {
             @Override
             public void onResponse(Call<List<CommentResponseDTO>> call, Response<List<CommentResponseDTO>> response) {
                 Log.e("삭제성공",response.body()+"");

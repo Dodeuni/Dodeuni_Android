@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment;
 
 import dodeunifront.dodeuni.R;
 
-public class Bigtab_info extends Fragment {
-    Smalltab_chinfo fragment1_1;
-    Smalltab_worry fragment1_2;
-    Smalltab_review fragment1_3;
+public class Bigtab_infoFragment extends Fragment {
+    Smalltab_chinfoFragment fragment1_1;
+    Smalltab_worryFragment fragment1_2;
+    Smalltab_reviewFragment fragment1_3;
 
     @Nullable
     @Override
@@ -24,9 +24,9 @@ public class Bigtab_info extends Fragment {
         //return super.onCreateView(inflater, container, savedInstanceState);
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_bigtab_info, container, false);
 
-        fragment1_1 = new Smalltab_chinfo();
-        fragment1_2 = new Smalltab_worry();
-        fragment1_3 = new Smalltab_review();
+        fragment1_1 = new Smalltab_chinfoFragment();
+        fragment1_2 = new Smalltab_worryFragment();
+        fragment1_3 = new Smalltab_reviewFragment();
 
         getChildFragmentManager().beginTransaction().replace(R.id.ss_tab1_container, fragment1_1).commit();
 

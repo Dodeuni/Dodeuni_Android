@@ -1,7 +1,5 @@
 package dodeunifront.dodeuni.community;
 
-import android.animation.Animator;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,8 +9,6 @@ import androidx.fragment.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -24,9 +20,9 @@ import dodeunifront.dodeuni.R;
 
 public class CommunityFragment extends Fragment {
     TabLayout tabRoot;
-    Bigtab_info fragment1;
-    Bigtab_store fragment2;
-    Bigtab_meeting fragment3;
+    Bigtab_infoFragment fragment1;
+    Bigtab_storeFragment fragment2;
+    Bigtab_meetingFragment fragment3;
     Boolean isAllFabsVisible;
 
 
@@ -39,9 +35,9 @@ public class CommunityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_community, container, false);
-        fragment1 = new Bigtab_info();
-        fragment2 = new Bigtab_store();
-        fragment3 = new Bigtab_meeting();
+        fragment1 = new Bigtab_infoFragment();
+        fragment2 = new Bigtab_storeFragment();
+        fragment3 = new Bigtab_meetingFragment();
 
 
         tabRoot = view.findViewById(R.id.tabRoot);

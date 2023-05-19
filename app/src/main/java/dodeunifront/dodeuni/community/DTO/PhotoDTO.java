@@ -2,12 +2,12 @@ package dodeunifront.dodeuni.community.DTO;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Data_photo {
+public class PhotoDTO {
     @SerializedName("id")
     private Long id;
 
     @SerializedName("communityId")
-    private Data_PostCommunity communityId;
+    private PostCommunityDTO communityId;
 
     @SerializedName("origPhotoName")
     private String origPhotoName;

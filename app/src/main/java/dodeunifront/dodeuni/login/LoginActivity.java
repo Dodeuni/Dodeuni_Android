@@ -18,10 +18,9 @@ import com.navercorp.nid.oauth.OAuthLoginCallback;
 import com.navercorp.nid.profile.NidProfileCallback;
 import com.navercorp.nid.profile.data.NidProfileResponse;
 
-import dodeunifront.dodeuni.Hue.API_Hyu;
+import dodeunifront.dodeuni.Hue.HueAPI;
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.community.API_Postcommunity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             .create();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(API_Hyu.URL)
+            .baseUrl(HueAPI.URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 

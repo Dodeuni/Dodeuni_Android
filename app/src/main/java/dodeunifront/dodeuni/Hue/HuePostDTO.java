@@ -1,18 +1,18 @@
 package dodeunifront.dodeuni.Hue;
 
-public class HueData {
+public class HuePostDTO {
     String ev_huemessage;
     String sendtime;
     int viewType;
     Long uid;
     String content;
 
-    public HueData( String content,Long uid) {
+    public HuePostDTO(String content, Long uid) {
         this.uid = uid;
         this.content = content;
     }
 
-    public HueData(String ev_huemessage, String sendtime, int viewType) {
+    public HuePostDTO(String ev_huemessage, String sendtime, int viewType) {
         this.ev_huemessage = ev_huemessage;
         this.sendtime = sendtime;
         this.viewType = viewType;

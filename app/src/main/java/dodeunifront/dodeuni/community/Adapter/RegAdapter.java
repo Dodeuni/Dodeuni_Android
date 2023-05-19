@@ -16,12 +16,12 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.community.DTO.CommunityListResponseDto;
+import dodeunifront.dodeuni.community.DTO.CommunityListResponseDTO;
 import dodeunifront.dodeuni.community.DetailCommunityActivity;
 
 public class RegAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public ArrayList<CommunityListResponseDto> mdataList = null;
-    public RegAdapter(ArrayList<CommunityListResponseDto> dataList){
+    public ArrayList<CommunityListResponseDTO> mdataList = null;
+    public RegAdapter(ArrayList<CommunityListResponseDTO> dataList){
             mdataList = dataList;
             }
 

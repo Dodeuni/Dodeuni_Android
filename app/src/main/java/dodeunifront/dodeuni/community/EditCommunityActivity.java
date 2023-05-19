@@ -27,7 +27,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -36,18 +35,15 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import dodeunifront.dodeuni.ErrorModel;
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.community.Adapter.DatailImageAdapter;
 import dodeunifront.dodeuni.community.Adapter.EditImageAdapter;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
-import dodeunifront.dodeuni.community.DTO.DTO_ResponseCommunity;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -173,13 +169,13 @@ public class EditCommunityActivity extends AppCompatActivity {
                         .create();
 
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(API_Postcommunity.URL)
+                        .baseUrl(PostcommunityAPI.URL)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .addConverterFactory(ScalarsConverterFactory.create())
                         .build();
 
-                API_Postcommunity api_postcommunity = retrofit.create(API_Postcommunity.class);
-                api_postcommunity.putDataCommunity(id,userid,map,names,deletePhotoId).enqueue(new Callback<CommentResponseDTO>() {
+                PostcommunityAPI _postcommunityAPI = retrofit.create(PostcommunityAPI.class);
+                _postcommunityAPI.putDataCommunity(id,userid,map,names,deletePhotoId).enqueue(new Callback<CommentResponseDTO>() {
                     @Override
                     public void onResponse(@NonNull Call<CommentResponseDTO> call, @NonNull Response<CommentResponseDTO> response) {
                         if(response.isSuccessful()){

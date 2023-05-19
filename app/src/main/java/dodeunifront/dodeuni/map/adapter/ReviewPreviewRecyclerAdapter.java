@@ -19,6 +19,7 @@ public class ReviewPreviewRecyclerAdapter extends RecyclerView.Adapter<ReviewPre
         void onItemClicked(ResponseReviewDTO reviewData);
     }
     static private OnItemClickListener mItemClickListener;
+
     public void setOnItemClickListener(OnItemClickListener listener){
         mItemClickListener = listener;
     }
@@ -61,7 +62,6 @@ public class ReviewPreviewRecyclerAdapter extends RecyclerView.Adapter<ReviewPre
             title.setText(review.getTitle());
             content.setText(review.getContent());
             nickname.setText(review.getNickname());
-            //time.setText(preview.getAddress());
         }
     }
     // Return the size of your dataset (invoked by the layout manager)

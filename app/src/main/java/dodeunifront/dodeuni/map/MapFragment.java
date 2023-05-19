@@ -6,19 +6,41 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import java.util.List;
+
 import dodeunifront.dodeuni.R;
+import dodeunifront.dodeuni.map.adapter.FindLocationRecyclerAdapter;
+import dodeunifront.dodeuni.map.adapter.RecommendLocationRecyclerAdapter;
+import dodeunifront.dodeuni.map.api.KakaoMapAPI;
+import dodeunifront.dodeuni.map.api.LocationAPI;
+import dodeunifront.dodeuni.map.dto.request.RequestRecommendLocationDTO;
+import dodeunifront.dodeuni.map.dto.response.ResponseLocationDTO;
+import dodeunifront.dodeuni.map.dto.response.ResponseLocationListDTO;
+import dodeunifront.dodeuni.map.dto.response.ResponseRecommendLocationDTO;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +63,11 @@ public class MapFragment extends Fragment {
     BottomSheetBehavior<View> bottomSheet;
     CurrentLocation.Geocoord currentGeocoord;
     ImageButton btnCurrentLocation;
+    RecyclerView mRecyclerView;
+    RecommendLocationRecyclerAdapter mRecyclerAdapter;
+    List<ResponseRecommendLocationDTO> recommendResult;
+    RequestRecommendLocationDTO recommendRequest = new RequestRecommendLocationDTO();
+
 
     public MapFragment() {
         // Required empty public constructor
@@ -86,6 +113,7 @@ public class MapFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getCurrentLocation();
     }
 
     @Override
@@ -93,18 +121,21 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_map, container, false);
         btnCurrentLocation = v.findViewById(R.id.imgBtn_location_current);
+        mRecyclerView = v.findViewById(R.id.rv_location_recommend);
         TextView tv_new = v.findViewById(R.id.tv_location_new);
-
-        getCurrentLocation();
 
         initMapView();
         initBottomSheet();
 
-        setCurrentLocationBtn();
+        getRecommendLocation("");
 
         tv_new.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), LocationFindActivity.class);
             startActivity(intent);
+        });
+
+        btnCurrentLocation.setOnClickListener(view -> {
+            moveToCurrentLocation();
         });
 
         // Inflate the layout for this fragment
@@ -121,6 +152,8 @@ public class MapFragment extends Fragment {
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         CurrentLocation currentLocation = new CurrentLocation(lm, getActivity());
         currentGeocoord = currentLocation.getCurrentLocation();
+        Log.d("LOCATION CLASS",  "위도 : " + currentGeocoord.longitude + "\n" +
+                "경도 : " + currentGeocoord.latitude);
     }
 
     public void initBottomSheet(){
@@ -135,12 +168,73 @@ public class MapFragment extends Fragment {
         mapView = new MapView(getContext());
         mapViewContainer = v.findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
+
+        moveToCurrentLocation();
     }
 
-    public void setCurrentLocationBtn(){
-        btnCurrentLocation.setOnClickListener(view -> {
-            if(currentGeocoord != null){
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.latitude, currentGeocoord.longitude), true);
+    public void initRecyclerView(){
+        mRecyclerAdapter = new RecommendLocationRecyclerAdapter();
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        mRecyclerAdapter.setLocationResult(recommendResult);
+        mRecyclerAdapter.setOnItemClickListener((locationData) -> {
+            Intent intent = new Intent(getContext(), LocationDetailActivity.class);
+            intent.putExtra("id", locationData.getId());
+            startActivity(intent);
+            Toast.makeText(getActivity(), "clicked: " + locationData.getName(), Toast.LENGTH_LONG).show();
+        });
+    }
+
+    public void setMarkers(){
+        for(ResponseRecommendLocationDTO info: recommendResult){
+            double lon = info.getY();
+            double lat = info.getX();
+            MapPOIItem marker = new MapPOIItem();
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(lon, lat);
+            marker.setItemName(info.getName());
+            marker.setMapPoint(mapPoint);
+            marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+            marker.setCustomImageResourceId(R.drawable.location_green_midium);
+            mapView.addPOIItem(marker);
+        }
+    }
+
+    public void moveToCurrentLocation(){
+        if(currentGeocoord != null){
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.latitude, currentGeocoord.longitude), true);
+        }
+    }
+
+    public void getRecommendLocation(String keyword){
+        recommendRequest.setX(currentGeocoord.longitude);
+        recommendRequest.setY(currentGeocoord.latitude);
+        recommendRequest.setKeyword(keyword);
+
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(LocationAPI.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        LocationAPI locationAPI = retrofit.create(LocationAPI.class);
+        locationAPI.postRecommendList(recommendRequest).enqueue(new Callback<List<ResponseRecommendLocationDTO>>() {
+            @Override
+            public void onResponse(Call<List<ResponseRecommendLocationDTO>> call, Response<List<ResponseRecommendLocationDTO>> response) {
+                if (response.body().size() != 0) {
+                    recommendResult = response.body();
+                    setMarkers();
+                    initRecyclerView();
+                    Log.d("성공", recommendResult.get(0).getAddress());
+                } else {
+                    Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<List<ResponseRecommendLocationDTO>> call, Throwable t) {
+                Log.d("실패","통신 실패: "+ t.getMessage());
             }
         });
     }

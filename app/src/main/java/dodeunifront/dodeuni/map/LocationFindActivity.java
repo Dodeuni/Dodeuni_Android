@@ -68,7 +68,10 @@ public class LocationFindActivity extends AppCompatActivity {
         initTopView();
 
         setSearchBtn();
-        setCurrentLocationBtn();
+
+        btnCurrentLocation.setOnClickListener(view -> {
+            moveToCurrentLocation();
+        });
     }
 
     public void getCurrentLocation(){
@@ -85,9 +88,10 @@ public class LocationFindActivity extends AppCompatActivity {
 
     public void initMapView(){
         mapView = new MapView(this);
-        //mapView.setPOIItemEventListener(poiItemEventListener);
         mapViewContainer = findViewById(R.id.map_location_view);
         mapViewContainer.addView(mapView);
+
+        moveToCurrentLocation();
     }
 
     public void initTopView(){
@@ -111,12 +115,10 @@ public class LocationFindActivity extends AppCompatActivity {
         });
     }
 
-    public void setCurrentLocationBtn(){
-        btnCurrentLocation.setOnClickListener(view -> {
-            if(currentGeocoord != null){
-                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.latitude, currentGeocoord.longitude), true);
-            }
-        });
+    public void moveToCurrentLocation(){
+        if(currentGeocoord != null){
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.latitude, currentGeocoord.longitude), true);
+        }
     }
 
     public void searchKeyword(String keyword){

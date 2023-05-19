@@ -12,9 +12,6 @@ public class ResponseLocationDTO {
     private String x;
 
     private String y;
-    public ResponseLocationDTO(){
-
-    }
 
     public ResponseLocationDTO(String place_name, String category_group_name, String road_address_name, String phone, String x, String y){
         this.place_name = place_name;

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,6 +32,7 @@ public class LocationDetailActivity extends AppCompatActivity {
     LocationDetailView locationDetailView;
     ReviewPreviewRecyclerAdapter mRecyclerAdapter;
     RecyclerView mRecyclerView;
+    TextView tvAddReview;
     long locationId;
 
     @Override
@@ -38,6 +41,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_location);
         locationDetailView = findViewById(R.id.ldview_detail_map);
         mRecyclerView = findViewById(R.id.rv_detail_preview_list);
+        tvAddReview = findViewById(R.id.tv_add_review);
 
         Intent intent = getIntent();
         locationId = intent.getIntExtra("id", -1);
@@ -49,6 +53,8 @@ public class LocationDetailActivity extends AppCompatActivity {
             finish();
             Toast.makeText(this, "잘못된 접근입니다.", Toast.LENGTH_LONG).show();
         }
+
+        tvAddReview.setOnClickListener(view -> setAddReviewBtn());
     }
     public void initTopView(){
         TopView topView = findViewById(R.id.topview_detail_map);
@@ -108,5 +114,11 @@ public class LocationDetailActivity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(this, "clicked: " + locationData.getTitle(), Toast.LENGTH_LONG).show();
         });
+    }
+
+    public void setAddReviewBtn(){
+        Intent intent = new Intent(this, ReviewPostActivity.class);
+        intent.putExtra("pid", locationData.getId());
+        startActivity(intent);
     }
 }

@@ -20,6 +20,9 @@
             android:name=".map.LocationPostActivity"
             android:exported="false" />
         <activity
+            android:name=".map.ReviewPostActivity"
+            android:exported="false" />
+        <activity
             android:name=".map.LocationDetailActivity"
             android:exported="false" />
         <activity

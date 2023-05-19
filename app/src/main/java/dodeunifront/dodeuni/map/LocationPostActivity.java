@@ -94,6 +94,7 @@ public class LocationPostActivity extends AppCompatActivity {
         if(title != ""  && content != "") {
             reviewData.setTitle(title);
             reviewData.setContent(content);
+            System.out.println(reviewData.getContent());
             locationAPI.postLocation(LocationData).enqueue(new Callback<ResponseEnrollLocationDTO>() {
                 @Override
                 public void onResponse(Call<ResponseEnrollLocationDTO> call, Response<ResponseEnrollLocationDTO> response) {

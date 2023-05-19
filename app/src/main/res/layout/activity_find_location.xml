@@ -21,7 +21,7 @@
             android:id="@+id/topview_location_find"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="장소"/>
+            app:title="장소 검색하기"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

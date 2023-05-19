@@ -29,7 +29,6 @@
             android:layout_height="20dp"
             android:layout_gravity="right"
             android:id="@+id/btn_comment_menu"
-            android:onClick="popupclicks"
             android:background="@drawable/menu"/>
     </LinearLayout>
 

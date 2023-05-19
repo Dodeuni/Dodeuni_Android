@@ -26,6 +26,13 @@ public class CommentResponseDTO {
         this.nickname = nickname;
     }
 
+    public CommentResponseDTO(String content, String createdDateTime, String nickname) {
+        this.content = content;
+        this.createdDateTime = createdDateTime;
+        this.nickname = nickname;
+    }
+
+
     public Long getId() {
         return id;
     }

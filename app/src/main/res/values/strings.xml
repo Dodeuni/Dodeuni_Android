@@ -2,4 +2,7 @@
     <string name="app_name">dodeuni</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="naver_client_id">ugvqJybxP0hlYISi8g1M</string>
+    <string name="naver_client_secret">BCFcE8WPWS</string>
+    <string name="naver_client_name">도드니</string>
 </resources>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "36289330929",
+    "project_id": "dodeuni",
+    "storage_bucket": "dodeuni.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:36289330929:android:b469e908650f744aa63350",
+        "android_client_info": {
+          "package_name": "dodeunifront.dodeuni"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "36289330929-t0fd9r38336j8f8s7op2b9h4qpn8a3ik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dodeunifront.dodeuni",
+            "certificate_hash": "b51a1458fb9fab5616904b171024f1e300121523"
+          }
+        },
+        {
+          "client_id": "36289330929-hdt3gjf8gd55i8h5tpo85nfgjhve8um0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRfYvE-sPvt-KgLouA3cL0nwGm5sx5Izk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "36289330929-hdt3gjf8gd55i8h5tpo85nfgjhve8um0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

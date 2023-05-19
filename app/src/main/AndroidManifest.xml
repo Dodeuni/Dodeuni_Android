@@ -24,6 +24,10 @@
             android:name=".community.PostCommunityStoreActivity"
             android:exported="false" />
         <activity
+            android:name=".alert.AlertActivity"
+            android:exported="true" >
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity

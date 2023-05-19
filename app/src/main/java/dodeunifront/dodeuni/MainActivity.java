@@ -12,13 +12,15 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import dodeunifront.dodeuni.Hue.HueActivity;
-import dodeunifront.dodeuni.community.CommunityFragment;
 
 import androidx.appcompat.widget.Toolbar;
 
+
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import dodeunifront.dodeuni.community.CommunityFragment;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = this.getClass().getSimpleName();
@@ -80,9 +82,7 @@ public class MainActivity extends AppCompatActivity {
                             .commit();
                     return true;
                 }
-
             }
-
             return false;
         }
     }// 메뉴 리소스 XML의 내용을 앱바(App Bar)에 반영

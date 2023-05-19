@@ -29,6 +29,7 @@ public class CommunityFragment extends Fragment {
     Bigtab_meeting fragment3;
     Boolean isAllFabsVisible;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,5 +158,6 @@ public class CommunityFragment extends Fragment {
         });
 
         return view;
+
     }
 }

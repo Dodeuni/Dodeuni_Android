@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="27dp"
-        android:id="@+id/tv_question"
+        android:id="@+id/tv_question_co"
         android:text="글을 삭제하시겠습니까?"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent"
         />
     <TextView
+        android:id="@+id/tv_question_coco"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -27,7 +28,7 @@
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_question" />
+        app:layout_constraintTop_toBottomOf="@id/tv_question_co" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_delete_cancel"

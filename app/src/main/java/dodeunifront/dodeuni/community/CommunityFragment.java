@@ -115,13 +115,15 @@ public class CommunityFragment extends Fragment {
         fab_meeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent meet_intent = new Intent(getActivity(),PostCommunityMeetActivity.class);
+                startActivity(meet_intent);
             }
         });
         fab_store.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent store_intent = new Intent(getActivity(),PostCommunityStoreActivity.class);
+                startActivity(store_intent);
             }
         });
 

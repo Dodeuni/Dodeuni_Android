@@ -9,42 +9,38 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.MenuItem;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import dodeunifront.dodeuni.ErrorModel;
 import dodeunifront.dodeuni.MainActivity;
@@ -63,17 +59,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-public class PostCommunityActivity extends AppCompatActivity {
+public class PostCommunityMeetActivity extends AppCompatActivity {
     // 사용할 컴포넌트 선언
     EditText title_et, content_et;
     String userid = "alice";
     Button btn_reg;
-    RadioButton btn_change_info,btn_worry,btn_review;
     final private String TAG = getClass().getSimpleName();
     Dialog dilaog01;
-    RadioGroup radioGroup;
-    String main = "정보";
-    String sub="-";
+    String main = "모임";
+    String sub="모임";
     String title,content;
     ImageView btn_addpic;
 
@@ -87,40 +81,22 @@ public class PostCommunityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_community);
-        Toolbar toolbar = findViewById(R.id.write_community_toolbar);
+        setContentView(R.layout.activity_post_community_store);
 
-        title_et = findViewById(R.id.et_post_title);
-        content_et = findViewById(R.id.et_post_content);
-        btn_reg = findViewById(R.id.btn_reg_community);
-        btn_change_info = findViewById(R.id.btn_changeinfo);
-        btn_worry = findViewById(R.id.btn_worry);
-        btn_review = findViewById(R.id.btn_review);
-        radioGroup = findViewById(R.id.radioGroup);
-        btn_addpic = findViewById(R.id.btn_addpicture);
-        recyclerView = findViewById(R.id.rv_imageview_post);
+        TextView tvs = (TextView)findViewById(R.id.toolbar_title_store);
+        tvs.setText("모임글쓰기");
+        Toolbar toolbar = findViewById(R.id.write_community_toolbar_store);
+
+        title_et = findViewById(R.id.et_post_title_store);
+        content_et = findViewById(R.id.et_post_content_store);
+        btn_reg = findViewById(R.id.btn_reg_community_store);
+
+        btn_addpic = findViewById(R.id.btn_addpicture_store);
+        recyclerView = findViewById(R.id.rv_imageview_post_store);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
         getSupportActionBar().setTitle("");
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.btn_changeinfo) {
-                    Toast.makeText(getApplicationContext(), "정보교환 선택", Toast.LENGTH_SHORT).show();
-                    sub = "정보교환";
-                }
-                else if(checkedId == R.id.btn_worry) {
-                    Toast.makeText(getApplicationContext(), "고민상담 선택", Toast.LENGTH_SHORT).show();
-                    sub = "고민상담";
-                }
-                else if(checkedId == R.id.btn_review) {
-                    Toast.makeText(getApplicationContext(), "제품후기 선택", Toast.LENGTH_SHORT).show();
-                    sub = "제품후기";
-                }
-            }
-        });
 
         btn_addpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,26 +112,23 @@ public class PostCommunityActivity extends AppCompatActivity {
         btn_reg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (sub=="-"){
-                    Toast.makeText(getApplicationContext(),"카테고리를 선택해주세요",Toast.LENGTH_SHORT).show();
-                } else{
-                    title = title_et.getText().toString();
-                    content = content_et.getText().toString();
-                    Log.e("과연",title+content);
 
-                    dilaog01 = new Dialog(PostCommunityActivity.this);       // Dialog 초기화
-                    dilaog01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                    dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dilaog01.setContentView(R.layout.dialog_postcommunity);
-                    showDialog01();
-                }
+                title = title_et.getText().toString();
+                content = content_et.getText().toString();
+                Log.e("과연",title+content);
+
+                dilaog01 = new Dialog(PostCommunityMeetActivity.this);       // Dialog 초기화
+                dilaog01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dilaog01.setContentView(R.layout.dialog_postcommunity);
+                showDialog01();
+
 
 
             }
         });
-
-
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
@@ -193,15 +166,6 @@ public class PostCommunityActivity extends AppCompatActivity {
                 map.put("content", content_);
                 Long userid = Long.valueOf(1);
 
-                File file = new File("/storage/emulated/0/DCIM/Screenshots/Screenshot_20230515-162240_Chrome.png");
-                if (!file.exists()) {       // 원하는 경로에 폴더가 있는지 확인
-                    file.mkdirs();    // 하위폴더를 포함한 폴더를 전부 생성
-                }
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-
-                MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("photo", file.getName() ,requestBody);
-                //names.add(uploadFile);
 
                 Gson gson = new GsonBuilder()
                         .setLenient()
@@ -219,7 +183,7 @@ public class PostCommunityActivity extends AppCompatActivity {
                     public void onResponse(@NonNull Call<DTO_ResponseCommunity> call, @NonNull Response<DTO_ResponseCommunity> response) {
                         if(response.isSuccessful()){
                             if (response.body()!=null){
-                                Log.e("?????????????????????????????","+");
+                                Log.e("저장완료","+");
                                 Toast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -232,7 +196,7 @@ public class PostCommunityActivity extends AppCompatActivity {
                                 Log.e("error code???",""+response.body());
                                 Log.e("error code???",""+response.message());
                                 Log.e("YMC", "stringToJson msg: 실패" + response.code());
-                                Toast.makeText(PostCommunityActivity.this, errorModel.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PostCommunityMeetActivity.this, errorModel.toString(), Toast.LENGTH_SHORT).show();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -252,7 +216,7 @@ public class PostCommunityActivity extends AppCompatActivity {
         });
     }
     private boolean checkPermission(){
-        int result = ContextCompat.checkSelfPermission(PostCommunityActivity.this,
+        int result = ContextCompat.checkSelfPermission(PostCommunityMeetActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if(result == PackageManager.PERMISSION_DENIED){
             return false;
@@ -261,12 +225,12 @@ public class PostCommunityActivity extends AppCompatActivity {
         }
     }
     private void requestPermission() {
-        if(ActivityCompat.shouldShowRequestPermissionRationale(PostCommunityActivity.this,
+        if(ActivityCompat.shouldShowRequestPermissionRationale(PostCommunityMeetActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)){
-            Toast.makeText(PostCommunityActivity.this, "권한 수락이 필요합니다.",
+            Toast.makeText(PostCommunityMeetActivity.this, "권한 수락이 필요합니다.",
                     Toast.LENGTH_SHORT).show();
         }else{
-            ActivityCompat.requestPermissions(PostCommunityActivity.this,
+            ActivityCompat.requestPermissions(PostCommunityMeetActivity.this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 500);
         }
     }
@@ -306,7 +270,7 @@ public class PostCommunityActivity extends AppCompatActivity {
                                 uriList.add(imageUri);
                                 adapter = new MultiImageAdapter(uriList, getApplicationContext());
                                 recyclerView.setAdapter(adapter);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(PostCommunityActivity.this, LinearLayoutManager.HORIZONTAL, true));
+                                recyclerView.setLayoutManager(new LinearLayoutManager(PostCommunityMeetActivity.this, LinearLayoutManager.HORIZONTAL, true));
                             }
                             else{      // 이미지를 여러장 선택한 경우
                                 Uri uris = result.getData().getData();
@@ -340,7 +304,7 @@ public class PostCommunityActivity extends AppCompatActivity {
                                         }
                                         adapter = new MultiImageAdapter(uriList, getApplicationContext());
                                         recyclerView.setAdapter(adapter);   // 리사이클러뷰에 어댑터 세팅
-                                        recyclerView.setLayoutManager(new LinearLayoutManager(PostCommunityActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                                        recyclerView.setLayoutManager(new LinearLayoutManager(PostCommunityMeetActivity.this, LinearLayoutManager.HORIZONTAL, false));
                                         // 리사이클러뷰 수평 스크롤 적용
                                     }
                                     else if(uris != null)
@@ -359,5 +323,4 @@ public class PostCommunityActivity extends AppCompatActivity {
                 }
             }
     );
-
 }

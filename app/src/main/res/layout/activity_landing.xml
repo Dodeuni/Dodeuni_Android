@@ -11,6 +11,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/iv_landing_logo"
         android:src="@drawable/logo_landing_resize"
         />
 

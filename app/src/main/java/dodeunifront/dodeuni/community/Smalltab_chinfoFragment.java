@@ -35,18 +35,24 @@ public class Smalltab_chinfoFragment extends Fragment {
     PostCommunityDTO regData;
     private ArrayList<CommunityListResponseDTO> regarrayList;
     SwipeRefreshLayout swipeRefreshLayout;
+    Long userId;
+    String nickname;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_smalltab, container, false);
 
+        userId = getArguments().getLong("userId",-1);
+        nickname = getArguments().getString("nickname");
+
+
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_community);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
 
         recyclerView.setLayoutManager(linearLayoutManager);
         regarrayList = new ArrayList<>();
-        regAdapter = new RegAdapter(regarrayList);
+        regAdapter = new RegAdapter(regarrayList,userId,nickname);
         recyclerView.setAdapter(regAdapter);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
 
@@ -134,59 +140,5 @@ public class Smalltab_chinfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(PostcommunityAPI.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        PostcommunityAPI _postcommunityAPI = retrofit.create(PostcommunityAPI.class);
-//        _postcommunityAPI.getDatadetail(Long.valueOf(1)).enqueue(new Callback<CommunityListResponseDTO>() {
-//            @Override
-//            public void onResponse(Call<CommunityListResponseDTO> call, Response<CommunityListResponseDTO> response) {
-//                if (response.body() != null) {
-//                        CommunityListResponseDTO datas = response.body();
-//                        if (datas != null) {
-//                            regarrayList.clear();
-//                                CommunityListResponseDTO dict_0 = new CommunityListResponseDTO(response.body().getCreatedDateTime(),
-//                                        response.body().getNickname(), response.body().getTitle(),
-//                                        response.body().getContent());
-//                                Log.e("내용",response.body().getContent());
-//                                Log.e("제목",response.body().getTitle());
-//
-//                                regarrayList.add(dict_0);
-//                                regAdapter.notifyItemInserted(0);
-//
-//                            Log.e("getdatalist end", "======================================");
-//                        }}
-//            }
-//
-//            @Override
-//            public void onFailure(Call<CommunityListResponseDTO> call, Throwable t) {
-//
-//            }
-//        });
-
-
-       // PostCommunityDTO regdatas = new PostCommunityDTO(titel,content);
-        //regarrayList.add(regdatas);
-        //regAdapter.notifyItemInserted(0);
-
-       // Toast.makeText(getContext(), "불러오기 하였습니다..", Toast.LENGTH_SHORT).show();
-
-//        if (getArguments() != null){
-//            Bundle bundle = getArguments();
-//            String titles = bundle.getString("title");
-//            String contents = bundle.getString("content");
-//            RegData regdatas = new RegData(titles,contents);
-//            regarrayList.add(regdatas);
-//            regAdapter.notifyItemInserted(0);
-//        } else{
-//            Log.e("keyekyeky con",":lescontents");
-//        }
     }
 }

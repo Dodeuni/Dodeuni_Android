@@ -31,16 +31,28 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HueActivity extends AppCompatActivity {
+    Long userId;
     RecyclerView recyclerView;
     HueAdapter hueAdapter;
     EditText et_send;
     Button btn_send;
     private ArrayList<HuePostDTO> huearrayList;
+    Gson gson = new GsonBuilder()
+            .setLenient()
+            .create();
+
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(HueAPI.URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build();
+    HueAPI _hueAPI = retrofit.create(HueAPI.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hue);
 
+        userId = getIntent().getLongExtra("userId",-1);
         Toolbar toolbar = findViewById(R.id.hue_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
@@ -70,29 +82,51 @@ public class HueActivity extends AppCompatActivity {
         hueAdapter = new HueAdapter(huearrayList);
         recyclerView.setAdapter(hueAdapter);
 
-
-
         long mNow = System.currentTimeMillis();
         Date mDate = new Date(mNow);
         SimpleDateFormat mFormat = new SimpleDateFormat("hh:mm:ss");
 
-        //임시 상대방 휴 메세지값 넣어보기
-        String imsi = "아 놀고싶다";
-        String imsi0 = "피곤쓰~~~~";
-        String imsi1= "지금 나는 엽떡이 먹고싶다";
-        String imsi2 = "잠이 너무 부족해서 머리가 아파 힘들어";
-        String imsi3 = "여행가고싶다 떠나고싶어라";
-        String timea = mFormat.format(mDate);
-        HuePostDTO huePostDTO4 = new HuePostDTO(imsi0,timea,ViewType.LEFT_CHAT);
-        HuePostDTO huePostDTO0 = new HuePostDTO(imsi,timea,ViewType.LEFT_CHAT);
-        HuePostDTO huePostDTO1 = new HuePostDTO(imsi2,timea, ViewType.LEFT_CHAT);
-        HuePostDTO huePostDTO2 = new HuePostDTO(imsi1,timea,ViewType.LEFT_CHAT);
-        HuePostDTO huePostDTO3 = new HuePostDTO(imsi3,timea,ViewType.LEFT_CHAT);
-        huearrayList.add(huePostDTO0);
-        huearrayList.add(huePostDTO1);
-        huearrayList.add(huePostDTO2);
-        huearrayList.add(huePostDTO3);
-        huearrayList.add(huePostDTO4);
+        _hueAPI.getDataHue().enqueue(new Callback<List<HyuResponseDTO>>() {
+            @Override
+            public void onResponse(Call<List<HyuResponseDTO>> call, Response<List<HyuResponseDTO>> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null){
+                        for (int i = 0; i < response.body().size(); i++) {
+                            Log.e("userid",response.body().get(i).getUid()+"");
+                            Log.e("content",response.body().get(i).getContent()+"");
+                            String dd = response.body().get(i).getCreatedDateTime();
+                            String ddp = dd.substring(dd.indexOf("T")+1,dd.indexOf("."));
+
+                            int viewType = 0;
+                            if(response.body().get(i).getUid() == userId){
+                                viewType = ViewType.RIGHT_CHAT;
+                            } else{
+                                viewType = ViewType.LEFT_CHAT;
+                            }
+                            HuePostDTO huePostDTO = new HuePostDTO(response.body().get(i).getContent(),
+                                    ddp,viewType);
+                            huearrayList.add(huePostDTO);
+
+                            hueAdapter.notifyItemInserted(0);
+                            hueAdapter.notifyDataSetChanged();
+
+                        }
+                    } else{
+                        Log.e("데이터가 비었음","");
+                    }
+                }else{
+                    Log.e("response.isnot성공","");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<HyuResponseDTO>> call, Throwable t) {
+                Log.e("response :   ",t.toString());
+
+            }
+        });
+
 
         et_send = (EditText)findViewById(R.id.et_hue_send);
         btn_send = (Button) findViewById(R.id.btn_hue_send);
@@ -112,17 +146,9 @@ public class HueActivity extends AppCompatActivity {
                     hueAdapter.notifyItemInserted(0);
                     hueAdapter.notifyDataSetChanged();
 
-                    Gson gson = new GsonBuilder()
-                            .setLenient()
-                            .create();
 
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(HueAPI.URL)
-                            .addConverterFactory(GsonConverterFactory.create(gson))
-                            .build();
 
-                    HueAPI _hueAPI = retrofit.create(HueAPI.class);
-                    HuePostDTO huePostDTO5 = new HuePostDTO(text,Long.valueOf(1234));
+                    HuePostDTO huePostDTO5 = new HuePostDTO(text,userId);
                     _hueAPI.postDataActive(huePostDTO5).enqueue(new Callback<List<HyuResponseDTO>>() {
                         @Override
                         public void onResponse(Call<List<HyuResponseDTO>> call, Response<List<HyuResponseDTO>> response) {
@@ -146,6 +172,7 @@ public class HueActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(),"입력해주세요",Toast.LENGTH_SHORT);
                     toast.show();
                 }
+            et_send.setText("");
             }
         });
     }

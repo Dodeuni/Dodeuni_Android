@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="정보글쓰기"
+            android:fontFamily="@font/inter_bold"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
             android:textSize="20dp"
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="등록"
+            android:fontFamily="@font/inter_regular"
             android:layout_gravity="right"
             android:id="@+id/btn_reg_community"
             android:textSize="20dp"
@@ -39,6 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="세부카테고리를 선택해주세요"
+        android:fontFamily="@font/inter_medium"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"/>
         <RadioGroup
@@ -58,7 +61,7 @@
                 android:textAlignment="center"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_bold"
                 android:layout_marginRight="10dp"
                 android:text="정보교환" />
 
@@ -72,7 +75,7 @@
                 android:textAlignment="center"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_bold"
                 android:layout_marginRight="10dp"
 
                 android:text="고민상담" />
@@ -87,18 +90,20 @@
                 android:textAlignment="center"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_bold"
                 android:text="제품후기" />
         </RadioGroup>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/et_post_title"
+        android:fontFamily="@font/inter_medium"
         android:hint="     제목을 입력해주세요."/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:id="@+id/et_post_content"
+        android:fontFamily="@font/inter_medium"
         android:hint="     내용을 입력해주세요."
         android:gravity="top"/>
         <ImageView

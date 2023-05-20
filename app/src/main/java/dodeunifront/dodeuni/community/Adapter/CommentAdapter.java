@@ -65,7 +65,11 @@ public class CommentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         ((CommentAdapter.MyViewHolder) viewHolder).content.setText(mdataList.get(position).getContent());
         ((CommentAdapter.MyViewHolder) viewHolder).nickname.setText(mdataList.get(position).getNickname());
-        ((CommentAdapter.MyViewHolder) viewHolder).createdate.setText(mdataList.get(position).getCreatedDateTime());
+        String date_fi = mdataList.get(position).getCreatedDateTime();
+        String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
+        String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+        String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
+        ((CommentAdapter.MyViewHolder) viewHolder).createdate.setText(createDatTimeresult);
 
         ((MyViewHolder) viewHolder).btn_commentmenu.setOnClickListener(new View.OnClickListener() {
             @Override

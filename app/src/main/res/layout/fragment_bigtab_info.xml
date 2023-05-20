@@ -23,13 +23,13 @@
                 android:layout_marginLeft="50dp"
                 android:background="@drawable/custombtn_smallcommunity"
                 android:layout_gravity="center"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_bold"
                 android:text="정보교환" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_worry"
                 android:layout_width="80dp"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_bold"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="40dp"
                 android:layout_marginLeft="40dp"
@@ -43,7 +43,7 @@
                 android:background="@drawable/custombtn_smallcommunity"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_bold"
                 android:text="제품후기" />
 
         </LinearLayout>

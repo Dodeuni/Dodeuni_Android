@@ -1,5 +1,7 @@
 package dodeunifront.dodeuni.community.DTO;
 
+import android.util.Log;
+
 public class CommunityListResponseDTO {
     private Long id;
 
@@ -43,8 +45,7 @@ public class CommunityListResponseDTO {
         this.id = id;
     }
 
-    public String getCreatedDateTime() {
-        return createdDateTime;
+    public String getCreatedDateTime() {return  createdDateTime;
     }
 
     public void setCreatedDateTime(String createdDateTime) {

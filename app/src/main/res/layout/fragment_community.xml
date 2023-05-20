@@ -40,8 +40,9 @@
                     android:layout_marginBottom="16dp"
                     android:backgroundTint="#2C8878"
                     android:text="닫기"
+                    android:fontFamily="@font/inter_bold"
                     android:textColor="@color/white"
-                    app:icon="@drawable/pencil"
+                    app:icon="@drawable/writemenu"
                     app:iconTint="@color/white"
                     />
 
@@ -55,13 +56,14 @@
                     app:fabSize="normal"
                     app:tint="@color/white"
                     android:layout_gravity="right|bottom"
-                    app:srcCompat="@drawable/megaphone"
+                    app:srcCompat="@drawable/infomenu"
                     />
                 <TextView
                     android:id="@+id/tv_fab_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="정보"
+                    android:fontFamily="@font/inter_bold"
                     android:layout_marginBottom="85dp"
                     android:layout_marginEnd="80dp"
                     android:layout_gravity="right|bottom"
@@ -76,7 +78,7 @@
                     app:fabSize="normal"
                     app:tint="@color/white"
                     android:layout_gravity="right|bottom"
-                    app:srcCompat="@drawable/bell"
+                    app:srcCompat="@drawable/storemenu"
                     android:contentDescription="@string/app_name" />
                 <TextView
                     android:id="@+id/tv_fab_store"
@@ -84,6 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="155dp"
                     android:layout_marginEnd="80dp"
+                    android:fontFamily="@font/inter_bold"
                     android:layout_gravity="right|bottom"
                     android:text="장터"
                     />
@@ -97,7 +100,7 @@
                     android:backgroundTint="#2C8878"
                     app:fabSize="normal"
                     app:tint="@color/white"
-                    app:srcCompat="@drawable/bell"
+                    app:srcCompat="@drawable/meetmenu"
                     android:contentDescription="@string/app_name" />
                 <!--Action name text for the add person button-->
                 <TextView
@@ -106,6 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="225dp"
                     android:layout_marginEnd="80dp"
+                    android:fontFamily="@font/inter_bold"
                     android:layout_gravity="right|bottom"
                     android:text="모임"
                      />

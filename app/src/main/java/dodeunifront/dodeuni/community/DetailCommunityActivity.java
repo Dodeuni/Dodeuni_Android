@@ -54,9 +54,10 @@ public class DetailCommunityActivity extends AppCompatActivity {
     Button btn_comment;
     RecyclerView comment_layout;
     DatailImageAdapter datailImageAdapter;
-    Long main_writer_id,main_writer_userid,now_login_id;
+    Long main_writer_id,main_writer_userid,login_userId;
     String main,sub,title,content;
     List<String> photo_i;
+    String nickname;
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -93,11 +94,11 @@ public class DetailCommunityActivity extends AppCompatActivity {
         Long id = detail.getLongExtra("id",100);
         main_writer_id = id; //현재 게시글의 순서 id
         main_writer_userid = detail.getLongExtra("userid",100); //지금보고 있는 게시글의 아이디
-        Long dodeuni_loginid=Long.valueOf(1);  //로그인한 현재 유저 아이디
-//        Log.e("id isisisis",id.toString());
+        login_userId = detail.getLongExtra("login_userId",-1);
+        nickname =detail.getStringExtra("nickname");
 
         btn_write_menu.setVisibility(View.INVISIBLE);
-        if(main_writer_userid==dodeuni_loginid){
+        if(main_writer_userid==login_userId){
             btn_write_menu.setVisibility(View.VISIBLE);
         }
 
@@ -117,11 +118,16 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     tv_title_community_detail.setText(datas.getTitle());
                     tv_content_community_detail.setText(datas.getContent());
                     tv_community_detail_writer.setText(datas.getNickname());
-                    tv_time_community_detail.setText(datas.getCreatedDateTime());
-                    if(photo_i!= null){
-                    datailImageAdapter = new DatailImageAdapter(datas.getPhotoUrl(), getApplicationContext());
-                    rv_detail_recyclerView.setAdapter(datailImageAdapter);   // 리사이클러뷰에 어댑터 세팅
-                    rv_detail_recyclerView.setLayoutManager(new LinearLayoutManager(DetailCommunityActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                    String date_fi = datas.getCreatedDateTime();
+                    String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
+                    String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+                    String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
+                    tv_time_community_detail.setText(createDatTimeresult);
+                    if(photo_i!= null)
+                    {
+                        datailImageAdapter = new DatailImageAdapter(datas.getPhotoUrl(), getApplicationContext());
+                        rv_detail_recyclerView.setAdapter(datailImageAdapter);   // 리사이클러뷰에 어댑터 세팅
+                        rv_detail_recyclerView.setLayoutManager(new LinearLayoutManager(DetailCommunityActivity.this, LinearLayoutManager.HORIZONTAL, false));
                         }}
                 else {
                 }
@@ -143,10 +149,14 @@ public class DetailCommunityActivity extends AppCompatActivity {
                             CommentResponseDTO datas = response.body().get(i);
                             String text = response.body().get(i).getContent();
                             String nickname = response.body().get(i).getNickname();
-                            String date = response.body().get(i).getCreatedDateTime();
+
+                            String date_fi = datas.getCreatedDateTime();
+                            String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
+                            String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+                            String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
 
                             CommentResponseDTO dict_0 = new CommentResponseDTO(datas.getId(),datas.getContent(),datas.getStep(),datas.getPid(),
-                                    datas.getModifiedDateTime(),datas.getCreatedDateTime(),datas.getCid(),datas.getUid(),datas.getNickname());
+                                    createDatTimeresult,datas.getCreatedDateTime(),datas.getCid(),datas.getUid(),datas.getNickname());
                             commentResponseDTOArrayList.add(dict_0);
                             commentAdapter.notifyItemInserted(0);
                         }
@@ -157,7 +167,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<CommentResponseDTO>> call, Throwable t) {
-
+                Log.e("통신실패",t.toString());
             }
         });
 
@@ -167,9 +177,9 @@ public class DetailCommunityActivity extends AppCompatActivity {
                 if (comment_et.getText().length() !=0)
                 {
                     String text = comment_et.getText().toString();
-                    String nickname = "홍쓰";
                     Long cid = main_writer_id;  //게시글 아이디
-                    Long uid = Long.valueOf(1);  //댓글작성자 아이디
+                    Long uid = login_userId;  //댓글작성자 아이디
+                    Log.e("게시글 아이디        ",cid+"     댓글작성자 아이디"+uid);
 
                     LayoutInflater layoutInflater = LayoutInflater.from(DetailCommunityActivity.this);
                     View customView = layoutInflater.inflate(R.layout.itemlist_comment, null);
@@ -181,11 +191,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(comment_et.getWindowToken(), 0);
-                    CommentResponseDTO dict_0 = new CommentResponseDTO(text,
-                            "datetime",
-                            nickname);
-                    commentResponseDTOArrayList.add(dict_0);
-                    commentAdapter.notifyDataSetChanged();
+
 
                     PostcommunityAPI _postcommunity_API_comment = retrofit.create(PostcommunityAPI.class);
                     CommentSaveRequestDTO commentSaveRequestDTO = new CommentSaveRequestDTO(text,Long.valueOf(0),null,cid,uid);
@@ -195,6 +201,11 @@ public class DetailCommunityActivity extends AppCompatActivity {
                             if(response.isSuccessful()){
                                 if (response.body() != null){
                                     Log.e("hey~~~",response.body().get(0).getNickname());
+                                    CommentResponseDTO dict_0 = new CommentResponseDTO(text,
+                                            response.body().get(0).getCreatedDateTime(),
+                                            nickname);
+                                    commentResponseDTOArrayList.add(dict_0);
+                                    commentAdapter.notifyDataSetChanged();
                                 }
                                 else {Log.e("hey~~~","het~~~~~~~~~");
 
@@ -230,9 +241,6 @@ public class DetailCommunityActivity extends AppCompatActivity {
                             dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE);
                             dilaog01.setContentView(R.layout.dialog_deletecommunity);
                             showDialog01();
-
-
-
                         }else if (menuItem.getItemId() == R.id.popup_modify){
                             Intent intent = new Intent(getApplicationContext(),EditCommunityActivity.class);
                             intent.putExtra("main",main);
@@ -240,6 +248,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
                             intent.putExtra("title",title);
                             intent.putExtra("content",content);
                             intent.putExtra("main_writer_id",main_writer_id);
+                            intent.putExtra("login_userId",login_userId);
 
                             ArrayList<String> arrayList = new ArrayList<String>();
                             if (photo_i!=null){

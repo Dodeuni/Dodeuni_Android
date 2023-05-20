@@ -4,6 +4,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface LoginAPI {
@@ -18,4 +19,6 @@ public interface LoginAPI {
     Call<UserResponseDTO> getDatalogin(
             @Query("id") Long id
     );
+    @PUT("api/user")
+    Call<UserResponseDTO> updateNickname(@Query("id") Long id, @Query("newNickname") String newNickname);
 }

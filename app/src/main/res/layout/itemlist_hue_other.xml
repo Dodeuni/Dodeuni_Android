@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_medium"
                 android:text="익명"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -46,7 +46,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/tv_hue_radius"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_regular"
                 android:text="으아아ㅏ아 자고싶어!!!피곤해!!"
                 android:textColor="@color/black"
                 android:textSize="15dp"></TextView>
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|bottom"
                 android:layout_marginStart="3dp"
-                android:fontFamily="@font/dohyeon"
+                android:fontFamily="@font/inter_regular"
                 android:text="11:40 PM"
                 android:textColor="@color/black"
                 android:textSize="10dp"

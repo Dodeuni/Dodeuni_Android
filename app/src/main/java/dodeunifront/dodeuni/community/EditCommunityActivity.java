@@ -70,7 +70,7 @@ public class EditCommunityActivity extends AppCompatActivity {
     ArrayList<MultipartBody.Part> names = new ArrayList<>();
     Map<String, RequestBody> map = new HashMap<>();
     Dialog dilaog01;
-    Long main_writer_id;
+    Long main_writer_id,login_userId;
 
 
     @Override
@@ -91,6 +91,8 @@ public class EditCommunityActivity extends AppCompatActivity {
         content = intent.getStringExtra("content");
         main_writer_id = intent.getLongExtra("main_writer_id",-1);
         arrayList = intent.getStringArrayListExtra("arrayList");
+        login_userId = intent.getLongExtra("login_userId",-1);
+
         photo_i = arrayList;
         for(int i=0;i<photo_i.size();i++){
             Uri uri = Uri.parse(photo_i.get(i));
@@ -160,7 +162,7 @@ public class EditCommunityActivity extends AppCompatActivity {
                 map.put("title", title_);
                 map.put("content", content_);
                 Long id = (main_writer_id);
-                Long userid = Long.valueOf(1);
+                Long userid = login_userId;
 
                 List<Long> deletePhotoId=null;
 

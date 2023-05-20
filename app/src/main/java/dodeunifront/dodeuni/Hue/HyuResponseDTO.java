@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class HyuResponseDTO {
     private Long id;
     private String content;
-    private LocalDateTime createdDateTime;
+    private String createdDateTime;
 
     private Long uid;
     private String nickname; // 필요 없으면 제거
@@ -26,11 +26,11 @@ public class HyuResponseDTO {
         this.content = content;
     }
 
-    public LocalDateTime getCreatedDateTime() {
+    public String getCreatedDateTime() {
         return createdDateTime;
     }
 
-    public void setCreatedDateTime(LocalDateTime createdDateTime) {
+    public void setCreatedDateTime(String createdDateTime) {
         this.createdDateTime = createdDateTime;
     }
 

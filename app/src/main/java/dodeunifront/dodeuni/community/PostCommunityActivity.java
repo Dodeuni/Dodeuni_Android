@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.airbnb.lottie.L;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -66,7 +67,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class PostCommunityActivity extends AppCompatActivity {
     // 사용할 컴포넌트 선언
     EditText title_et, content_et;
-    String userid = "alice";
+    Long userId;
     Button btn_reg;
     RadioButton btn_change_info,btn_worry,btn_review;
     final private String TAG = getClass().getSimpleName();
@@ -99,6 +100,10 @@ public class PostCommunityActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         btn_addpic = findViewById(R.id.btn_addpicture);
         recyclerView = findViewById(R.id.rv_imageview_post);
+
+        Intent intent = getIntent();
+        userId = intent.getLongExtra("userId", -1);
+        Log.e("포스트아이디",userId+"");
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
@@ -191,7 +196,6 @@ public class PostCommunityActivity extends AppCompatActivity {
                 map.put("sub", sub_);
                 map.put("title", title_);
                 map.put("content", content_);
-                Long userid = Long.valueOf(1);
 
                 File file = new File("/storage/emulated/0/DCIM/Screenshots/Screenshot_20230515-162240_Chrome.png");
                 if (!file.exists()) {       // 원하는 경로에 폴더가 있는지 확인
@@ -214,12 +218,12 @@ public class PostCommunityActivity extends AppCompatActivity {
                         .build();
 
                 PostcommunityAPI _postcommunityAPI = retrofit.create(PostcommunityAPI.class);
-                _postcommunityAPI.postData(userid,map,names).enqueue(new Callback<ResponseCommunityDTO>() {
+                _postcommunityAPI.postData(userId,map,names).enqueue(new Callback<ResponseCommunityDTO>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponseCommunityDTO> call, @NonNull Response<ResponseCommunityDTO> response) {
                         if(response.isSuccessful()){
                             if (response.body()!=null){
-                                Log.e("?????????????????????????????","+");
+                                Log.e("글 등록완료","성공적!");
                                 Toast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_SHORT).show();
                             }
                         }

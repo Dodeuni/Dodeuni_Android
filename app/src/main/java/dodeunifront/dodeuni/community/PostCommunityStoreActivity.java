@@ -61,7 +61,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 public class PostCommunityStoreActivity extends AppCompatActivity {
     // 사용할 컴포넌트 선언
     EditText title_et, content_et;
-    String userid = "alice";
+    Long userId;
     Button btn_reg;
     final private String TAG = getClass().getSimpleName();
     Dialog dilaog01;
@@ -81,6 +81,9 @@ public class PostCommunityStoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_community_store);
+
+        Intent intent = getIntent();
+        userId = intent.getLongExtra("userId", -1);
 
         Toolbar toolbar = findViewById(R.id.write_community_toolbar_store);
 
@@ -161,7 +164,6 @@ public class PostCommunityStoreActivity extends AppCompatActivity {
                 map.put("sub", sub_);
                 map.put("title", title_);
                 map.put("content", content_);
-                Long userid = Long.valueOf(1);
 
 
                 Gson gson = new GsonBuilder()
@@ -175,7 +177,7 @@ public class PostCommunityStoreActivity extends AppCompatActivity {
                         .build();
 
                 PostcommunityAPI _postcommunityAPI = retrofit.create(PostcommunityAPI.class);
-                _postcommunityAPI.postData(userid,map,names).enqueue(new Callback<ResponseCommunityDTO>() {
+                _postcommunityAPI.postData(userId,map,names).enqueue(new Callback<ResponseCommunityDTO>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponseCommunityDTO> call, @NonNull Response<ResponseCommunityDTO> response) {
                         if(response.isSuccessful()){

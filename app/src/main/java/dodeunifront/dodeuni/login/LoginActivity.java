@@ -3,7 +3,10 @@ package dodeunifront.dodeuni.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     Button naverlogin;
-
+    Long local_uid;
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -42,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
         String naverClientId = getString(R.string.naver_client_id);
         String naverClientSecret = getString(R.string.naver_client_secret);
@@ -135,11 +137,17 @@ public class LoginActivity extends AppCompatActivity {
                             Long userId = response.body().getId();
                             String token = response.body().getToken();
 
+                            SharedPreferences sharedPreferencesLogin = getApplicationContext().getSharedPreferences("autoLogin",MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferencesLogin.edit();
+                            editor.putLong("MY_ID",userId);
+                            editor.commit();
+
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.putExtra("userId",userId);
                             intent.putExtra("name",name);
                             intent.putExtra("email",email);
                             intent.putExtra("naverToken",token);
+                            intent.putExtra("flag","newuser");
                             startActivity(intent);
                         }
                     }

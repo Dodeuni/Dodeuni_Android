@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="休"
+            android:fontFamily="@font/inter_bold"
             android:layout_gravity="center"
             android:id="@+id/toolbar_title"
             android:textSize="20dp"
@@ -44,7 +45,7 @@
             android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/dohyeon"
+            android:fontFamily="@font/inter_bold"
             android:text="이 게시판은 매일 밤 12시 초기화 됩니다.\n\n자정 이후 모든 내용은 저장되지 않고 영구적으로 삭제됩니다."
             />
     </LinearLayout>
@@ -70,7 +71,7 @@
             android:layout_marginLeft="13dp"
             android:layout_width="320dp"
             android:layout_height="50dp"
-            android:fontFamily="@font/dohyeon"
+            android:fontFamily="@font/inter_regular"
             android:hint="오늘의 하루는 어땠나요?"
             android:background="@null"
             />

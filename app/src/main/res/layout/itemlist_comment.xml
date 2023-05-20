@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:text="잉뿌엔피"
+                android:fontFamily="@font/inter_regular"
                 android:id="@+id/tv_community_comment_writer"
                 android:textColor="@color/black"
                 android:textSize="19dp"
@@ -39,6 +40,7 @@
         android:textColor="#737373"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_regular"
         android:layout_weight="1"
         android:text="날짜입니다." />
 
@@ -46,6 +48,7 @@
         android:id="@+id/tv_comment_content"
         android:layout_width="match_parent"
         android:textColor="@color/black"
+        android:fontFamily="@font/inter_regular"
         android:layout_height="wrap_content"
         android:text="댓글입니다." />
 

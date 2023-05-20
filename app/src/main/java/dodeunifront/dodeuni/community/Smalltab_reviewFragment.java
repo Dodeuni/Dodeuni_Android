@@ -35,6 +35,8 @@ public class Smalltab_reviewFragment extends Fragment {
     PostCommunityDTO regData;
     private ArrayList<CommunityListResponseDTO> regarrayList;
     SwipeRefreshLayout swipeRefreshLayout;
+    Long userId;
+    String nickname;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,9 +44,12 @@ public class Smalltab_reviewFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_community);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
 
+        userId = getArguments().getLong("userId",-1);
+        nickname = getArguments().getString("nickname");
+
         recyclerView.setLayoutManager(linearLayoutManager);
         regarrayList = new ArrayList<>();
-        regAdapter = new RegAdapter(regarrayList);
+        regAdapter = new RegAdapter(regarrayList,userId,nickname);
         recyclerView.setAdapter(regAdapter);
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.refresh_layout);
 

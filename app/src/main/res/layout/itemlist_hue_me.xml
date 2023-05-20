@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_marginStart="3dp"
-            android:fontFamily="@font/dohyeon"
+            android:fontFamily="@font/inter_regular"
             android:text="11:40 PM"
             android:textColor="@color/black"
             android:textSize="10dp"
@@ -33,7 +33,7 @@
             android:layout_marginStart="10dp"
             android:background="@drawable/tv_hue_radius"
             android:backgroundTint="#2C8878"
-            android:fontFamily="@font/dohyeon"
+            android:fontFamily="@font/inter_regular"
             android:text="으아아ㅏ아 자고싶어!!!피곤해!!"
             android:textColor="@color/white"
             android:textSize="15dp"></TextView>

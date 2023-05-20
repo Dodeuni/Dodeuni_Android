@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,8 @@ public class CommunityFragment extends Fragment {
     Bigtab_storeFragment fragment2;
     Bigtab_meetingFragment fragment3;
     Boolean isAllFabsVisible;
-
+    Long userId;
+    String nickname;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,9 +51,17 @@ public class CommunityFragment extends Fragment {
         tabRoot.addTab(tabRoot.newTab().setText("장터"));
         tabRoot.addTab(tabRoot.newTab().setText("모임"));
 
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        userId = this.getArguments().getLong("userId");
+        nickname = this.getArguments().getString("nickname");
 
-        fragmentManager.beginTransaction().replace(R.id.tab_container, fragment1).commit();
+        Bundle bundle = new Bundle();
+        bundle.putLong("userId", userId);
+        bundle.putString("nickname",nickname);
+
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragment1.setArguments(bundle);
+        transaction.replace(R.id.tab_container, fragment1);
+        transaction.commit();
 
         ExtendedFloatingActionButton fab = view.findViewById(R.id.fab_main);
 
@@ -74,9 +85,10 @@ public class CommunityFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "글쓰기", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
                 if (!isAllFabsVisible){
+                    Snackbar.make(view, "글쓰기", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                     fab_info.show();
                     fab_store.show();
                     fab_meeting.show();
@@ -84,6 +96,8 @@ public class CommunityFragment extends Fragment {
                     fab_text_info.setVisibility(View.VISIBLE);
                     fab_text_store.setVisibility(View.VISIBLE);
                     fab_text_meeting.setVisibility(View.VISIBLE);
+
+                    fab.setIconResource(R.drawable.exitbutton);
 
 
                     fab.extend();
@@ -96,6 +110,8 @@ public class CommunityFragment extends Fragment {
                     fab_text_info.setVisibility(View.GONE);
                     fab_text_store.setVisibility(View.GONE);
                     fab_text_meeting.setVisibility(View.GONE);
+                    fab.setIconResource(R.drawable.writemenu);
+
 
                     fab.shrink();
                     isAllFabsVisible = false;
@@ -106,6 +122,8 @@ public class CommunityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent info_intent = new Intent(getActivity(),PostCommunityActivity.class);
+                info_intent.putExtra("userId",userId);
+                info_intent.putExtra("nickname",nickname);
                 startActivity(info_intent);
             }
         });
@@ -113,6 +131,8 @@ public class CommunityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent meet_intent = new Intent(getActivity(),PostCommunityMeetActivity.class);
+                meet_intent.putExtra("userId",userId);
+                meet_intent.putExtra("nickname",nickname);
                 startActivity(meet_intent);
             }
         });
@@ -120,6 +140,8 @@ public class CommunityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent store_intent = new Intent(getActivity(),PostCommunityStoreActivity.class);
+                store_intent.putExtra("userId",userId);
+                store_intent.putExtra("nickname",nickname);
                 startActivity(store_intent);
             }
         });
@@ -131,13 +153,36 @@ public class CommunityFragment extends Fragment {
                 switch(tab.getPosition())
                 {
                     case 0:
-                        fragmentManager.beginTransaction().replace(R.id.tab_container, fragment1).commit();
+                        Bundle bundle = new Bundle();
+                        bundle.putLong("userId", userId);
+                        bundle.putString("nickname",nickname);
+
+                        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragment1.setArguments(bundle);
+                        transaction.replace(R.id.tab_container, fragment1);
+                        transaction.commit();
+
+                        //fragmentManager.beginTransaction().replace(R.id.tab_container, fragment1).commit();
                         break;
                     case 1:
-                        fragmentManager.beginTransaction().replace(R.id.tab_container, fragment2).commit();
+                        Bundle bundle2 = new Bundle();
+                        bundle2.putLong("userID", userId);
+                        bundle2.putString("nickname",nickname);
+                        FragmentTransaction transaction2 = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragment2.setArguments(bundle2);
+                        transaction2.replace(R.id.tab_container, fragment2);
+                        transaction2.commit();
+//                        fragmentManager.beginTransaction().replace(R.id.tab_container, fragment2).commit();
                         break;
                     case 2:
-                        fragmentManager.beginTransaction().replace(R.id.tab_container, fragment3).commit();
+                        Bundle bundle3 = new Bundle();
+                        bundle3.putLong("userID", userId);
+                        bundle3.putString("nickname",nickname);
+                        FragmentTransaction transaction3 = getActivity().getSupportFragmentManager().beginTransaction();
+                        fragment3.setArguments(bundle3);
+                        transaction3.replace(R.id.tab_container, fragment3);
+                        transaction3.commit();
+//                        fragmentManager.beginTransaction().replace(R.id.tab_container, fragment3).commit();
                         break;
                 }
             }

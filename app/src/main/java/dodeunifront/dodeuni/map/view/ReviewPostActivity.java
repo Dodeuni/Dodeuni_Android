@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map;
+package dodeunifront.dodeuni.map.view;
 
 import android.content.Intent;
 import android.os.Bundle;

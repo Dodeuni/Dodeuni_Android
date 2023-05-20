@@ -1,6 +1,6 @@
 package dodeunifront.dodeuni.map.api;
 
-import dodeunifront.dodeuni.map.dto.response.ResponseLocationListDTO;
+import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -11,12 +11,11 @@ public interface KakaoMapAPI {
 
     @Headers({"Authorization: KakaoAK 982406bc0a8d7e13dea460aad667ef33"})
     @GET("v2/local/search/keyword.json")
-    Call<ResponseLocationListDTO> getFindDataList(
+    Call<ResponseKakaoLocationListDTO> getFindDataList(
             @Query("query") String query,
             @Query("x") String x,
             @Query("y") String y,
             @Query("size") int size,
             @Query("sort") String sort
     );
-
 }

@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map;
+package dodeunifront.dodeuni.map.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,15 +46,22 @@ public class LocationDetailActivity extends AppCompatActivity {
         locationId = intent.getIntExtra("id", -1);
 
         initTopView();
+
+        tvAddReview.setOnClickListener(view -> setAddReviewBtn());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         if(locationId != -1) {
             getLocationData();
         } else {
             finish();
             Toast.makeText(this, "잘못된 접근입니다.", Toast.LENGTH_LONG).show();
         }
-
-        tvAddReview.setOnClickListener(view -> setAddReviewBtn());
     }
+
     public void initTopView(){
         TopView topView = findViewById(R.id.topview_detail_map);
         topView.setOnButtonClickListener(() -> {
@@ -93,7 +99,6 @@ public class LocationDetailActivity extends AppCompatActivity {
                     Log.d("성공", "데이터없음");
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseDetailLocationDTO> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "등록 실패", Toast.LENGTH_LONG).show();

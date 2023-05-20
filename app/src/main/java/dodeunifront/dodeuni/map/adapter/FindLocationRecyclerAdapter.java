@@ -12,11 +12,11 @@ import net.daum.mf.map.api.MapView;
 import java.util.List;
 
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.map.dto.response.ResponseLocationListDTO;
-import dodeunifront.dodeuni.map.dto.response.ResponseLocationDTO;
+import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
+import dodeunifront.dodeuni.map.dto.KakaoLocationDTO;
 
 public class FindLocationRecyclerAdapter extends RecyclerView.Adapter<FindLocationRecyclerAdapter.ViewHolder> {
-    private List<ResponseLocationDTO> locationResult;
+    private List<KakaoLocationDTO> locationResult;
     private int length;
     MapView mapView;
 
@@ -24,7 +24,7 @@ public class FindLocationRecyclerAdapter extends RecyclerView.Adapter<FindLocati
         this.mapView = mapView;
     }
     public interface OnItemClickListener {
-        void onItemClicked(ResponseLocationDTO locationData);
+        void onItemClicked(KakaoLocationDTO locationData);
     }
     static private OnItemClickListener mItemClickListener;
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -44,7 +44,7 @@ public class FindLocationRecyclerAdapter extends RecyclerView.Adapter<FindLocati
         viewHolder.onBind(locationResult.get(position), mapView);
     }
 
-    public void setLocationResult(ResponseLocationListDTO result) {
+    public void setLocationResult(ResponseKakaoLocationListDTO result) {
         this.locationResult = result.getDocuments();
         length = result.getLength();
     }
@@ -57,12 +57,12 @@ public class FindLocationRecyclerAdapter extends RecyclerView.Adapter<FindLocati
             super(view);
             this.view = view;
 
-            title = (TextView) view.findViewById(R.id.tv_find_location_title);
-            category = (TextView) view.findViewById(R.id.tv_find_location_category);
-            address = (TextView) view.findViewById(R.id.tv_find_location_address);
+            title = view.findViewById(R.id.tv_find_location_title);
+            category = view.findViewById(R.id.tv_find_location_category);
+            address = view.findViewById(R.id.tv_find_location_address);
         }
 
-        void onBind(ResponseLocationDTO location, MapView mapView){
+        void onBind(KakaoLocationDTO location, MapView mapView){
             /*double longitude = Double.parseDouble(location.getY());
             double latitude = Double.parseDouble(location.getX());
 

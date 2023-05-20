@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map;
+package dodeunifront.dodeuni.map.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -21,6 +21,7 @@ import dodeunifront.dodeuni.map.dto.request.RequestEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.request.RequestEnrollReviewDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseReviewDTO;
+import dodeunifront.dodeuni.map.view.LocationDetailActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -28,7 +29,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocationPostActivity extends AppCompatActivity {
-    RequestEnrollLocationDTO LocationData = new RequestEnrollLocationDTO();
+    RequestEnrollLocationDTO locationData = new RequestEnrollLocationDTO();
     RequestEnrollReviewDTO reviewData = new RequestEnrollReviewDTO();
     ResponseEnrollLocationDTO locationResultData;
     ResponseReviewDTO reviewResultData;
@@ -57,18 +58,18 @@ public class LocationPostActivity extends AppCompatActivity {
     private void initLocationData(){
         Intent intent = getIntent();
         System.out.println(intent.getStringExtra("name"));
-        LocationData.setPlaceName(intent.getStringExtra("name"));
-        LocationData.setCategory(intent.getStringExtra("category"));
-        LocationData.setAddress(intent.getStringExtra("address"));
-        LocationData.setPhone(intent.getStringExtra("phone"));
-        LocationData.setX(intent.getStringExtra("x"));
-        LocationData.setY(intent.getStringExtra("y"));
-        LocationData.setUid(1);
+        locationData.setPlaceName(intent.getStringExtra("name"));
+        locationData.setCategory(intent.getStringExtra("category"));
+        locationData.setAddress(intent.getStringExtra("address"));
+        locationData.setPhone(intent.getStringExtra("phone"));
+        locationData.setX(intent.getStringExtra("x"));
+        locationData.setY(intent.getStringExtra("y"));
+        locationData.setUid(1);
 
-        locationDetailView.setName(LocationData.getPlaceName());
-        locationDetailView.setCategory(LocationData.getCategory());
-        locationDetailView.setAddress(LocationData.getAddress());
-        locationDetailView.setCategory(LocationData.getPhone());
+        locationDetailView.setName(locationData.getPlaceName());
+        locationDetailView.setCategory(locationData.getCategory());
+        locationDetailView.setAddress(locationData.getAddress());
+        locationDetailView.setCategory(locationData.getPhone());
     }
 
     public void initTopView(){
@@ -95,7 +96,7 @@ public class LocationPostActivity extends AppCompatActivity {
             reviewData.setTitle(title);
             reviewData.setContent(content);
             System.out.println(reviewData.getContent());
-            locationAPI.postLocation(LocationData).enqueue(new Callback<ResponseEnrollLocationDTO>() {
+            locationAPI.postLocation(locationData).enqueue(new Callback<ResponseEnrollLocationDTO>() {
                 @Override
                 public void onResponse(Call<ResponseEnrollLocationDTO> call, Response<ResponseEnrollLocationDTO> response) {
                     if (response.body()!=null) {

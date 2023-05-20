@@ -12,8 +12,6 @@ import net.daum.mf.map.api.MapView;
 import java.util.List;
 
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.map.dto.response.ResponseLocationDTO;
-import dodeunifront.dodeuni.map.dto.response.ResponseLocationListDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseRecommendLocationDTO;
 
 public class RecommendLocationRecyclerAdapter extends RecyclerView.Adapter<RecommendLocationRecyclerAdapter.ViewHolder> {
@@ -62,11 +60,11 @@ public class RecommendLocationRecyclerAdapter extends RecyclerView.Adapter<Recom
         }
 
         void onBind(ResponseRecommendLocationDTO location){
-            int dist = (int) location.getDistance() * 1000;
+            int dist = (int) (location.getDistance() * 1000);
             view.setOnClickListener(v -> mItemClickListener.onItemClicked(location));
             name.setText(location.getName());
             category.setText(location.getCategory());
-            distance.setText("현재위치에서" + dist + "m");
+            distance.setText("현재위치에서 " + dist + "m");
         }
     }
     // Return the size of your dataset (invoked by the layout manager)

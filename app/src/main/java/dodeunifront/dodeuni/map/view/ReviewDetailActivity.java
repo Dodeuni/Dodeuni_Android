@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map;
+package dodeunifront.dodeuni.map.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 

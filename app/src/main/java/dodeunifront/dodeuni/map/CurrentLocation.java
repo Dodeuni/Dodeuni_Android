@@ -23,7 +23,7 @@ public class CurrentLocation {
     LocationManager lm;
     Activity activity;
 
-    CurrentLocation(LocationManager lm, Activity activity){
+    public CurrentLocation(LocationManager lm, Activity activity){
         setLm(lm);
         setActivity(activity);
     }
@@ -34,6 +34,14 @@ public class CurrentLocation {
         Geocoord(double longitude, double latitude){
             this.longitude = longitude;
             this.latitude = latitude;
+        }
+
+        public double getLongitude(){
+            return longitude;
+        }
+
+        public double getLatitude(){
+            return latitude;
         }
     }
 

@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map;
+package dodeunifront.dodeuni.map.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,13 +30,14 @@ import net.daum.mf.map.api.MapView;
 import java.util.List;
 
 import dodeunifront.dodeuni.R;
+import dodeunifront.dodeuni.alert.AlertActivity;
+import dodeunifront.dodeuni.map.CurrentLocation;
 import dodeunifront.dodeuni.map.adapter.FindLocationRecyclerAdapter;
 import dodeunifront.dodeuni.map.adapter.RecommendLocationRecyclerAdapter;
-import dodeunifront.dodeuni.map.api.KakaoMapAPI;
 import dodeunifront.dodeuni.map.api.LocationAPI;
 import dodeunifront.dodeuni.map.dto.request.RequestRecommendLocationDTO;
-import dodeunifront.dodeuni.map.dto.response.ResponseLocationDTO;
-import dodeunifront.dodeuni.map.dto.response.ResponseLocationListDTO;
+import dodeunifront.dodeuni.map.dto.KakaoLocationDTO;
+import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseRecommendLocationDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,14 +63,18 @@ public class MapFragment extends Fragment {
     private View v;
     private ViewGroup mapViewContainer;
     private MapView mapView;
+    double resultLatitude, resultLongitude;
+    Gson gson;
     BottomSheetBehavior<View> bottomSheet;
     CurrentLocation.Geocoord currentGeocoord;
-    ImageButton btnCurrentLocation;
+    ImageButton btnCurrentLocation, btnLocationSearch;
     RecyclerView mRecyclerView;
-    RecommendLocationRecyclerAdapter mRecyclerAdapter;
+    EditText editSearch;
+    ResponseKakaoLocationListDTO keywordSearchResult;
+    RecommendLocationRecyclerAdapter mRecommendRecyclerAdapter;
+    FindLocationRecyclerAdapter mkeywordRecyclerAdapter;
     List<ResponseRecommendLocationDTO> recommendResult;
     RequestRecommendLocationDTO recommendRequest = new RequestRecommendLocationDTO();
-
 
     public MapFragment() {
         // Required empty public constructor
@@ -121,16 +128,17 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_map, container, false);
         btnCurrentLocation = v.findViewById(R.id.imgBtn_location_current);
+        btnLocationSearch = v.findViewById(R.id.imgBtn_location_search);
         mRecyclerView = v.findViewById(R.id.rv_location_recommend);
+        editSearch = v.findViewById(R.id.edit_location_search);
         TextView tv_new = v.findViewById(R.id.tv_location_new);
 
         initMapView();
         initBottomSheet();
 
-        getRecommendLocation("");
-
         tv_new.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), LocationFindActivity.class);
+            //Intent intent = new Intent(getContext(), LocationFindActivity.class);
+            Intent intent = new Intent(getContext(), AlertActivity.class);
             startActivity(intent);
         });
 
@@ -138,8 +146,18 @@ public class MapFragment extends Fragment {
             moveToCurrentLocation();
         });
 
+        setSearchBtn();
+
         // Inflate the layout for this fragment
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getRecommendLocation("");
+
+        //getKeywordLocation("스타벅스");
     }
 
     @Override
@@ -152,8 +170,8 @@ public class MapFragment extends Fragment {
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         CurrentLocation currentLocation = new CurrentLocation(lm, getActivity());
         currentGeocoord = currentLocation.getCurrentLocation();
-        Log.d("LOCATION CLASS",  "위도 : " + currentGeocoord.longitude + "\n" +
-                "경도 : " + currentGeocoord.latitude);
+        Log.d("LOCATION CLASS",  "위도 : " + currentGeocoord.getLongitude() + "\n" +
+                "경도 : " + currentGeocoord.getLatitude());
     }
 
     public void initBottomSheet(){
@@ -172,18 +190,29 @@ public class MapFragment extends Fragment {
         moveToCurrentLocation();
     }
 
-    public void initRecyclerView(){
-        mRecyclerAdapter = new RecommendLocationRecyclerAdapter();
-        mRecyclerView.setAdapter(mRecyclerAdapter);
+    public void initRecyclerViewWithRecommend(){
+        mRecommendRecyclerAdapter = new RecommendLocationRecyclerAdapter();
+        mRecyclerView.setAdapter(mRecommendRecyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        mRecyclerAdapter.setLocationResult(recommendResult);
-        mRecyclerAdapter.setOnItemClickListener((locationData) -> {
+        mRecommendRecyclerAdapter.setLocationResult(recommendResult);
+        mRecommendRecyclerAdapter.setOnItemClickListener((locationData) -> {
             Intent intent = new Intent(getContext(), LocationDetailActivity.class);
             intent.putExtra("id", locationData.getId());
             startActivity(intent);
             Toast.makeText(getActivity(), "clicked: " + locationData.getName(), Toast.LENGTH_LONG).show();
         });
     }
+
+    /*public void initRecyclerViewWithKeyword(){
+        mkeywordRecyclerAdapter = new FindLocationRecyclerAdapter(mapView);
+        mRecyclerView.setAdapter(mkeywordRecyclerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        mkeywordRecyclerAdapter.setLocationResult(keywordSearchResult);
+        mkeywordRecyclerAdapter.setOnItemClickListener((locationData) -> {
+            moveToKakaoLocationDetail(locationData);
+            Toast.makeText(getActivity(), "clicked: " + locationData.getPlaceName(), Toast.LENGTH_LONG).show();
+        });
+    }*/
 
     public void setMarkers(){
         for(ResponseRecommendLocationDTO info: recommendResult){
@@ -199,18 +228,46 @@ public class MapFragment extends Fragment {
         }
     }
 
+    public void setKeywordMarkers(){
+        for(KakaoLocationDTO info: keywordSearchResult.getDocuments()){
+            double lon = Double.parseDouble(info.getY());
+            double lat = Double.parseDouble(info.getX());
+            MapPOIItem marker = new MapPOIItem();
+            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(lon, lat);
+            marker.setItemName(info.getPlaceName());
+            marker.setMapPoint(mapPoint);
+            marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+            marker.setCustomImageResourceId(R.drawable.location_green_midium);
+            mapView.addPOIItem(marker);
+        }
+    }
+
+    public void setSearchBtn(){
+        btnLocationSearch.setOnClickListener(view -> {
+            String keyword = editSearch.getText().toString();
+            if(keyword.length() != 0){
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
+                getRecommendLocation(keyword);
+                System.out.println(resultLongitude);
+                //if(recommendResult.size() != 0) mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(resultLatitude, resultLongitude), true);
+            }
+        });
+    }
+
     public void moveToCurrentLocation(){
         if(currentGeocoord != null){
-            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.latitude, currentGeocoord.longitude), true);
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.getLatitude(), currentGeocoord.getLongitude()), true);
         }
     }
 
     public void getRecommendLocation(String keyword){
-        recommendRequest.setX(currentGeocoord.longitude);
-        recommendRequest.setY(currentGeocoord.latitude);
+        recommendRequest.setX(currentGeocoord.getLongitude());
+        recommendRequest.setY(currentGeocoord.getLatitude());
         recommendRequest.setKeyword(keyword);
 
-        Gson gson = new GsonBuilder()
+        gson = new GsonBuilder()
                 .setLenient()
                 .create();
 
@@ -225,9 +282,10 @@ public class MapFragment extends Fragment {
             public void onResponse(Call<List<ResponseRecommendLocationDTO>> call, Response<List<ResponseRecommendLocationDTO>> response) {
                 if (response.body().size() != 0) {
                     recommendResult = response.body();
+                    mapView.removeAllPOIItems();
                     setMarkers();
-                    initRecyclerView();
-                    Log.d("성공", recommendResult.get(0).getAddress());
+                    initRecyclerViewWithRecommend();
+                    Log.d("성공", recommendResult.get(0).getX() + " ");
                 } else {
                     Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_LONG).show();
                 }
@@ -238,4 +296,51 @@ public class MapFragment extends Fragment {
             }
         });
     }
+
+    /*public void getKeywordLocation(String keyword){
+        MapPoint centerPoint = mapView.getMapCenterPoint();
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(KakaoMapAPI.URL)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        KakaoMapAPI kakaoMapAPI = retrofit.create(KakaoMapAPI.class);
+        kakaoMapAPI.getFindDataList(keyword, currentGeocoord.getLongitude()+"", currentGeocoord.getLatitude()+"", 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
+            @Override
+            public void onResponse(Call<ResponseKakaoLocationListDTO> call, Response<ResponseKakaoLocationListDTO> response) {
+                if (response.body().getLength() != 0) {
+                    keywordSearchResult = response.body();
+                    double longitude = Double.parseDouble(keywordSearchResult.getDocuments().get(0).getX());
+                    double latitude = Double.parseDouble(keywordSearchResult.getDocuments().get(0).getY()) - 0.002;
+                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+                    setKeywordMarkers();
+                    initRecyclerViewWithKeyword();
+                    Log.d("성공", keywordSearchResult.getDocuments().get(0).getAddress());
+                } else {
+
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseKakaoLocationListDTO> call, Throwable t) {
+                Log.d("실패","통신 실패: "+ t.getMessage());
+            }
+        });
+    }*/
+
+    public void moveToKakaoLocationDetail(KakaoLocationDTO locationData){
+        Intent intent = new Intent(getActivity(), LocationDetailActivity.class);
+        intent.putExtra("name", locationData.getPlaceName());
+        intent.putExtra("category", locationData.getCategory());
+        intent.putExtra("address", locationData.getAddress());
+        intent.putExtra("phone", locationData.getPhone());
+        intent.putExtra("x", locationData.getX());
+        intent.putExtra("y", locationData.getY());
+        startActivity(intent);
+        getActivity().finish();
+    }
+
 }

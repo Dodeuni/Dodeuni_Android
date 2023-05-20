@@ -1,11 +1,11 @@
-package dodeunifront.dodeuni.map.dto.response;
+package dodeunifront.dodeuni.map.dto;
 
-public class ResponseLocationDTO {
+public class KakaoLocationDTO {
     private String place_name;
 
     private String category_group_name;
 
-    private String road_address_name;
+    private String address_name;
 
     private String phone;
 
@@ -13,10 +13,10 @@ public class ResponseLocationDTO {
 
     private String y;
 
-    public ResponseLocationDTO(String place_name, String category_group_name, String road_address_name, String phone, String x, String y){
+    public KakaoLocationDTO(String place_name, String category_group_name, String address_name, String phone, String x, String y){
         this.place_name = place_name;
         this.category_group_name = category_group_name;
-        this.road_address_name = road_address_name;
+        this.address_name = address_name;
         this.phone = phone;
         this.x = x;
         this.y = y;
@@ -32,13 +32,13 @@ public class ResponseLocationDTO {
     public String getCategory(){
         return category_group_name;
     }
-    public void setCetegory(String category_group_name){ this.category_group_name = category_group_name;}
+    public void setCategory(String category_group_name){ this.category_group_name = category_group_name;}
 
     public String getAddress(){
-        return road_address_name;
+        return address_name;
     }
-    public void setAddress(String road_address_name){
-        this.road_address_name = road_address_name;
+    public void setAddress(String address_name){
+        this.address_name = address_name;
     }
 
     public String getPhone(){return phone;}

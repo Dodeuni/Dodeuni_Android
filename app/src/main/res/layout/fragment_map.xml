@@ -9,44 +9,90 @@
     <RelativeLayout
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
 
-    <androidx.cardview.widget.CardView
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="100dp"
-        android:layout_margin="20dp"
-        android:elevation="50dp">
+        android:padding="20dp"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="22dp"
-            android:layout_marginVertical="18dp"
-            android:orientation="horizontal">
+            android:layout_marginBottom="20dp"
+            android:elevation="50dp"
+            app:cardCornerRadius="100dp">
 
-            <EditText
-                android:id="@+id/edit_location"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:layout_weight="1"
-                android:inputType="textPersonName"
-                android:textSize="15dp"
-                android:hint="장소를 입력하세요" />
+                android:layout_marginHorizontal="22dp"
+                android:layout_marginVertical="18dp"
+                android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/imgBtn_location_search"
-                android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/edit_location_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:ems="10"
+                    android:hint="위치를 입력하세요"
+                    android:inputType="textPersonName"
+                    android:textSize="15dp" />
+
+                <ImageButton
+                    android:id="@+id/imgBtn_location_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/loupe_small" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:background="?attr/selectableItemBackground"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/loupe_small" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/tv_basic_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:layout_marginHorizontal="5dp"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/location_roundedtag"
+                    android:backgroundTint="@color/main_color"
+                    android:textColor="@color/white"
+                    android:textSize="12dp"
+                    android:text="주변기관"/>
+
+                <TextView
+                    android:id="@+id/tv_recommend_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_regular"
+                    android:layout_marginHorizontal="5dp"
+                    android:paddingVertical="8dp"
+                    android:paddingHorizontal="16dp"
+                    android:background="@drawable/location_roundedtag"
+                    android:textColor="@color/black"
+                    android:textSize="12dp"
+                    android:text="추천장소"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/drawer_location_recommend"

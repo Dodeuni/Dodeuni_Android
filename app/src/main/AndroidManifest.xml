@@ -17,17 +17,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".map.LocationPostActivity"
+            android:name=".map.view.LocationPostActivity"
             android:exported="false" />
         <activity
-            android:name=".map.ReviewPostActivity"
+            android:name=".map.view.ReviewPostActivity"
             android:exported="false" />
         <activity
-            android:name=".map.LocationDetailActivity"
+            android:name=".map.view.LocationDetailActivity"
             android:exported="false" />
         <activity
             android:windowSoftInputMode="adjustPan"
-            android:name=".map.LocationFindActivity"
+            android:name=".map.view.LocationFindActivity"
             android:exported="false" />
 
         <meta-data
@@ -45,12 +45,13 @@
         </service>
 
         <activity
-            android:name=".map.ReviewDetailActivity"
+            android:name=".map.view.ReviewDetailActivity"
             android:exported="true" />
         <activity
             android:name=".alert.AlertActivity"
             android:exported="true" />
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

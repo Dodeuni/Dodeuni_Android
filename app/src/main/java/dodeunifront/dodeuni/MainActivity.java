@@ -3,28 +3,35 @@ package dodeunifront.dodeuni;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import dodeunifront.dodeuni.community.CommunityFragment;
 import dodeunifront.dodeuni.map.view.MapFragment;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = this.getClass().getSimpleName();
-
     FrameLayout home;
     BottomNavigationView bottomNavigationView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         init(); //객체 정의
         SettingListener(); //리스너 등록
         bottomNavigationView.setSelectedItemId(R.id.menu_community);
     }
+
     private void init() {
         home = findViewById(R.id.content_layout);
         bottomNavigationView = findViewById(R.id.bottom_nav_view);

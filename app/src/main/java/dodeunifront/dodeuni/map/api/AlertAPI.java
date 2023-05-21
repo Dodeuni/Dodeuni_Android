@@ -6,6 +6,7 @@ import dodeunifront.dodeuni.map.dto.AlertDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseAlertListDTO;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -17,4 +18,9 @@ public interface AlertAPI {
             @Query("userId") long userId
     );
 
+    @POST("api/alarm")
+    Call<String> postToken(
+            @Query("userId") long userId,
+            @Query("fcmToken") String fcmToken
+    );
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +20,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.FirebaseApiNotAvailableException;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -29,12 +35,15 @@ import net.daum.mf.map.api.MapView;
 
 import java.util.List;
 
+import dodeunifront.dodeuni.DodeuniFirebaseMessagingService;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.alert.AlertActivity;
 import dodeunifront.dodeuni.map.CurrentLocation;
 import dodeunifront.dodeuni.map.adapter.FindLocationRecyclerAdapter;
 import dodeunifront.dodeuni.map.adapter.RecommendLocationRecyclerAdapter;
+import dodeunifront.dodeuni.map.api.AlertAPI;
 import dodeunifront.dodeuni.map.api.LocationAPI;
+import dodeunifront.dodeuni.map.api.ReviewAPI;
 import dodeunifront.dodeuni.map.dto.request.RequestRecommendLocationDTO;
 import dodeunifront.dodeuni.map.dto.KakaoLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
@@ -121,6 +130,9 @@ public class MapFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         getCurrentLocation();
+
+        /* 로그인 or 랜딩 페이지 or 메인 으로 옮길 것 */
+        DodeuniFirebaseMessagingService.getToken();
     }
 
     @Override

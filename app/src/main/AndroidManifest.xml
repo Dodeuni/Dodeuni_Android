@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".map.view.LocationPostActivity"
             android:exported="false" />
         <activity
@@ -26,19 +31,18 @@
             android:name=".map.view.LocationDetailActivity"
             android:exported="false" />
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".map.view.LocationFindActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="a2c8eaee5b39a2fbd5899ef954a85e7b" />
 
         <service
-            android:name="dodeunifront.dodeuni.FirebaseMessagingService"
+            android:name=".DodeuniFirebaseMessagingService"
             android:enabled="true"
-            android:exported="false"
-            tools:ignore="Instantiatable">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -51,9 +55,9 @@
             android:name=".alert.AlertActivity"
             android:exported="true" />
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -67,6 +71,9 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/main_color" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
     </application>
 
 </manifest>

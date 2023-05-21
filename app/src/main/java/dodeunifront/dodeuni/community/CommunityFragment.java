@@ -5,10 +5,16 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import dodeunifront.dodeuni.R;
 
@@ -24,6 +30,8 @@ public class CommunityFragment extends Fragment {
     private String mParam2;
 
     public CommunityFragment() {
+
+
     }
 
     public static CommunityFragment newInstance(String param1, String param2) {
@@ -42,6 +50,8 @@ public class CommunityFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override

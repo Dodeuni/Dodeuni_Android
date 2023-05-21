@@ -13,4 +13,33 @@
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/inter_bold</item>
     </style>
+    <style name="mytoast">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#FFFFFF</item>
+        <item name="stFont">@font/inter_bold</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">#2C8878</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">3dp</item>
+        <item name="stStrokeColor">#2C8878</item>
+        <item name="stIconStart">@drawable/update</item>
+<!--        <item name="stIconEnd">@drawable/infomenu</item>-->
+        <item name="stLength">LONG</item>
+        <item name="stGravity">center</item>
+        <item name="stRadius">100dp</item>
+    </style>
+    <style name="mytoast_sub">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#FFFFFF</item>
+        <item name="stFont">@font/inter_bold</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">#FF4B4B</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">3dp</item>
+        <item name="stStrokeColor">#FF4B4B</item>
+        <!--        <item name="stIconEnd">@drawable/infomenu</item>-->
+        <item name="stLength">SHORT</item>
+        <item name="stGravity">center</item>
+        <item name="stRadius">100dp</item>
+    </style>
 </resources>

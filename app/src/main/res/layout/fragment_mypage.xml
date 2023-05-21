@@ -102,6 +102,7 @@
             android:id="@+id/rv_mypage"
             android:scrollbars="vertical"
             android:scrollbarFadeDuration="0"
+            android:fadeScrollbars="false"
             >
 
         </androidx.recyclerview.widget.RecyclerView>

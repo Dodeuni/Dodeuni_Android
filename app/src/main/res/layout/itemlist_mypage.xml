@@ -40,7 +40,6 @@
                     android:layout_width="40dp"
                     android:layout_marginRight="8dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/point"
                     android:layout_height="40dp"
                     />
             </LinearLayout>

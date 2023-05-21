@@ -44,6 +44,7 @@ import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.Adapter.EditImageAdapter;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -71,7 +72,7 @@ public class EditCommunityActivity extends AppCompatActivity {
     Map<String, RequestBody> map = new HashMap<>();
     Dialog dilaog01;
     Long main_writer_id,login_userId;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class EditCommunityActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
 
 
-        Intent intent = getIntent();
+        intent = getIntent();
         main = intent.getStringExtra("main");
         sub = intent.getStringExtra("sub");
         title = intent.getStringExtra("title");
@@ -183,7 +184,8 @@ public class EditCommunityActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             if (response.body()!=null){
                                 Log.e("!!!!!!!!!!!!!!!!!!!!!!","수정완료");
-                                Toast.makeText(getApplicationContext(),"수정이 완료되었습니다.",Toast.LENGTH_SHORT).show();
+                                StyleableToast.makeText(getApplicationContext(),"수정이 완료되었습니다.",Toast.LENGTH_LONG,
+                                        R.style.mytoast).show();
                             }
                         }
                         else {
@@ -210,6 +212,13 @@ public class EditCommunityActivity extends AppCompatActivity {
                     }
                 });
                 dilaog01.dismiss();
+                intent.putExtra("main",main);
+                intent.putExtra("sub",sub);
+                intent.putExtra("title",title);
+                intent.putExtra("content",content);
+                intent.putExtra("main_writer_id",main_writer_id);
+                intent.putExtra("login_userId",login_userId);
+                setResult(RESULT_OK,intent);
                 finish();           // 앱 종료
             }
         });

@@ -159,9 +159,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.menu_location: {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.content_layout, new CommunityFragment())  //임시
-                            .commit();
                     return true;
                 }
                 case R.id.menu_mypage: {

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import dodeunifront.dodeuni.R;
+import io.github.muddz.styleabletoast.StyleableToast;
 
 public class CommunityFragment extends Fragment {
     TabLayout tabRoot;
@@ -85,10 +87,9 @@ public class CommunityFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (!isAllFabsVisible){
-                    Snackbar.make(view, "글쓰기", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    //Snackbar.make(view, "글쓰기", Snackbar.LENGTH_LONG)
+                      //      .setAction("Action", null).show();
                     fab_info.show();
                     fab_store.show();
                     fab_meeting.show();

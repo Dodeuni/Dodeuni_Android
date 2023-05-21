@@ -1,5 +1,7 @@
 package dodeunifront.dodeuni.community;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +38,7 @@ import dodeunifront.dodeuni.community.Adapter.DatailImageAdapter;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
 import dodeunifront.dodeuni.community.DTO.CommentSaveRequestDTO;
 import dodeunifront.dodeuni.community.DTO.CommunityDeatilDTO;
+import io.github.muddz.styleabletoast.StyleableToast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -255,13 +258,26 @@ public class DetailCommunityActivity extends AppCompatActivity {
                             arrayList.addAll(photo_i);}
 
                             intent.putStringArrayListExtra("arrayList",arrayList);
-                            startActivity(intent);
+                            mStartForResult_edit.launch(intent);
+//                            startActivity(intent);
                         }
                         return false;
                     }
                 });
                 popupMenu.show();
     }
+    ActivityResultLauncher<Intent> mStartForResult_edit = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == RESULT_OK) {
+                    Intent intent = result.getData();
+                    String title_new = intent.getStringExtra("title");
+                    String content_new = intent.getStringExtra("content");
+                    tv_title_community_detail.setText(title_new);
+                    tv_content_community_detail.setText(content_new);
+                }
+            }
+    );
     public void showDialog01(){
         dilaog01.show(); // 다이얼로그 띄우기
         Button noBtn = dilaog01.findViewById(R.id.btn_delete_cancel);
@@ -280,7 +296,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<Object> call, Response<Object> response) {
                         Log.e("삭제성공",response.body()+"");
-                        Toast.makeText(DetailCommunityActivity.this, "삭제가 완료되었습니다,새로고침을 해주세요!", Toast.LENGTH_SHORT).show();
+                        StyleableToast.makeText(DetailCommunityActivity.this, "삭제가 완료되었습니다,새로고침을 해주세요!",
+                                Toast.LENGTH_LONG,R.style.mytoast).show();
                     }
                     @Override
                     public void onFailure(Call<Object> call, Throwable t) {

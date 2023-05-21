@@ -1,5 +1,7 @@
 package dodeunifront.dodeuni.community.Adapter;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,6 +77,7 @@ public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int po
             }
         });
         }
+
 @Override
 public int getItemCount()
         {

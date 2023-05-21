@@ -52,6 +52,7 @@ import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
 import dodeunifront.dodeuni.community.DTO.ResponseCommunityDTO;
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -106,22 +107,19 @@ public class PostCommunityActivity extends AppCompatActivity {
         Log.e("포스트아이디",userId+"");
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
         getSupportActionBar().setTitle("");
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 if(checkedId == R.id.btn_changeinfo) {
-                    Toast.makeText(getApplicationContext(), "정보교환 선택", Toast.LENGTH_SHORT).show();
                     sub = "정보교환";
                 }
                 else if(checkedId == R.id.btn_worry) {
-                    Toast.makeText(getApplicationContext(), "고민상담 선택", Toast.LENGTH_SHORT).show();
                     sub = "고민상담";
                 }
                 else if(checkedId == R.id.btn_review) {
-                    Toast.makeText(getApplicationContext(), "제품후기 선택", Toast.LENGTH_SHORT).show();
                     sub = "제품후기";
                 }
             }
@@ -142,7 +140,8 @@ public class PostCommunityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (sub=="-"){
-                    Toast.makeText(getApplicationContext(),"카테고리를 선택해주세요",Toast.LENGTH_SHORT).show();
+                    StyleableToast.makeText(getApplicationContext(),"카테고리를 선택해주세요",
+                            Toast.LENGTH_SHORT,R.style.mytoast_sub).show();
                 } else{
                     title = title_et.getText().toString();
                     content = content_et.getText().toString();
@@ -224,7 +223,8 @@ public class PostCommunityActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             if (response.body()!=null){
                                 Log.e("글 등록완료","성공적!");
-                                Toast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_SHORT).show();
+                                StyleableToast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_LONG,
+                                        R.style.mytoast).show();
                             }
                         }
                         else {

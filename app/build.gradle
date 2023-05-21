@@ -46,6 +46,8 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-simplexml:2.3.0'
+
 
     //선택사항 : http 통신 로그를 출력한다
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
@@ -61,6 +63,13 @@ dependencies {
 
     implementation 'com.navercorp.nid:oauth:5.5.0' // jdk 11
 
+    implementation 'io.github.muddz:styleabletoast:2.4.0'
 
+    //xml parser
+    implementation 'com.tickaroo.tikxml:annotation:0.8.13'
+    implementation 'com.tickaroo.tikxml:core:0.8.13'
+    implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
+
+    annotationProcessor 'com.tickaroo.tikxml:processor:0.8.13'
 
 }

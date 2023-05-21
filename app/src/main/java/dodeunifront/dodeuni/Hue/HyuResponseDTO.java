@@ -10,6 +10,7 @@ public class HyuResponseDTO {
     private Long uid;
     private String nickname; // 필요 없으면 제거
 
+    private String feeling;
     public Long getId() {
         return id;
     }
@@ -32,6 +33,14 @@ public class HyuResponseDTO {
 
     public void setCreatedDateTime(String createdDateTime) {
         this.createdDateTime = createdDateTime;
+    }
+
+    public String getFeeling() {
+        return feeling;
+    }
+
+    public void setFeeling(String feeling) {
+        this.feeling = feeling;
     }
 
     public Long getUid() {

@@ -60,7 +60,8 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 TextView itemTextView_ = new TextView(context);
                 itemTextView_.setPadding(subItemPaddingLeft_, subItemPaddingTopAndBottom_, 0, subItemPaddingTopAndBottom_);
                 itemTextView_.setTextColor(Color.parseColor("#008000"));
-
+                itemTextView_.setTextSize(19);
+                itemTextView_.setPaintFlags(itemTextView_.getPaintFlags() | Paint.FAKE_BOLD_TEXT_FLAG);
                 itemTextView_.setLayoutParams(
                         new ViewGroup.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -81,9 +82,9 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 itemController.refferalItem = item;
                 itemController.header_title.setText(item.text);
                 if (item.invisibleChildren == null) {
-//                    itemController.btn_expand_toggle.setImageResource(R.drawable.circle_minus);
+                    itemController.btn_expand_toggle.setImageResource(R.drawable.exitbutton);
                 } else {
-//                    itemController.btn_expand_toggle.setImageResource(R.drawable.circle_plus);
+                    itemController.btn_expand_toggle.setImageResource(R.drawable.point);
                 }
                 itemController.btn_expand_toggle.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -101,7 +102,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 count++;
                             }
                             notifyItemRangeRemoved(pos + 1, count);
-//                            itemController.btn_expand_toggle.setImageResource(R.drawable.circle_plus);
+                            itemController.btn_expand_toggle.setImageResource(R.drawable.point);
                         } else {
                             int pos = data.indexOf(itemController.refferalItem);
                             int index = pos + 1;
@@ -110,7 +111,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 index++;
                             }
                             notifyItemRangeInserted(pos + 1, index - pos - 1);
-//                            itemController.btn_expand_toggle.setImageResource(R.drawable.circle_minus);
+                            itemController.btn_expand_toggle.setImageResource(R.drawable.exitbutton);
                             item.invisibleChildren = null;
                         }
                     }
@@ -123,7 +124,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case ADRESS:
                 TextView itemTextView_ = (TextView) holder.itemView;
 //                itemTextView_.setText(data.get(position).uri);
-                itemTextView_.setText("여기를 누르면 사이트로 이동합니다");
+                itemTextView_.setText("바로가기");
                 String ss = data.get(position).uri;
                 itemTextView_.setOnClickListener(new View.OnClickListener() {
                     @Override

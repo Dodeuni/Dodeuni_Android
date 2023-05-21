@@ -34,10 +34,12 @@
         android:background="@color/white"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:srcCompat="@drawable/megaphone"
             android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+
             />
         <TextView
             android:layout_marginLeft="10dp"
@@ -52,6 +54,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="10dp"
         android:id="@+id/rv_hue"
         android:layout_width="match_parent"
         android:layout_height="0dp"

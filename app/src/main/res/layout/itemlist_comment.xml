@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/iv_hue_circle" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="잉뿌엔피"
+                android:fontFamily="@font/inter_regular"
+                android:id="@+id/tv_community_comment_writer"
+                android:textColor="@color/black"
+                android:textSize="19dp"
+                android:layout_weight="1"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right"
+            android:id="@+id/btn_comment_menu"
+            android:background="@drawable/menu"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_comment_date"
+        android:gravity="left"
+        android:textSize="10dp"
+        android:textColor="#737373"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter_regular"
+        android:layout_weight="1"
+        android:text="날짜입니다." />
+
+    <TextView
+        android:id="@+id/tv_comment_content"
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_regular"
+        android:layout_height="wrap_content"
+        android:text="댓글입니다." />
+
+</LinearLayout>

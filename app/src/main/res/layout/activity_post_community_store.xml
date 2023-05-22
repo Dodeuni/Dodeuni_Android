@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/write_community_toolbar_store"
+        app:titleTextColor="@color/black"
+        android:background="@color/white"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="장터글쓰기"
+            android:layout_gravity="center"
+            android:fontFamily="@font/inter_bold"
+            android:id="@+id/toolbar_title_store"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록"
+            android:layout_gravity="right"
+            android:fontFamily="@font/inter_medium"
+            android:id="@+id/btn_reg_community_store"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/et_post_title_store"
+        android:fontFamily="@font/inter_medium"
+        android:hint="     제목을 입력해주세요."/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:id="@+id/et_post_content_store"
+        android:hint="     내용을 입력해주세요."
+        android:fontFamily="@font/inter_medium"
+        android:gravity="top"/>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_addpicture_store"
+        android:layout_gravity="top"
+        app:srcCompat="@drawable/add_picture"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_imageview_post_store"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:background="@drawable/dialog_radius"
+        android:orientation="horizontal"
+        />
+</LinearLayout>

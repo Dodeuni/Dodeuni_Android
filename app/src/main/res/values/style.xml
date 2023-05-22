@@ -42,4 +42,18 @@
         <item name="stGravity">center</item>
         <item name="stRadius">100dp</item>
     </style>
+    <style name="mytoast_music">
+        <item name="stTextBold">true</item>
+        <item name="stTextColor">#000000</item>
+        <item name="stFont">@font/inter_bold</item>
+        <item name="stTextSize">14sp</item>
+        <item name="stColorBackground">#FFFFFF</item>
+        <item name="stSolidBackground">true</item>
+        <item name="stStrokeWidth">3dp</item>
+        <item name="stStrokeColor">#2C8878</item>
+        <item name="stIconStart">@drawable/musicpapa</item>
+        <item name="stLength">SHORT</item>
+        <item name="stGravity">center</item>
+        <item name="stRadius">100dp</item>
+    </style>
 </resources>

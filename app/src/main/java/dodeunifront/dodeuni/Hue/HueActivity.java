@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
@@ -221,6 +222,8 @@ public class HueActivity extends AppCompatActivity {
         }
     };
     public void calltodo(String text){
+        StyleableToast.makeText(getApplicationContext(),"노래를 추천중입니다···",Toast.LENGTH_SHORT,
+                R.style.mytoast_music).show();
         mCallAIReply = mRetrofitAPI.getfeeling(text);
         mCallAIReply.enqueue(mRtrofitCallback);
     }
@@ -272,7 +275,10 @@ public class HueActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 원하는 기능 구현
                 // 아마 유튜브링크 연결 예정임
+
                 dialogmusic.dismiss();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/"));
+                startActivity(intent);
                 finish();           // 앱 종료
             }
         });

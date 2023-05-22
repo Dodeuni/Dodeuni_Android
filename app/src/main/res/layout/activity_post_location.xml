@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".map.view.LocationPostActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <dodeunifront.dodeuni.TopView
+            android:id="@+id/topview_post_location"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="장소 리뷰 작성하기" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_location_enroll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="15dp"
+            app:cardCornerRadius="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/inter_regular"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="15dp"
+                android:background="@color/main_color"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:text="등록" />
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <dodeunifront.dodeuni.LocationDetailView
+            android:id="@+id/ldview_post_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
+
+        <EditText
+            android:id="@+id/edit_post_location_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:ellipsize="end"
+            android:hint="제목을 입력해주세요."
+            android:text="수내역 근처 사시는 분들" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
+
+        <EditText
+            android:id="@+id/edit_post_location_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:gravity="start"
+            android:hint="내용을 입력해주세요."
+            android:text="분당 수내역 근처에 복지센터가 생겼다네요! 근처사시는분들은 함 가보세요~ 저는 오늘 가봤는데 좋더라구요 ㅎㅎ" />
+    </LinearLayout>
+
+</LinearLayout>

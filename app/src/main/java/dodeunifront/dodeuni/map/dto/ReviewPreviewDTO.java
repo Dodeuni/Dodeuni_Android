@@ -1,0 +1,36 @@
+package dodeunifront.dodeuni.map.dto;
+
+public class ReviewPreviewDTO {
+    private int id;
+
+    private String title;
+
+    private String content;
+
+    private int uid;
+
+    public ReviewPreviewDTO(int id, String title, String content, int uid){
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.uid = uid;
+    }
+
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){ this.id = id; }
+
+    public String getTitle(){
+        return title;
+    }
+    public void setTitle(String title){ this.title = title;}
+
+    public String getContent(){ return content; }
+    public void setContent(String content){
+        this.content = content;
+    }
+
+    public int getUid(){return uid;}
+    public void setUid(int uid){this.uid = uid;}
+}

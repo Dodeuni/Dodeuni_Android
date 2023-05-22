@@ -30,6 +30,18 @@ public class TopView extends FrameLayout {
             a.recycle();
         }
         setTitle(title);
+
+        btn_back.setOnClickListener(view -> mButtonClickListener.onButtonClicked());
+    }
+
+    public interface OnButtonClickListener {
+        void onButtonClicked();
+    }
+
+    private OnButtonClickListener mButtonClickListener;
+
+    public void setOnButtonClickListener(OnButtonClickListener a_listener){
+        mButtonClickListener = a_listener;
     }
 
     public void setTitle(String title) {

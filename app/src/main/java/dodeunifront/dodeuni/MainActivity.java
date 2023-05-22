@@ -3,6 +3,12 @@ package dodeunifront.dodeuni;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.Toast;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,8 +26,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
+
+import dodeunifront.dodeuni.community.CommunityFragment;
+import dodeunifront.dodeuni.map.view.MapFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -37,7 +48,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     final String TAG = this.getClass().getSimpleName();
-
     FrameLayout home;
     BottomNavigationView bottomNavigationView;
     Long userId;
@@ -81,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        init(); //객체 정의
+        SettingListener(); //리스너 등록
         Intent intent = getIntent();
         if(intent.getStringExtra("flag").equals("newuser")){
             userId = intent.getLongExtra("userId",-1);
@@ -159,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.menu_location: {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content_layout, new MapFragment())  //임시
+                            .commit();
                     return true;
                 }
                 case R.id.menu_mypage: {

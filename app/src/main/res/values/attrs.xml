@@ -3,4 +3,10 @@
     <declare-styleable name="TopView">
         <attr name="title" format="string"/>
     </declare-styleable>
+    <declare-styleable name="LocationDetailView">
+        <attr name="name" format="string"/>
+        <attr name="category" format="string"/>
+        <attr name="address" format="string"/>
+        <attr name="contact" format="string"/>
+    </declare-styleable>
 </resources>

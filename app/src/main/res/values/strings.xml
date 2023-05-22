@@ -13,4 +13,58 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="default_notification_channel_id">Dodeuni</string>
     <string name="default_notification_channel_Name">도드니</string>
+    <string name="naver_client_id">ugvqJybxP0hlYISi8g1M</string>
+    <string name="naver_client_secret">BCFcE8WPWS</string>
+    <string name="naver_client_name">도드니</string>
+
+    <string-array name="공포">
+        <item>그대의 우주 – 이예린</item>
+        <item>촉촉 – 피터팬 컴플렉스</item>
+        <item>봉인해제의 밤 – 페이퍼컷 프로젝트</item>
+        <item>Teddy Bear Rises – 우효</item>
+        <item>데이먼스 이어 - Auburn</item>
+    </string-array>
+    <string-array name="놀람">
+        <item>지구밖 – 만쥬한봉지</item>
+        <item>스트레이 - 달</item>
+        <item>balloons – CHEEZE</item>
+        <item>공놀이 – 참깨와 솜사탕</item>
+        <item>언젠가 설명이 필요한 밤 – 안녕하신가영</item>
+    </string-array>
+    <string-array name="분노">
+        <item>내가 나에게-신승훈</item>
+        <item> 박효신 - 야생화</item>
+        <item>FTisland - 새들처럼</item>
+        <item>콜드 - your dog loves you</item>
+        <item>양요섭 - 위로</item>
+    </string-array>
+    <string-array name="중립">
+        <item>박효신 - i am your friend</item>
+        <item>아이유 - 에필로그</item>
+        <item>김광석 - 너무 깊이 생각하지마</item>
+        <item>서영은 - 혼자가 아닌 나</item>
+        <item>신해철 - 민물장어의 꿈</item>
+    </string-array>
+    <string-array name="슬픔">
+        <item>소녀시대 - 힘내!</item>
+        <item>비스트 - 오아시스</item>
+        <item>옥상달빛 - 달리기</item>
+        <item>Verandah Project - 괜찮아</item>
+        <item>싸이 - 기댈곳</item>
+    </string-array>
+    <string-array name="행복">
+        <item>윤하 - sunflower</item>
+        <item>버즈 - 너는 나의 꽃이야</item>
+        <item>임한별 - 꽃처럼 이쁜 그대</item>
+        <item>첸 - 꽃</item>
+        <item>케이시 - 언제나사랑해</item>
+    </string-array>
+    <string-array name="혐오">
+        <item>이영훈 - 오늘의 안녕</item>
+        <item>신지훈 - lonely heart</item>
+        <item>프롬 - Blue night</item>
+        <item>OoOo (오넷) - 영원이라는 건 없지만</item>
+        <item>나이트오프 - 이 밤에 숨어요</item>
+    </string-array>
+
 </resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:id="@+id/edit_community_toolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ToolbarTheme"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="글수정하기"
+            android:fontFamily="@font/inter_bold"
+            android:layout_gravity="center"
+            android:id="@+id/toolbar_title"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:fontFamily="@font/inter_regular"
+            android:layout_gravity="right"
+            android:id="@+id/btn_edit_editcommunity"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="세부 카테고리는 수정할 수 없습니다."
+        android:layout_gravity="center"
+        android:fontFamily="@font/inter_regular"
+        android:gravity="center"
+        android:layout_marginTop="10dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_edit_sub"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:backgroundTint="#9D9D9D"
+            android:fontFamily="@font/inter_bold"
+            android:text="세부카테고리"
+            android:textColor="@color/white"
+            android:background="@drawable/selector_radiobutton"
+            />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/inter_regular"
+        android:id="@+id/et_edit_title"
+        android:hint="     제목을 입력해주세요."/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:id="@+id/et_edit_content"
+        android:hint="     내용을 입력해주세요."
+        android:fontFamily="@font/inter_regular"
+        android:gravity="top"/>
+
+        <ImageView
+            android:id="@+id/btn_edit_addpicture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:background="@drawable/dialog_radius"
+            app:srcCompat="@drawable/add_picture"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_imageview_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:background="@drawable/dialog_radius"
+        android:orientation="horizontal"
+        />
+
+</LinearLayout>

@@ -28,6 +28,15 @@ public class RegAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ArrayList<CommunityListResponseDTO> mdataList = null;
     Long userId;
     String nickname;
+    public interface OnItemClickListener{
+        void onItemClick(View v, int position); //뷰와 포지션값
+    }
+    //리스너 객체 참조 변수
+    private RegAdapter.OnItemClickListener mListener = null;
+    //리스너 객체 참조를 어댑터에 전달 메서드
+    public void setOnItemClickListener(RegAdapter.OnItemClickListener listener) {
+        this.mListener = listener;
+    }
     public RegAdapter(ArrayList<CommunityListResponseDTO> dataList,Long userId,String nickname){
             mdataList = dataList;
             this.userId = userId;
@@ -60,22 +69,22 @@ public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int po
             .into(((MyViewHolder) viewHolder).imageView);
 
 
-    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int mPosition = viewHolder.getBindingAdapterPosition();
-                Context context = view.getContext();
-                Intent detail = new Intent(context, DetailCommunityActivity.class);
-
-                detail.putExtra("id",mdataList.get(mPosition).getId());
-                detail.putExtra("userid",mdataList.get(mPosition).getUserId());
-                detail.putExtra("login_userId",userId);
-                detail.putExtra("nickname",nickname);
-
-
-                context.startActivity(detail);
-            }
-        });
+//    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int mPosition = viewHolder.getBindingAdapterPosition();
+//                Context context = view.getContext();
+//                Intent detail = new Intent(context, DetailCommunityActivity.class);
+//
+//                detail.putExtra("id",mdataList.get(mPosition).getId());
+//                detail.putExtra("userid",mdataList.get(mPosition).getUserId());
+//                detail.putExtra("login_userId",userId);
+//                detail.putExtra("nickname",nickname);
+//
+//
+//                context.startActivity(detail);
+//            }
+//        });
         }
 
 @Override
@@ -99,6 +108,18 @@ public class MyViewHolder extends RecyclerView.ViewHolder{
         nickname = itemView.findViewById(R.id.tv_community_writer);
         createdate = itemView.findViewById(R.id.tv_community_time);
         imageView = itemView.findViewById(R.id.iv_communitylist);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = getAbsoluteAdapterPosition ();
+                if (position!=RecyclerView.NO_POSITION){
+                    if (mListener!=null){
+                        mListener.onItemClick (itemView,position);
+                    }
+                }
+            }
+        });
 
     }
 }

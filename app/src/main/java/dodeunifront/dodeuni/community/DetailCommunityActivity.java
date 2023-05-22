@@ -70,6 +70,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
 
+    int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +101,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
         main_writer_userid = detail.getLongExtra("userid",100); //지금보고 있는 게시글의 아이디
         login_userId = detail.getLongExtra("login_userId",-1);
         nickname =detail.getStringExtra("nickname");
+        position = detail.getIntExtra("position",-99);
 
         btn_write_menu.setVisibility(View.INVISIBLE);
         if(main_writer_userid==login_userId){
@@ -305,6 +308,9 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     }
                 });
                 dilaog01.dismiss();
+                Intent intent = new Intent();
+                intent.putExtra("position",position);
+                setResult(3000,intent);
                 finish();           // 앱 종료
             }
         });

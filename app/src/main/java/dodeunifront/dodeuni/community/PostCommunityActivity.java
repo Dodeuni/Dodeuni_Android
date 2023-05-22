@@ -217,6 +217,12 @@ public class PostCommunityActivity extends AppCompatActivity {
                         .build();
 
                 PostcommunityAPI _postcommunityAPI = retrofit.create(PostcommunityAPI.class);
+                final String[] nickname_i = new String[1];
+                final String[] date_i = new String[1];
+                final String[] turi_i = new String[1];
+                final Long[] id_i = new Long[1];
+                final Long[] userid_i = new Long[1];
+
                 _postcommunityAPI.postData(userId,map,names).enqueue(new Callback<ResponseCommunityDTO>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponseCommunityDTO> call, @NonNull Response<ResponseCommunityDTO> response) {
@@ -225,6 +231,16 @@ public class PostCommunityActivity extends AppCompatActivity {
                                 Log.e("글 등록완료","성공적!");
                                 StyleableToast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_LONG,
                                         R.style.mytoast).show();
+                                nickname_i[0] = response.body().getNickname();
+                                date_i[0] = response.body().getCreatedDateTime();
+                                if(response.body().getPhotoUrl()==null){
+                                    turi_i[0] = "";
+                                } else{
+                                    turi_i[0] = response.body().getPhotoUrl().get(0);
+                                }
+                                id_i[0] = response.body().getId();
+                                userid_i[0] = response.body().getUserId();
+
                             }
                         }
                         else {
@@ -250,7 +266,18 @@ public class PostCommunityActivity extends AppCompatActivity {
 
                     }
                 });
+                Intent intent = new Intent();
+                intent.putExtra("title",title);
+                intent.putExtra("content",content);
+                intent.putExtra("nickname",nickname_i[0]);
+                intent.putExtra("date",date_i[0]);
+                intent.putExtra("turi",turi_i[0]);
+                intent.putExtra("id",id_i[0]);
+                intent.putExtra("userid",userid_i[0]);
+                setResult(7000);
+
                 dilaog01.dismiss();
+
                 finish();           // 앱 종료
             }
         });

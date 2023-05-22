@@ -1,11 +1,16 @@
 package dodeunifront.dodeuni.community;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,6 +35,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Bigtab_storeFragment extends Fragment {
+    private ActivityResultLauncher<Intent> detailLauncher;    //TODO 디테일액티비티로 넘어가는 콜백
+
     RecyclerView recyclerView;
     RegAdapter regAdapter;
     PostCommunityDTO regData;
@@ -127,6 +134,32 @@ public class Bigtab_storeFragment extends Fragment {
             @Override
             public void onFailure(Call<List<CommunityListResponseDTO>> call, Throwable t) {
 
+            }
+        });
+        regAdapter.setOnItemClickListener(new RegAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent detail = new Intent(getContext(), DetailCommunityActivity.class);
+
+                detail.putExtra("id",regarrayList.get(position).getId());
+                detail.putExtra("userid",regarrayList.get(position).getUserId());
+                detail.putExtra("login_userId",userId);
+                detail.putExtra("nickname",nickname);
+                detail.putExtra("position",position);
+
+                detailLauncher.launch(detail);
+            }
+        });
+        detailLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if (result.getResultCode()== 3000){
+                    Log.e("삭제완fy : ","삭제되었다");
+
+                    regarrayList.remove(result.getData().getIntExtra("position",-99));
+                    regAdapter.notifyItemRemoved(result.getData().getIntExtra("position",-99));
+                    regAdapter.notifyDataSetChanged();
+                }
             }
         });
         return rootView;

@@ -240,7 +240,7 @@ public class MypageFragment extends Fragment {
                 editor.commit();
                 dialog_logout.dismiss();
                 Intent i = new Intent(getContext(), LoginActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
         });

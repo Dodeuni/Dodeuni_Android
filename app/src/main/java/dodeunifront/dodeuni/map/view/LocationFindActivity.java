@@ -134,7 +134,7 @@ public class LocationFindActivity extends AppCompatActivity {
                 .build();
 
         KakaoMapAPI kakaoMapAPI = retrofit.create(KakaoMapAPI.class);
-        kakaoMapAPI.getFindDataList(keyword, centerPoint.getMapPointGeoCoord().longitude+"", centerPoint.getMapPointGeoCoord().latitude+"", 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
+        kakaoMapAPI.getKeywordLocationList(keyword, centerPoint.getMapPointGeoCoord().longitude+"", centerPoint.getMapPointGeoCoord().latitude+"", 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
             @Override
             public void onResponse(Call<ResponseKakaoLocationListDTO> call, Response<ResponseKakaoLocationListDTO> response) {
                 if (response.body().getLength() != 0) {

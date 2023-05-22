@@ -73,7 +73,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         locationDetailView.setName(locationData.getName());
         locationDetailView.setCategory(locationData.getCategory());
         locationDetailView.setAddress(locationData.getAddress());
-        locationDetailView.setCategory(locationData.getContact());
+        locationDetailView.setContact(locationData.getContact());
     }
 
     public void getLocationData(){

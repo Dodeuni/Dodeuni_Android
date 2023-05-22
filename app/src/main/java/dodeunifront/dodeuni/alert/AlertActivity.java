@@ -71,7 +71,7 @@ public class AlertActivity extends AppCompatActivity {
         alertAPI.getAlert(1).enqueue(new Callback<ResponseAlertListDTO>() {
             @Override
             public void onResponse(Call<ResponseAlertListDTO> call, Response<ResponseAlertListDTO> response) {
-                if (response.body().getLength() != 0) {
+                if (response.body() != null) {
                     alertListResult = response.body();
                     initRecyclerView();
                     //Log.d("성공", alertListResult.getAlertList().get(0).getAlarm());

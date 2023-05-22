@@ -31,7 +31,7 @@ public class RecommendLocationRecyclerAdapter extends RecyclerView.Adapter<Recom
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_location_recommend, viewGroup, false);
+                .inflate(R.layout.item_find_location_recommend, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -54,9 +54,9 @@ public class RecommendLocationRecyclerAdapter extends RecyclerView.Adapter<Recom
             super(view);
             this.view = view;
 
-            name = view.findViewById(R.id.tv_recommend_location_name);
-            category = view.findViewById(R.id.tv_recommend_location_category);
-            distance = view.findViewById(R.id.tv_recommend_location_distance);
+            name = view.findViewById(R.id.tv_find_location_title);
+            category = view.findViewById(R.id.tv_find_location_category);
+            distance = view.findViewById(R.id.tv_find_location_address);
         }
 
         void onBind(ResponseRecommendLocationDTO location){

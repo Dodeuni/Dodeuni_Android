@@ -27,9 +27,6 @@
             android:name=".community.PostCommunityStoreActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
             android:name=".map.view.LocationPostActivity"
             android:exported="false" />
         <activity

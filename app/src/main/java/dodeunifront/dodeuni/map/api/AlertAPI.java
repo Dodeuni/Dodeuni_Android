@@ -11,7 +11,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface AlertAPI {
-    String URL = "http://172.30.1.6:8080/";
+    String URL = "http://192.168.0.18:8080/";
 
     @GET("api/alarm")
     Call<ResponseAlertListDTO> getAlert(

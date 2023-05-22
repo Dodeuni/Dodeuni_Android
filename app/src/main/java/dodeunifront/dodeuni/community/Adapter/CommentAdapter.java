@@ -79,7 +79,7 @@ public class CommentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        int nowposi = viewHolder.getAbsoluteAdapterPosition();
+                        int nowposi = viewHolder.getAdapterPosition();
                         if (menuItem.getItemId() == R.id.popup_deleteco){
 //                            dilaog01 = new Dialog(mcontext);       // Dialog 초기화
 //                            dilaog01.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

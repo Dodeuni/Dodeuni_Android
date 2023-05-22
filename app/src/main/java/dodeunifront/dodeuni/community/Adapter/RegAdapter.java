@@ -112,7 +112,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder{
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int position = getAbsoluteAdapterPosition ();
+                int position = getAdapterPosition ();
                 if (position!=RecyclerView.NO_POSITION){
                     if (mListener!=null){
                         mListener.onItemClick (itemView,position);

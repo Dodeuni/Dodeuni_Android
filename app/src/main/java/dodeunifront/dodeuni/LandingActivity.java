@@ -49,44 +49,41 @@ public class LandingActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(local_uid!=-1) {
-                    LoginAPI loginAPI = retrofit.create(LoginAPI.class);
-                    loginAPI.getDatalogin(local_uid).enqueue(new Callback<UserResponseDTO>() {
-                        @Override
-                        public void onResponse(Call<UserResponseDTO> call, Response<UserResponseDTO> response) {
-                            if (response.isSuccessful()){
-                                if (response.body()!=null){
-//                                    userId = response.body().getId();
-//                                    name = response.body().getNickname();
-//                                    email = response.body().getEmail();
-
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    intent.putExtra("userId",response.body().getId());
-                                    intent.putExtra("name",response.body().getNickname());
-                                    intent.putExtra("email",response.body().getEmail());
-
-                                    intent.putExtra("flag","olduser");
-                                    intent.putExtra("local_uid",local_uid);
-                                    startActivity(intent);
-                                    finish();
-                                    //Log.e("기존회원","id:"+userId+"\nname:"+ name+"\nemail:"+email);
-                                } else{ Log.e("성공하못함연결","");}
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<UserResponseDTO> call, Throwable t) {
-                            Log.e("통신에러",t.toString());
-
-                        }
-                    });
-
-                }
-                else{
+//                if(local_uid!=-1) {
+//                    LoginAPI loginAPI = retrofit.create(LoginAPI.class);
+//                    loginAPI.getDatalogin(local_uid).enqueue(new Callback<UserResponseDTO>() {
+//                        @Override
+//                        public void onResponse(Call<UserResponseDTO> call, Response<UserResponseDTO> response) {
+//                            if (response.isSuccessful()){
+//                                if (response.body()!=null){
+//
+//                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                                    intent.putExtra("userId",response.body().getId());
+//                                    intent.putExtra("name",response.body().getNickname());
+//                                    intent.putExtra("email",response.body().getEmail());
+//
+//                                    intent.putExtra("flag","olduser");
+//                                    intent.putExtra("local_uid",local_uid);
+//                                    startActivity(intent);
+//                                    finish();
+//                                    //Log.e("기존회원","id:"+userId+"\nname:"+ name+"\nemail:"+email);
+//                                } else{ Log.e("성공하못함연결","");}
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<UserResponseDTO> call, Throwable t) {
+//                            Log.e("통신에러",t.toString());
+//
+//                        }
+//                    });
+//
+//                }
+//                else{
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();}
-            }
+//            }
         },2000); // 3초 있다 메인액티비티로
     }
 

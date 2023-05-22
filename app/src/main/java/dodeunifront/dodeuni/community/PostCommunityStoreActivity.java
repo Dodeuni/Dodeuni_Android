@@ -46,6 +46,7 @@ import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
 import dodeunifront.dodeuni.community.DTO.ResponseCommunityDTO;
+import io.github.muddz.styleabletoast.StyleableToast;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -183,7 +184,7 @@ public class PostCommunityStoreActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             if (response.body()!=null){
                                 Log.e("저장완료","+");
-                                Toast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_SHORT).show();
+                                StyleableToast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_LONG).show();
                             }
                         }
                         else {

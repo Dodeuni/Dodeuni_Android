@@ -175,7 +175,7 @@ public class CommunityFragment extends Fragment {
                         break;
                     case 1:
                         Bundle bundle2 = new Bundle();
-                        bundle2.putLong("userID", userId);
+                        bundle2.putLong("userId", userId);
                         bundle2.putString("nickname",nickname);
                         FragmentTransaction transaction2 = getActivity().getSupportFragmentManager().beginTransaction();
                         fragment2.setArguments(bundle2);
@@ -185,7 +185,7 @@ public class CommunityFragment extends Fragment {
                         break;
                     case 2:
                         Bundle bundle3 = new Bundle();
-                        bundle3.putLong("userID", userId);
+                        bundle3.putLong("userId", userId);
                         bundle3.putString("nickname",nickname);
                         FragmentTransaction transaction3 = getActivity().getSupportFragmentManager().beginTransaction();
                         fragment3.setArguments(bundle3);

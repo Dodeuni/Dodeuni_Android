@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface LocationAPI {
-    String URL = "http://172.30.1.6:8080/";
+    String URL = "http://192.168.0.18:8080/";
 
     @POST("api/places")
     Call<ResponseEnrollLocationDTO> postLocation(

@@ -3,8 +3,13 @@ package dodeunifront.dodeuni;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -35,6 +40,10 @@ import dodeunifront.dodeuni.community.CommunityFragment;
 import dodeunifront.dodeuni.map.view.MapFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.kakao.util.maps.helper.Utility;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import dodeunifront.dodeuni.community.CommunityFragment;
 import dodeunifront.dodeuni.login.LoginAPI;
@@ -91,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.i("HASH", "Key Hash: " + getKeyHashBase64(this));
         init(); //객체 정의
         SettingListener(); //리스너 등록
         Intent intent = getIntent();
@@ -216,6 +225,22 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected (item);
         }
+    }
+    public String getKeyHashBase64(Context context) {
+        PackageInfo packageInfo = Utility.getPackageInfo(context, PackageManager.GET_SIGNATURES);
+        if (packageInfo == null)
+            return null;
+
+        for (Signature signature : packageInfo.signatures) {
+            try {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                return Base64.encodeToString(md.digest(), Base64.DEFAULT);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
 

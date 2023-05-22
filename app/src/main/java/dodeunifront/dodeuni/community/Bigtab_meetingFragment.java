@@ -146,7 +146,8 @@ public class Bigtab_meetingFragment extends Fragment {
                 detail.putExtra("login_userId",userId);
                 detail.putExtra("nickname",nickname);
                 detail.putExtra("position",position);
-
+                Log.e("왜안돼",regarrayList.get(position).getId()+"    "+regarrayList.get(position).getUserId()+"   "+userId+
+                        "        "+nickname+position);
                 detailLauncher.launch(detail);
             }
         });

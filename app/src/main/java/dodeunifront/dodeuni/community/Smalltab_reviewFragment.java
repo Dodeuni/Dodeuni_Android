@@ -148,6 +148,7 @@ public class Smalltab_reviewFragment extends Fragment {
                 detail.putExtra("nickname",nickname);
                 detail.putExtra("position",position);
 
+
                 detailLauncher.launch(detail);
             }
         });

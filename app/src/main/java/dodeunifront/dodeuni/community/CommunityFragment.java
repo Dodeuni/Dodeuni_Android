@@ -1,8 +1,15 @@
 package dodeunifront.dodeuni.community;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +28,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import dodeunifront.dodeuni.R;
+import dodeunifront.dodeuni.community.DTO.CommunityListResponseDTO;
 import io.github.muddz.styleabletoast.StyleableToast;
 
 public class CommunityFragment extends Fragment {
@@ -30,7 +39,7 @@ public class CommunityFragment extends Fragment {
     Boolean isAllFabsVisible;
     Long userId;
     String nickname;
-
+    FrameLayout uaua;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +52,7 @@ public class CommunityFragment extends Fragment {
         fragment1 = new Bigtab_infoFragment();
         fragment2 = new Bigtab_storeFragment();
         fragment3 = new Bigtab_meetingFragment();
-
+        uaua = view.findViewById(R.id.tab_container);
 
         tabRoot = view.findViewById(R.id.tabRoot);
 
@@ -67,21 +76,16 @@ public class CommunityFragment extends Fragment {
 
         ExtendedFloatingActionButton fab = view.findViewById(R.id.fab_main);
 
-        FloatingActionButton fab_info = view.findViewById(R.id.fab_info);
-        FloatingActionButton fab_store = view.findViewById(R.id.fab_store);
-        FloatingActionButton fab_meeting = view.findViewById(R.id.fab_meeting);
-
-        TextView fab_text_info = view.findViewById(R.id.tv_fab_info);
-        TextView fab_text_store = view.findViewById(R.id.tv_fab_store);
-        TextView fab_text_meeting = view.findViewById(R.id.tv_fab_meeting);
+        ExtendedFloatingActionButton fab_info = view.findViewById(R.id.fab_info);
+        ExtendedFloatingActionButton fab_store = view.findViewById(R.id.fab_store);
+        ExtendedFloatingActionButton fab_meeting = view.findViewById(R.id.fab_meeting);
 
         fab_info.setVisibility(View.GONE);
         fab_store.setVisibility(View.GONE);
         fab_meeting.setVisibility(View.GONE);
 
-        fab_text_info.setVisibility(View.GONE);
-        fab_text_store.setVisibility(View.GONE);
-        fab_text_meeting.setVisibility(View.GONE);
+
+
         isAllFabsVisible = false;
         fab.shrink();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -94,9 +98,6 @@ public class CommunityFragment extends Fragment {
                     fab_store.show();
                     fab_meeting.show();
 
-                    fab_text_info.setVisibility(View.VISIBLE);
-                    fab_text_store.setVisibility(View.VISIBLE);
-                    fab_text_meeting.setVisibility(View.VISIBLE);
 
                     fab.setIconResource(R.drawable.exitbutton);
 
@@ -108,9 +109,6 @@ public class CommunityFragment extends Fragment {
                     fab_store.hide();
                     fab_meeting.hide();
 
-                    fab_text_info.setVisibility(View.GONE);
-                    fab_text_store.setVisibility(View.GONE);
-                    fab_text_meeting.setVisibility(View.GONE);
                     fab.setIconResource(R.drawable.writemenu);
 
 
@@ -119,15 +117,18 @@ public class CommunityFragment extends Fragment {
                 }
             }
         });
+
         fab_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent info_intent = new Intent(getActivity(),PostCommunityActivity.class);
                 info_intent.putExtra("userId",userId);
                 info_intent.putExtra("nickname",nickname);
+
                 startActivity(info_intent);
             }
         });
+
         fab_meeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

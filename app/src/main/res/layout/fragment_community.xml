@@ -33,7 +33,7 @@
             >
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/fab_main"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
                     android:layout_gravity="right|bottom"
@@ -46,29 +46,31 @@
                     app:iconTint="@color/white"
                     />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/fab_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="70dp"
+                    android:layout_marginBottom="80dp"
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#2C8878"
                     app:fabSize="normal"
-                    app:tint="@color/white"
+                    android:textColor="@color/white"
+                    app:iconTint="@color/white"
+                    android:text="정보 글쓰기"
                     android:layout_gravity="right|bottom"
-                    app:srcCompat="@drawable/infomenu"
+                    app:icon="@drawable/infomenu"
                     />
-                <TextView
-                    android:id="@+id/tv_fab_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="정보"
-                    android:fontFamily="@font/inter_bold"
-                    android:layout_marginBottom="85dp"
-                    android:layout_marginEnd="80dp"
-                    android:layout_gravity="right|bottom"
-                    />
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_fab_info"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="정보"-->
+<!--                    android:fontFamily="@font/inter_bold"-->
+<!--                    android:layout_marginBottom="85dp"-->
+<!--                    android:layout_marginEnd="80dp"-->
+<!--                    android:layout_gravity="right|bottom"-->
+<!--                    />-->
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/fab_store"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -76,43 +78,49 @@
                     android:layout_marginEnd="16dp"
                     android:backgroundTint="#2C8878"
                     app:fabSize="normal"
-                    app:tint="@color/white"
+                    app:iconTint="@color/white"
+                    android:text="장터 글쓰기"
+                    android:textColor="@color/white"
                     android:layout_gravity="right|bottom"
-                    app:srcCompat="@drawable/storemenu"
+                    app:icon="@drawable/storemenu"
                     android:contentDescription="@string/app_name" />
-                <TextView
-                    android:id="@+id/tv_fab_store"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="155dp"
-                    android:layout_marginEnd="80dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:layout_gravity="right|bottom"
-                    android:text="장터"
-                    />
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_fab_store"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="155dp"-->
+<!--                    android:layout_marginEnd="80dp"-->
+<!--                    android:fontFamily="@font/inter_bold"-->
+<!--                    android:layout_gravity="right|bottom"-->
+<!--                    android:text="장터"-->
+<!--                    />-->
+                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/fab_meeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="210dp"
+                    android:layout_marginBottom="200dp"
                     android:layout_marginEnd="16dp"
                     android:layout_gravity="right|bottom"
                     android:backgroundTint="#2C8878"
                     app:fabSize="normal"
+                    app:iconTint="@color/white"
+                    android:text="장터 글쓰기"
+                    android:textColor="@color/white"
                     app:tint="@color/white"
-                    app:srcCompat="@drawable/meetmenu"
-                    android:contentDescription="@string/app_name" />
+                    app:icon="@drawable/meetmenu"
+                    android:contentDescription="@string/app_name"/>
+
                 <!--Action name text for the add person button-->
-                <TextView
-                    android:id="@+id/tv_fab_meeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="225dp"
-                    android:layout_marginEnd="80dp"
-                    android:fontFamily="@font/inter_bold"
-                    android:layout_gravity="right|bottom"
-                    android:text="모임"
-                     />
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_fab_meeting"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="225dp"-->
+<!--                    android:layout_marginEnd="80dp"-->
+<!--                    android:fontFamily="@font/inter_bold"-->
+<!--                    android:layout_gravity="right|bottom"-->
+<!--                    android:text="모임"-->
+<!--                     />-->
         </FrameLayout>
 
     </LinearLayout>

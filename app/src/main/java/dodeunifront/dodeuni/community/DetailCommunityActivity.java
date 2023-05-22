@@ -31,7 +31,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import dodeunifront.dodeuni.Hue.HueAPI;
+import dodeunifront.dodeuni.hue.HueAPI;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.Adapter.CommentAdapter;
 import dodeunifront.dodeuni.community.Adapter.DatailImageAdapter;
@@ -125,8 +125,10 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     tv_content_community_detail.setText(datas.getContent());
                     tv_community_detail_writer.setText(datas.getNickname());
                     String date_fi = datas.getCreatedDateTime();
-                    String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
-                    String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+                    //String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
+                    //String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+                    String createDateTimeParse0 = "날짜";
+                    String createDateTimeParse1 = "시간";
                     String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
                     tv_time_community_detail.setText(createDatTimeresult);
                     if(photo_i!= null)
@@ -134,8 +136,8 @@ public class DetailCommunityActivity extends AppCompatActivity {
                         datailImageAdapter = new DatailImageAdapter(datas.getPhotoUrl(), getApplicationContext());
                         rv_detail_recyclerView.setAdapter(datailImageAdapter);   // 리사이클러뷰에 어댑터 세팅
                         rv_detail_recyclerView.setLayoutManager(new LinearLayoutManager(DetailCommunityActivity.this, LinearLayoutManager.HORIZONTAL, false));
-                        }}
-                else {
+                        }
+                } else {
                 }
             }
 
@@ -157,8 +159,10 @@ public class DetailCommunityActivity extends AppCompatActivity {
                             String nickname = response.body().get(i).getNickname();
 
                             String date_fi = datas.getCreatedDateTime();
-                            String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
-                            String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+                            //String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
+                            //String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+                            String createDateTimeParse0 = "날짜";
+                            String createDateTimeParse1 = "시간";
                             String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
 
                             CommentResponseDTO dict_0 = new CommentResponseDTO(datas.getId(),datas.getContent(),datas.getStep(),datas.getPid(),

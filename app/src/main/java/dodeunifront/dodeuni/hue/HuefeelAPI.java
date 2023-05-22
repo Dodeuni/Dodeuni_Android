@@ -1,13 +1,12 @@
-package dodeunifront.dodeuni.Hue;
+package dodeunifront.dodeuni.hue;
 
-import com.google.gson.JsonObject;
-
+import dodeunifront.dodeuni.R;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface HuefeelAPI {
-    String URL = "http://192.168.0.18:5000";
+    String URL = "http://34.64.117.48:8080";
 
     @GET("/get_sentence_predict/{sentence}") // 서버에 GET 요청을 할 주소 입력
     Call<String> getfeeling(

@@ -18,13 +18,13 @@ public class RequestEnrollReviewDTO {
 
     @SerializedName("uid")
     @Expose
-    private int uid;
+    private Long uid;
 
     public RequestEnrollReviewDTO(){
 
     }
 
-    public RequestEnrollReviewDTO(String title, String content, int pid, int uid){
+    public RequestEnrollReviewDTO(String title, String content, int pid, Long uid){
         this.title = title;
         this.content = content;
         this.pid = pid;
@@ -48,6 +48,6 @@ public class RequestEnrollReviewDTO {
     public int getPid() { return pid;}
     public void setPid(int pid) {this.pid = pid;}
 
-    public int getUid() { return uid;}
-    public void setUid(int uid) {this.uid = uid;}
+    public Long getUid() { return uid;}
+    public void setUid(Long uid) {this.uid = uid;}
 }

@@ -22,7 +22,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,11 +29,8 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import dodeunifront.dodeuni.Hue.HueAPI;
+import dodeunifront.dodeuni.hue.HueAPI;
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.community.DetailCommunityActivity;
-import dodeunifront.dodeuni.community.EditCommunityActivity;
-import dodeunifront.dodeuni.community.PostcommunityAPI;
 import dodeunifront.dodeuni.login.LoginAPI;
 import dodeunifront.dodeuni.login.LoginActivity;
 import dodeunifront.dodeuni.login.UserResponseDTO;

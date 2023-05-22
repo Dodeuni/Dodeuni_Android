@@ -7,10 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
-import android.support.v4.app.INotificationSideChannel;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -24,7 +21,6 @@ import com.google.gson.GsonBuilder;
 
 import dodeunifront.dodeuni.alert.AlertActivity;
 import dodeunifront.dodeuni.map.api.AlertAPI;
-import dodeunifront.dodeuni.map.api.ReviewAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DodeuniFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     static String token = null;
+    static Long localUid = null;
 
     public DodeuniFirebaseMessagingService(){
     }
@@ -81,12 +78,13 @@ public class DodeuniFirebaseMessagingService extends com.google.firebase.messagi
         notificationManager.notify(0, notificationBuilder.build());
     }
 
-    public static void getToken(){
+    public static void getToken(Long uid){
+        localUid = uid;
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
             public void onComplete(@NonNull Task<String> task) {
                 if(!task.isSuccessful()){
-                    Log.d("FIREBASE", "Fetching FCM registratino token failed", task.getException());
+                    Log.d("FIREBASE", "Fetching FCM registration token failed", task.getException());
                 }
                 token = task.getResult();
                 Log.d("FIREBASE", "FCM token: " + token);
@@ -106,8 +104,8 @@ public class DodeuniFirebaseMessagingService extends com.google.firebase.messagi
                 .build();
 
         AlertAPI alertAPI = retrofit.create(AlertAPI.class);
-        Log.d("FIREBASE", "FCM token: " + token);
-        alertAPI.postToken(2, token).enqueue(new Callback<String>() {
+        Log.d("FIREBASE", "FCM token: " + token + " UID: " + localUid);
+        alertAPI.postToken(localUid, token).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d("TOKEN", "토큰 전송됨");

@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.Hue;
+package dodeunifront.dodeuni.hue;
 
 public class ViewType {
     public static final int LEFT_CHAT = 1;

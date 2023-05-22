@@ -3,8 +3,6 @@ package dodeunifront.dodeuni.login;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,7 +19,7 @@ import com.navercorp.nid.oauth.OAuthLoginCallback;
 import com.navercorp.nid.profile.NidProfileCallback;
 import com.navercorp.nid.profile.data.NidProfileResponse;
 
-import dodeunifront.dodeuni.Hue.HueAPI;
+import dodeunifront.dodeuni.hue.HueAPI;
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
 import retrofit2.Call;
@@ -69,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(NidProfileResponse nidProfileResponse) {
                 String userId = nidProfileResponse.getProfile().getId();
-                String name = nidProfileResponse.getProfile().getName().toString();
+                String name = "묘진";
                 String email = nidProfileResponse.getProfile().getEmail().toString();
                 values[0] = userId;
                 values[1] = name;

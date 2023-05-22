@@ -43,7 +43,7 @@ public class RecommendLocationRecyclerAdapter extends RecyclerView.Adapter<Recom
 
     public void setLocationResult(List<ResponseRecommendLocationDTO> result) {
         this.locationResult = result;
-        length = result.size();
+        if(result != null) length = result.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

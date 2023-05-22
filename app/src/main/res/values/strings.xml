@@ -17,6 +17,8 @@
     <string name="naver_client_secret">BCFcE8WPWS</string>
     <string name="naver_client_name">도드니</string>
 
+    <string name="local_host_url">http://172.30.1.6:8080</string>
+
     <string-array name="공포">
         <item>그대의 우주 – 이예린</item>
         <item>촉촉 – 피터팬 컴플렉스</item>

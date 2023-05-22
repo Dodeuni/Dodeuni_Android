@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import dodeunifront.dodeuni.LandingActivity;
 import dodeunifront.dodeuni.LocationDetailView;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
@@ -64,12 +65,12 @@ public class LocationPostActivity extends AppCompatActivity {
         locationData.setPhone(intent.getStringExtra("phone"));
         locationData.setX(intent.getStringExtra("x"));
         locationData.setY(intent.getStringExtra("y"));
-        locationData.setUid(1);
+        locationData.setUid(LandingActivity.localUid);
 
         locationDetailView.setName(locationData.getPlaceName());
         locationDetailView.setCategory(locationData.getCategory());
         locationDetailView.setAddress(locationData.getAddress());
-        locationDetailView.setCategory(locationData.getPhone());
+        locationDetailView.setContact(locationData.getPhone());
     }
 
     public void initTopView(){
@@ -118,7 +119,7 @@ public class LocationPostActivity extends AppCompatActivity {
     }
 
     public void postReview(){
-        reviewData.setUid(1);
+        reviewData.setUid(LandingActivity.localUid);
 
         Gson gson = new GsonBuilder()
                 .setLenient()

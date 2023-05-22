@@ -1,17 +1,15 @@
-package dodeunifront.dodeuni.Hue;
-
-import com.google.gson.JsonObject;
+package dodeunifront.dodeuni.hue;
 
 import java.util.List;
 
+import dodeunifront.dodeuni.R;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 public interface HueAPI {
-    String URL = "http://192.168.0.18:8080/";
+    String URL = "http://34.64.117.48:8080";
 
     @POST("/api/hyus")
     Call<List<HyuResponseDTO>> postDataActive(

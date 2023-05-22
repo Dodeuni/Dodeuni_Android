@@ -24,11 +24,11 @@ public class RequestEnrollLocationDTO {
     private String y;
     @SerializedName("uid")
     @Expose
-    private int uid;
+    private Long uid;
 
     public RequestEnrollLocationDTO(){}
 
-    public RequestEnrollLocationDTO(String name, String category, String address, String contact, String x, String y, int uid){
+    public RequestEnrollLocationDTO(String name, String category, String address, String contact, String x, String y, Long uid){
         this.name = name;
         this.category = category;
         this.address = address;
@@ -74,7 +74,7 @@ public class RequestEnrollLocationDTO {
         this.y = y;
     }
 
-    public int getUid() { return uid;}
-    public void setUid(int uid) {this.uid = uid;}
+    public Long getUid() { return uid;}
+    public void setUid(Long uid) {this.uid = uid;}
 
 }

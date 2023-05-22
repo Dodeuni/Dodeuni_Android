@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.Hue;
+package dodeunifront.dodeuni.hue;
 
 import android.content.Context;
 import android.view.LayoutInflater;

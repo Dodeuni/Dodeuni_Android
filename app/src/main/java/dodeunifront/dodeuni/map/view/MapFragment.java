@@ -1,18 +1,14 @@
 package dodeunifront.dodeuni.map.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +29,7 @@ import net.daum.mf.map.api.MapView;
 
 import java.util.List;
 
-import dodeunifront.dodeuni.DodeuniFirebaseMessagingService;
+import dodeunifront.dodeuni.LandingActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.CurrentLocation;
 import dodeunifront.dodeuni.map.adapter.FindLocationRecyclerAdapter;
@@ -45,7 +41,6 @@ import dodeunifront.dodeuni.map.dto.request.RequestRecommendLocationDTO;
 import dodeunifront.dodeuni.map.dto.KakaoLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
-import dodeunifront.dodeuni.map.dto.KakaoXYDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseKakaoXYListDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseRecommendLocationDTO;
 import retrofit2.Call;
@@ -170,9 +165,6 @@ public class MapFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         getCurrentLocation();
-
-        /* 로그인 or 랜딩 페이지 or 메인 으로 옮길 것 */
-        DodeuniFirebaseMessagingService.getToken();
     }
 
     @Override
@@ -259,6 +251,7 @@ public class MapFragment extends Fragment {
 
     public void setSearchBtn(){
         btnLocationSearch.setOnClickListener(view -> {
+            mapView.removeAllPOIItems();
             String keyword = editSearch.getText().toString();
             if(keyword.length() != 0){
                 getSearchXY(keyword);
@@ -272,7 +265,6 @@ public class MapFragment extends Fragment {
                 tagClicked(tvTags[0]);
                 searchLatitude = currentGeocoord.getLatitude() + "";
                 searchLongitude = currentGeocoord.getLongitude() + "";
-
             }
         });
     }
@@ -302,9 +294,7 @@ public class MapFragment extends Fragment {
             @Override
             public void onResponse(Call<List<ResponseRecommendLocationDTO>> call, Response<List<ResponseRecommendLocationDTO>> response) {
                     recommendResult = response.body();
-                if (response.body().size() != 0) {
-                    mapView.removeAllPOIItems();
-                    mapView.removeAllPOIItems();
+                if (response.body() != null) {
                     setMarkers();
                     Log.d("성공", recommendResult.get(0).getX() + " ");
                 } else {
@@ -374,7 +364,6 @@ public class MapFragment extends Fragment {
                 @Override
                 public void onResponse(Call<ResponseKakaoLocationListDTO> call, Response<ResponseKakaoLocationListDTO> response) {
                     if (response.body().getLength() != 0) {
-                        mapView.removeAllPOIItems();
                         kakaoSearchResult = response.body();
                         double longitude = Double.parseDouble(kakaoSearchResult.getDocuments().get(0).getX());
                         double latitude = Double.parseDouble(kakaoSearchResult.getDocuments().get(0).getY()) - 0.002;
@@ -446,7 +435,7 @@ public class MapFragment extends Fragment {
         locationData.setPhone(location.getPhone());
         locationData.setX(location.getX());
         locationData.setY(location.getY());
-        locationData.setUid(1);
+        locationData.setUid(LandingActivity.localUid);
         locationAPI.postLocation(locationData).enqueue(new Callback<ResponseEnrollLocationDTO>() {
             @Override
             public void onResponse(Call<ResponseEnrollLocationDTO> call, Response<ResponseEnrollLocationDTO> response) {
@@ -475,6 +464,7 @@ public class MapFragment extends Fragment {
             String tag = tags[i];
             int idx = i;
             tv.setOnClickListener(view -> {
+                mapView.removeAllPOIItems();
                 tagClicked(tv);
                 switch (idx){
                     case 0: getRecommendLocation(tag);

@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import dodeunifront.dodeuni.LandingActivity;
 import dodeunifront.dodeuni.LocationDetailView;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
@@ -69,7 +70,7 @@ public class ReviewPostActivity extends AppCompatActivity {
         locationDetailView.setName(locationData.getName());
         locationDetailView.setCategory(locationData.getCategory());
         locationDetailView.setAddress(locationData.getAddress());
-        locationDetailView.setCategory(locationData.getContact());
+        locationDetailView.setContact(locationData.getContact());
     }
 
     public void getLocationData(){
@@ -122,7 +123,7 @@ public class ReviewPostActivity extends AppCompatActivity {
         content = editContent.getText().toString();
 
         if(title != ""  && content != "") {
-            reviewData.setUid(1);
+            reviewData.setUid(LandingActivity.localUid);
             reviewData.setTitle(title);
             reviewData.setContent(content);
             reviewData.setPid(locationId);
@@ -132,9 +133,6 @@ public class ReviewPostActivity extends AppCompatActivity {
                 public void onResponse(Call<ResponseReviewDTO> call, Response<ResponseReviewDTO> response) {
                     if (response.body() != null) {
                         reviewResultData = response.body();
-                        /*Intent intent = new Intent(getApplicationContext(), LocationDetailActivity.class);
-                        intent.putExtra("id", reviewResultData.getPid());
-                        startActivity(intent);*/
                         finish();
                     } else {
                         Log.d("성공", "데이터없음");

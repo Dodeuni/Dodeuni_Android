@@ -51,7 +51,6 @@ public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.itemlist_community, parent, false);
         return new MyViewHolder(view);
-
         }
 
 @Override
@@ -60,8 +59,10 @@ public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int po
         ((MyViewHolder) viewHolder).content.setText(mdataList.get(position).getContent());
         ((MyViewHolder) viewHolder).nickname.setText(mdataList.get(position).getNickname());
         String date_fi = mdataList.get(position).getCreatedDateTime();
-        String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
-        String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+        //String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
+        //String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+        String createDateTimeParse0 = "날짜";
+        String createDateTimeParse1 = "시간";
         String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
         ((MyViewHolder) viewHolder).createdate.setText(createDatTimeresult);
         Glide.with(viewHolder.itemView)

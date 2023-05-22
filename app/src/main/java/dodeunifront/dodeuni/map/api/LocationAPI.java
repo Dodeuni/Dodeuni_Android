@@ -2,6 +2,7 @@ package dodeunifront.dodeuni.map.api;
 
 import java.util.List;
 
+import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.dto.request.RequestEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.request.RequestRecommendLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseDetailLocationDTO;
@@ -14,19 +15,19 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface LocationAPI {
-    String URL = "http://192.168.0.18:8080/";
+    String URL = "http://34.64.117.48:8080";
 
-    @POST("api/places")
+    @POST("/api/places")
     Call<ResponseEnrollLocationDTO> postLocation(
             @Body RequestEnrollLocationDTO requestEnrollLocationDTO
     );
 
-    @POST("api/places/list")
+    @POST("/api/places/list")
     Call<List<ResponseRecommendLocationDTO>> postRecommendList(
             @Body RequestRecommendLocationDTO requestRecommendLocationDTO
     );
 
-    @GET("api/places/{id}")
+    @GET("/api/places/{id}")
     Call<ResponseDetailLocationDTO> getLocationDetail(
             @Path("id") long id
     );

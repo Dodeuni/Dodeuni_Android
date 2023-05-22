@@ -184,7 +184,7 @@ public class PostCommunityStoreActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             if (response.body()!=null){
                                 Log.e("저장완료","+");
-                                StyleableToast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_LONG).show();
+                                StyleableToast.makeText(getApplicationContext(),"글이 등록되었습니다, 새로고침을 해주세요!.",Toast.LENGTH_LONG,R.style.mytoast).show();
                             }
                         }
                         else {

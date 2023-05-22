@@ -66,6 +66,11 @@ public class ReviewPostActivity extends AppCompatActivity {
         });
     }
 
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void initLocationDetailView(){
         locationDetailView.setName(locationData.getName());
         locationDetailView.setCategory(locationData.getCategory());

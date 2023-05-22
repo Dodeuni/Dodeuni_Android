@@ -63,6 +63,12 @@ public class LocationDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void initTopView(){
         TopView topView = findViewById(R.id.topview_detail_map);
         topView.setOnButtonClickListener(() -> {

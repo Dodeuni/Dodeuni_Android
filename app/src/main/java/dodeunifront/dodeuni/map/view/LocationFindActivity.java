@@ -75,10 +75,18 @@ public class LocationFindActivity extends AppCompatActivity {
         });
     }
 
-    public void getCurrentLocation(){
-        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        CurrentLocation currentLocation = new CurrentLocation(lm, this);
-        currentGeocoord = currentLocation.getCurrentLocation();
+    public void onBackPressed() {
+        super.onBackPressed();
+        mapViewContainer.removeView(mapView);
+        finish();
+    }
+
+    public void initTopView(){
+        TopView topView = findViewById(R.id.topview_location_find);
+        topView.setOnButtonClickListener(() -> {
+            mapViewContainer.removeView(mapView);
+            finish();
+        });
     }
 
     public void initBottomSheet(){
@@ -95,12 +103,10 @@ public class LocationFindActivity extends AppCompatActivity {
         moveToCurrentLocation();
     }
 
-    public void initTopView(){
-        TopView topView = findViewById(R.id.topview_location_find);
-        topView.setOnButtonClickListener(() -> {
-            mapViewContainer.removeView(mapView);
-            finish();
-        });
+    public void getCurrentLocation(){
+        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        CurrentLocation currentLocation = new CurrentLocation(lm, this);
+        currentGeocoord = currentLocation.getCurrentLocation();
     }
 
     public void setSearchBtn(){

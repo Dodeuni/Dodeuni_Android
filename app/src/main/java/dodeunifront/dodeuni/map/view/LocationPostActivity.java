@@ -73,6 +73,11 @@ public class LocationPostActivity extends AppCompatActivity {
         locationDetailView.setContact(locationData.getPhone());
     }
 
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void initTopView(){
         TopView topView = findViewById(R.id.topview_post_location);
         topView.setOnButtonClickListener(() -> finish());

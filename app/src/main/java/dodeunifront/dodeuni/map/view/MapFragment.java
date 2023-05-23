@@ -20,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -32,10 +30,9 @@ import java.util.List;
 import dodeunifront.dodeuni.LandingActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.CurrentLocation;
-import dodeunifront.dodeuni.map.retroifit.KakaoRetrofitBuilder;
+import dodeunifront.dodeuni.retroifit.KakaoRetrofitBuilder;
 import dodeunifront.dodeuni.map.adapter.KakaoLocationRecyclerAdapter;
 import dodeunifront.dodeuni.map.adapter.RecommendLocationRecyclerAdapter;
-import dodeunifront.dodeuni.map.api.LocationAPI;
 import dodeunifront.dodeuni.map.dto.request.RequestEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.request.RequestRecommendLocationDTO;
 import dodeunifront.dodeuni.map.dto.KakaoLocationDTO;
@@ -43,12 +40,10 @@ import dodeunifront.dodeuni.map.dto.response.ResponseEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseKakaoXYListDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseRecommendLocationDTO;
-import dodeunifront.dodeuni.map.retroifit.RetrofitBuilder;
+import dodeunifront.dodeuni.retroifit.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapFragment extends Fragment {
 
@@ -81,18 +76,17 @@ public class MapFragment extends Fragment {
     RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if(mapViewContainer != null && mapViewContainer.indexOfChild(mapView) == -1){
-            try {
-                System.out.println("no view");
-                initMapView();
-            } catch (RuntimeException re){
-                re.printStackTrace();
-            }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        System.out.println("view view");
+        getCurrentLocation();
+        currentLongitude = currentGeocoord.getLongitude() + "";
+        currentLatitude = currentGeocoord.getLatitude() + "";
+        searchLongitude = currentLongitude;
+        searchLatitude = currentLatitude;
     }
 
     @Override
@@ -119,34 +113,32 @@ public class MapFragment extends Fragment {
             startActivity(intent);
         });
 
-        btnCurrentLocation.setOnClickListener(view -> {
-            moveToCurrentLocation();
-        });
-
-        setSearchBtn();
-
+        btnCurrentLocation.setOnClickListener(view -> moveToCurrentLocation());
         return v;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        currentLongitude = currentGeocoord.getLongitude() + "";
-        currentLatitude = currentGeocoord.getLatitude() + "";
-        searchLongitude = currentLongitude;
-        searchLatitude = currentLatitude;
-        getRecommendLocation("");
+        getRecommendLocation();
+        setSearchBtn();
+        tagClicked(tvTags[0]);
         setKeywords();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onResume() {
+        super.onResume();
+        if(mapViewContainer != null && mapViewContainer.indexOfChild(mapView) == -1){
+            try {
+                System.out.println("no view");
+                initMapView();
+            } catch (RuntimeException re){
+                re.printStackTrace();
+            }
         }
-        getCurrentLocation();
+
+        System.out.println("view view");
     }
 
     @Override
@@ -188,7 +180,6 @@ public class MapFragment extends Fragment {
             Intent intent = new Intent(getContext(), LocationDetailActivity.class);
             intent.putExtra("id", locationData.getId());
             startActivity(intent);
-            Toast.makeText(getActivity(), "clicked: " + locationData.getName(), Toast.LENGTH_LONG).show();
         });
     }
 
@@ -199,7 +190,6 @@ public class MapFragment extends Fragment {
         mkeywordRecyclerAdapter.setLocationResult(kakaoSearchResult);
         mkeywordRecyclerAdapter.setOnItemClickListener((locationData) -> {
             moveToKakaoLocationDetail(locationData);
-            Toast.makeText(getActivity(), "clicked: " + locationData.getPlaceName(), Toast.LENGTH_LONG).show();
         });
     }
 
@@ -250,7 +240,7 @@ public class MapFragment extends Fragment {
                 tags[0] = "";
                 searchLatitude = currentGeocoord.getLatitude() + "";
                 searchLongitude = currentGeocoord.getLongitude() + "";
-                getRecommendLocation(keyword);
+                getRecommendLocation();
             }
         });
     }
@@ -264,7 +254,7 @@ public class MapFragment extends Fragment {
                 mapView.removeAllPOIItems();
                 tagClicked(tv);
                 switch (idx){
-                    case 0: getRecommendLocation(tag);
+                    case 0: getRecommendLocation();
                         break;
                     case 1:
                     case 4: getKeywordLocation(tag);
@@ -292,17 +282,18 @@ public class MapFragment extends Fragment {
         }
     }
 
-    public void getRecommendLocation(String keyword){
-        System.out.println("1------searchLongitude: " + searchLongitude + " searchLatitude: " + searchLatitude + " keyword: " + keyword);
+    public void getRecommendLocation(){
+        System.out.println("1------searchLongitude: " + searchLongitude + " searchLatitude: " + searchLatitude);
         if(searchLongitude != "200" && searchLatitude != "200") {
             recommendRequest.setX(Double.parseDouble(searchLongitude));
             recommendRequest.setY(Double.parseDouble(searchLatitude));
-            System.out.println("2------searchLongitude: " + recommendRequest.getX() + " searchLatitude: " + Double.parseDouble(searchLatitude) + " keyword: " + keyword);
-            recommendRequest.setKeyword(keyword);
+            System.out.println("2------searchLongitude: " + recommendRequest.getX() + " searchLatitude: " + Double.parseDouble(searchLatitude));
+            recommendRequest.setKeyword("");
             retrofitBuilder.getLocationAPI().postRecommendList(recommendRequest).enqueue(new Callback<List<ResponseRecommendLocationDTO>>() {
                 @Override
                 public void onResponse(Call<List<ResponseRecommendLocationDTO>> call, Response<List<ResponseRecommendLocationDTO>> response) {
                     if (response.body() != null && response.body().size() != 0) {
+                        recommendResult = response.body();
                         double longitude = recommendResult.get(0).getX();
                         double latitude = recommendResult.get(0).getY() - 0.002;
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
@@ -318,7 +309,7 @@ public class MapFragment extends Fragment {
                 }
             });
         } else {
-            System.out.println("3------searchLongitude: " + searchLongitude + " searchLatitude: " + searchLatitude + " keyword: " + keyword);
+            System.out.println("3------searchLongitude: " + searchLongitude + " searchLatitude: " + searchLatitude);
             Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_LONG).show();
         }
     }
@@ -384,7 +375,7 @@ public class MapFragment extends Fragment {
                 if (response.body().getDocuments().size() != 0) {
                     searchLongitude = response.body().getDocuments().get(0).getX();
                     searchLatitude = response.body().getDocuments().get(0).getY();
-                    getRecommendLocation(address);
+                    getRecommendLocation();
                 } else {
                     searchLongitude = "200";
                     searchLatitude = "200";

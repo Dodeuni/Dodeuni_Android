@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map.adapter;
+package dodeunifront.dodeuni.alert;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,13 +7,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import net.daum.mf.map.api.MapView;
-
 import java.util.List;
 
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.dto.AlertDTO;
-import dodeunifront.dodeuni.map.dto.response.ResponseAlertListDTO;
 
 public class AlertRecyclerAdapter extends RecyclerView.Adapter<AlertRecyclerAdapter.ViewHolder> {
     private List<AlertDTO> alertList;

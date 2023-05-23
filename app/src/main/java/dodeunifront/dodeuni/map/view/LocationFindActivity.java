@@ -119,7 +119,6 @@ public class LocationFindActivity extends AppCompatActivity {
             intent.putExtra("y", locationData.getY());
             startActivity(intent);
             finish();
-            Toast.makeText(this, "clicked: " + locationData.getPlaceName(), Toast.LENGTH_LONG).show();
         });
     }
 

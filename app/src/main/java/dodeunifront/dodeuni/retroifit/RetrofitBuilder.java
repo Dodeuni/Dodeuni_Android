@@ -1,10 +1,9 @@
-package dodeunifront.dodeuni.map.retroifit;
+package dodeunifront.dodeuni.retroifit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import dodeunifront.dodeuni.map.api.AlertAPI;
-import dodeunifront.dodeuni.map.api.KakaoMapAPI;
+import dodeunifront.dodeuni.alert.AlertAPI;
 import dodeunifront.dodeuni.map.api.LocationAPI;
 import dodeunifront.dodeuni.map.api.ReviewAPI;
 import retrofit2.Retrofit;

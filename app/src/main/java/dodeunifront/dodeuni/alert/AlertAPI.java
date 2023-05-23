@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map.api;
+package dodeunifront.dodeuni.alert;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 

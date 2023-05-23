@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.map.retroifit;
+package dodeunifront.dodeuni.retroifit;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

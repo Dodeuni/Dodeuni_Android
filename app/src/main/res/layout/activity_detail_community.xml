@@ -6,30 +6,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".community.DetailCommunityActivity">
-    <androidx.appcompat.widget.Toolbar
+
+    <dodeunifront.dodeuni.TopView
+        android:id="@+id/topview_detail_community"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:id="@+id/detail_comunity_toolbar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ToolbarTheme"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="정보교환"
-            android:layout_gravity="center"
-            android:fontFamily="@font/inter_bold"
-            android:id="@+id/tv_detail_toolbar_title"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            />
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="?attr/actionBarSize"
+        app:title="" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:padding="16dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,122 +32,142 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_title_community_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_bold"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:text="" />
+
+                        <TextView
+                            android:id="@+id/tv_time_community_detail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter_regular"
+                            android:text=""
+                            android:textColor="@color/light_gray"
+                            android:textSize="10dp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center"
+                            android:onClick="popupclicks"
+                            android:id="@+id/btn_write_menu"
+                            android:background="@drawable/menu"/>
+                    </LinearLayout>
+
                     <TextView
-                        android:id="@+id/tv_title_community_detail"
-                        android:padding="16dp"
-                        android:textStyle="bold"
+                        android:id="@+id/tv_content_community_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="제목입니다."
-                        android:fontFamily="@font/inter_medium"
-                        android:textSize="25sp"
-                        android:textColor="@color/black"
-                        />
-                    <TextView
-                        android:id="@+id/tv_time_community_detail"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
+                        android:layout_marginVertical="15dp"
                         android:fontFamily="@font/inter_regular"
                         android:textColor="@color/black"
-                        android:text="작성일"/>
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:onClick="popupclicks"
-                        android:id="@+id/btn_write_menu"
-                        android:background="@drawable/menu"/>
+                        android:textSize="16dp"
+                        android:text="" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardCornerRadius="50dp">
+
+                            <ImageView
+                                android:id="@+id/img_review_profile"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:src="@drawable/iv_hue_circle" />
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/tv_community_detail_writer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="" />
+
+                    </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_detail_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintHorizontal_bias="0.0"
+                      />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"/>
-                <TextView
-                    android:id="@+id/tv_content_community_detail"
-                    android:padding="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="내용입니다."
-                    android:textSize="16sp"
-                    android:fontFamily="@font/inter_regular"
-                    android:textColor="@color/black"
-                    />
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="10dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        app:srcCompat="@drawable/iv_hue_circle" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:text="잉뿌엔피"
-                        android:id="@+id/tv_community_detail_writer"
-                        android:textColor="@color/black"
-                        android:textSize="10dp" />
-                </LinearLayout>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_detail_recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:orientation="horizontal"
-                    app:layout_constraintHorizontal_bias="0.0"
-                  />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/black"/>
+                    android:layout_height="8dp"
+                    android:background="@color/gray_for_lines"/>
                 <TextView
                     android:padding="16dp"
-                    android:fontFamily="@font/inter_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/inter_bold"
                     android:text="댓글"
                     />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/comment_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
                     android:orientation="vertical"/>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_margin="15dp"
             >
             <EditText
                 android:id="@+id/comment_et"
-                android:layout_width="290dp"
-                android:padding="20dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="20dp"
                 android:background="@drawable/dialog_radius"
                 android:textColor="@color/black"
+                android:layout_weight="1"
                 android:hint="댓글 내용을 입력하세요"
+                android:textSize="14dp"
                 android:fontFamily="@font/inter_regular"
                 />
-            <androidx.appcompat.widget.AppCompatButton
+            <TextView
                 android:id="@+id/btn_comment"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:padding="8dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="18dp"
+                android:layout_marginLeft="15dp"
                 android:backgroundTint="#2C8878"
                 android:textColor="@color/white"
                 android:fontFamily="@font/inter_regular"
                 android:background="@drawable/dialog_radius"
+                android:textSize="14dp"
                 android:text="등록"
                />
         </LinearLayout>

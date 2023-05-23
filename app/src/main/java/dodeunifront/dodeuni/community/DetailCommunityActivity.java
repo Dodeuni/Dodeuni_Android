@@ -31,6 +31,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.hue.HueAPI;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.Adapter.CommentAdapter;
@@ -54,7 +55,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
     ImageView btn_write_menu,btn_comment_menu;
     RecyclerView rv_detail_recyclerView;
     EditText comment_et;
-    Button btn_comment;
+    TextView btn_comment;
     RecyclerView comment_layout;
     DatailImageAdapter datailImageAdapter;
     Long main_writer_id,main_writer_userid,login_userId;
@@ -79,8 +80,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
         commentResponseDTOArrayList = new ArrayList<>();
         commentAdapter = new CommentAdapter(commentResponseDTOArrayList,getApplicationContext());
 
-
-        toolvartext = (TextView)findViewById(R.id.tv_detail_toolbar_title);
+        //toolvartext = (TextView)findViewById(R.id.tv_detail_toolbar_title);
         tv_title_community_detail = (TextView)findViewById(R.id.tv_title_community_detail);
         tv_time_community_detail = (TextView)findViewById(R.id.tv_time_community_detail);
         tv_content_community_detail = (TextView)findViewById(R.id.tv_content_community_detail);
@@ -88,11 +88,14 @@ public class DetailCommunityActivity extends AppCompatActivity {
         btn_write_menu = (ImageView)findViewById(R.id.btn_write_menu);
         rv_detail_recyclerView = (RecyclerView)findViewById(R.id.rv_detail_recyclerView);
         comment_et = (EditText)findViewById(R.id.comment_et);
-        btn_comment = (Button)findViewById(R.id.btn_comment);
+        btn_comment = findViewById(R.id.btn_comment);
         comment_layout = (RecyclerView) findViewById(R.id.comment_layout);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
         comment_layout.setLayoutManager(linearLayoutManager);
         comment_layout.setAdapter(commentAdapter);
+
+        TopView topView = findViewById(R.id.topview_detail_community);
+        topView.setOnButtonClickListener(() -> finish());
 
 
         Intent detail = getIntent();
@@ -120,7 +123,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     title = datas.getTitle();
                     content = datas.getContent();
 
-                    toolvartext.setText(datas.getSub());
+                    topView.setTitle(datas.getSub());
                     tv_title_community_detail.setText(datas.getTitle());
                     tv_content_community_detail.setText(datas.getContent());
                     tv_community_detail_writer.setText(datas.getNickname());
@@ -187,6 +190,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
                 if (comment_et.getText().length() !=0)
                 {
                     String text = comment_et.getText().toString();
+                    comment_et.setText("");
                     Long cid = main_writer_id;  //게시글 아이디
                     Long uid = login_userId;  //댓글작성자 아이디
                     Log.e("게시글 아이디        ",cid+"     댓글작성자 아이디"+uid);

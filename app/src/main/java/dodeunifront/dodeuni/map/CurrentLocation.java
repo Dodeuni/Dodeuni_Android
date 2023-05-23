@@ -64,10 +64,10 @@ public class CurrentLocation {
                         "경도 : " + latitude);
                 return geocoord;
             }
-            /*lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                    1000,
+            lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+                    10000,
                     1,
-                    gpsLocationListener);*/
+                    gpsLocationListener);
         }
         return null;
     }
@@ -86,7 +86,7 @@ public class CurrentLocation {
             String provider = location.getProvider();  // 위치정보
             double longitude = location.getLongitude(); // 위도
             double latitude = location.getLatitude(); // 경도
-            Log.d("LOCATION LISTENER CLASS" ,"위치정보 : " + provider + "\n" + "위도 : " + longitude + "\n" + "경도 : " + latitude);
+            //Log.d("LOCATION LISTENER CLASS" ,"위치정보 : " + provider + "\n" + "위도 : " + longitude + "\n" + "경도 : " + latitude);
         } public void onStatusChanged(String provider, int status, Bundle extras) {
 
         } public void onProviderEnabled(String provider) {

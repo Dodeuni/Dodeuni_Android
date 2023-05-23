@@ -35,8 +35,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/black"
-                    android:textSize="20dp"
-                    android:text="수내역 근처 사시는 분들" />
+                    android:textSize="20dp" />
 
                 <TextView
                     android:id="@+id/tv_review_time"
@@ -45,7 +44,6 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:fontFamily="@font/inter_regular"
-                    android:text="05/05 04:20"
                     android:textColor="@color/light_gray"
                     android:textSize="10dp" />
 
@@ -63,10 +61,7 @@
                 android:layout_marginVertical="15dp"
                 android:fontFamily="@font/inter_regular"
                 android:textColor="@color/black"
-                android:textSize="16dp"
-                android:text="분당 수내역 근처에 복지센터가 생겼다네요!
-    근처사시는분들은 함 가보세요~
-    저는 오늘 가봤는데 좋더라구요 ㅎㅎ" />
+                android:textSize="16dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,15 +79,14 @@
                         android:id="@+id/img_review_profile"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        tools:src="@tools:sample/avatars" />
+                        android:src="@drawable/iv_hue_circle"/>
                 </androidx.cardview.widget.CardView>
 
                 <TextView
                     android:id="@+id/tv_review_nickname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:text="아들바보" />
+                    android:layout_marginLeft="10dp" />
 
             </LinearLayout>
 

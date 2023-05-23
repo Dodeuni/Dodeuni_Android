@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -50,6 +51,7 @@ import com.google.gson.GsonBuilder;
 import dodeunifront.dodeuni.ErrorModel;
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
+import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
 import dodeunifront.dodeuni.community.DTO.ResponseCommunityDTO;
 import io.github.muddz.styleabletoast.StyleableToast;
@@ -69,7 +71,7 @@ public class PostCommunityActivity extends AppCompatActivity {
     // 사용할 컴포넌트 선언
     EditText title_et, content_et;
     Long userId;
-    Button btn_reg;
+    CardView btn_reg;
     RadioButton btn_change_info,btn_worry,btn_review;
     final private String TAG = getClass().getSimpleName();
     Dialog dilaog01;
@@ -90,7 +92,7 @@ public class PostCommunityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_community);
-        Toolbar toolbar = findViewById(R.id.write_community_toolbar);
+        //Toolbar toolbar = findViewById(R.id.write_community_toolbar);
 
         title_et = findViewById(R.id.et_post_title);
         content_et = findViewById(R.id.et_post_content);
@@ -106,9 +108,12 @@ public class PostCommunityActivity extends AppCompatActivity {
         userId = intent.getLongExtra("userId", -1);
         Log.e("포스트아이디",userId+"");
 
-        setSupportActionBar(toolbar);
+        TopView topView = findViewById(R.id.topview_post_info_community);
+        topView.setOnButtonClickListener(() -> finish());
+
+        //setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
-        getSupportActionBar().setTitle("");
+        //getSupportActionBar().setTitle("");
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

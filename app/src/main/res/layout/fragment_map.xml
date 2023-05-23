@@ -132,7 +132,7 @@
                         android:fontFamily="@font/inter_regular"
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="8dp"
-                        android:text="특수학교"
+                        android:text="어린이병원"
                         android:textColor="@color/black"
                         android:textSize="12dp" />
                 </LinearLayout>

@@ -15,13 +15,11 @@ import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
 import dodeunifront.dodeuni.map.dto.KakaoLocationDTO;
 
-public class FindLocationRecyclerAdapter extends RecyclerView.Adapter<FindLocationRecyclerAdapter.ViewHolder> {
+public class KakaoLocationRecyclerAdapter extends RecyclerView.Adapter<KakaoLocationRecyclerAdapter.ViewHolder> {
     private List<KakaoLocationDTO> locationResult;
     private int length;
-    MapView mapView;
 
-    public FindLocationRecyclerAdapter(MapView mapView){
-        this.mapView = mapView;
+    public KakaoLocationRecyclerAdapter(){
     }
     public interface OnItemClickListener {
         void onItemClicked(KakaoLocationDTO locationData);
@@ -41,7 +39,7 @@ public class FindLocationRecyclerAdapter extends RecyclerView.Adapter<FindLocati
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        viewHolder.onBind(locationResult.get(position), mapView);
+        viewHolder.onBind(locationResult.get(position));
     }
 
     public void setLocationResult(ResponseKakaoLocationListDTO result) {
@@ -62,18 +60,7 @@ public class FindLocationRecyclerAdapter extends RecyclerView.Adapter<FindLocati
             address = view.findViewById(R.id.tv_find_location_address);
         }
 
-        void onBind(KakaoLocationDTO location, MapView mapView){
-            /*double longitude = Double.parseDouble(location.getY());
-            double latitude = Double.parseDouble(location.getX());
-
-            MapPOIItem marker = new MapPOIItem();
-            MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(longitude, latitude);
-            marker.setItemName(location.getPlaceName());
-            marker.setMapPoint(mapPoint);
-            marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
-            marker.setCustomImageResourceId(R.drawable.location_green_midium);
-            mapView.addPOIItem(marker);*/
-
+        void onBind(KakaoLocationDTO location){
             view.setOnClickListener(v -> mItemClickListener.onItemClicked(location));
             title.setText(location.getPlaceName());
             category.setText(location.getCategory());

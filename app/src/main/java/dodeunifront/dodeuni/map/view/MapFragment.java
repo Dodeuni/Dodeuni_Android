@@ -32,9 +32,9 @@ import java.util.List;
 import dodeunifront.dodeuni.LandingActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.CurrentLocation;
-import dodeunifront.dodeuni.map.adapter.FindLocationRecyclerAdapter;
+import dodeunifront.dodeuni.map.retroifit.KakaoRetrofitBuilder;
+import dodeunifront.dodeuni.map.adapter.KakaoLocationRecyclerAdapter;
 import dodeunifront.dodeuni.map.adapter.RecommendLocationRecyclerAdapter;
-import dodeunifront.dodeuni.map.api.KakaoMapAPI;
 import dodeunifront.dodeuni.map.api.LocationAPI;
 import dodeunifront.dodeuni.map.dto.request.RequestEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.request.RequestRecommendLocationDTO;
@@ -77,12 +77,12 @@ public class MapFragment extends Fragment {
     EditText editSearch;
     ResponseKakaoLocationListDTO kakaoSearchResult;
     RecommendLocationRecyclerAdapter mRecommendRecyclerAdapter;
-    FindLocationRecyclerAdapter mkeywordRecyclerAdapter;
+    KakaoLocationRecyclerAdapter mkeywordRecyclerAdapter;
     List<ResponseRecommendLocationDTO> recommendResult;
     RequestRecommendLocationDTO recommendRequest = new RequestRecommendLocationDTO();
     TextView tvRecommend, tvCenter, tvKinder, tvSchool, tvSpecialS;
     TextView tvTags[];
-    String[] tags = {"", "아동발달", "PS3", "SC4", "특수학교"};
+    String[] tags = {"", "아동발달", "PS3", "SC4", "어린이병원"};
 
     public MapFragment() {
         // Required empty public constructor
@@ -125,15 +125,13 @@ public class MapFragment extends Fragment {
         tvKinder = v.findViewById(R.id.tv_kindergarden_tag);
         tvSchool = v.findViewById(R.id.tv_school_tag);
         tvSpecialS = v.findViewById(R.id.tv_special_school_tag);
-        TextView tv_new = v.findViewById(R.id.tv_location_new);
-
+        TextView tvLocationNew = v.findViewById(R.id.tv_location_new);
         tvTags = new TextView[]{tvRecommend, tvCenter, tvKinder, tvSchool, tvSpecialS};
-
 
         initMapView();
         initBottomSheet();
 
-        tv_new.setOnClickListener(view -> {
+        tvLocationNew.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), LocationFindActivity.class);
             startActivity(intent);
         });
@@ -144,7 +142,6 @@ public class MapFragment extends Fragment {
 
         setSearchBtn();
 
-        // Inflate the layout for this fragment
         return v;
     }
 
@@ -211,7 +208,7 @@ public class MapFragment extends Fragment {
     }
 
     public void initRecyclerViewWithKeyword(){
-        mkeywordRecyclerAdapter = new FindLocationRecyclerAdapter(mapView);
+        mkeywordRecyclerAdapter = new KakaoLocationRecyclerAdapter();
         mRecyclerView.setAdapter(mkeywordRecyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         mkeywordRecyclerAdapter.setLocationResult(kakaoSearchResult);
@@ -221,7 +218,7 @@ public class MapFragment extends Fragment {
         });
     }
 
-    public void setMarkers(){
+    public void setRecommendMarkers(){
         for(ResponseRecommendLocationDTO info: recommendResult){
             double lon = info.getY();
             double lat = info.getX();
@@ -269,6 +266,37 @@ public class MapFragment extends Fragment {
         });
     }
 
+    public void setKeywords() {
+        for(int i=0; i<tvTags.length; i++){
+            TextView tv = tvTags[i];
+            String tag = tags[i];
+            int idx = i;
+            tv.setOnClickListener(view -> {
+                mapView.removeAllPOIItems();
+                tagClicked(tv);
+                switch (idx){
+                    case 0: getRecommendLocation(tag);
+                        break;
+                    case 1:
+                    case 4: getKeywordLocation(tag);
+                        break;
+                    case 2:
+                    case 3: getCategoryLocation(tag);
+                        break;
+                }
+            });
+        }
+    }
+
+    public void tagClicked(TextView textView){
+        for(TextView tv: tvTags){
+            tv.setTextColor(getContext().getColor(R.color.black));
+            tv.setBackground(getContext().getDrawable(R.drawable.location_roundedtag));
+        }
+        textView.setTextColor(getContext().getColor(R.color.white));
+        textView.setBackground(getContext().getDrawable(R.drawable.location_roundedtag_green));
+    }
+
     public void moveToCurrentLocation(){
         if(currentGeocoord != null){
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(currentGeocoord.getLatitude(), currentGeocoord.getLongitude()), true);
@@ -295,7 +323,7 @@ public class MapFragment extends Fragment {
             public void onResponse(Call<List<ResponseRecommendLocationDTO>> call, Response<List<ResponseRecommendLocationDTO>> response) {
                     recommendResult = response.body();
                 if (response.body() != null) {
-                    setMarkers();
+                    setRecommendMarkers();
                     Log.d("성공", recommendResult.get(0).getX() + " ");
                 } else {
                     Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_SHORT).show();
@@ -311,17 +339,7 @@ public class MapFragment extends Fragment {
 
     public void getKeywordLocation(String keyword){
         if(searchLongitude != "200" && searchLatitude != "200") {
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(KakaoMapAPI.URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build();
-
-            KakaoMapAPI kakaoMapAPI = retrofit.create(KakaoMapAPI.class);
-            kakaoMapAPI.getKeywordLocationList(keyword, searchLongitude, searchLatitude, 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
+            KakaoRetrofitBuilder.getKakaoMapAPI().getKeywordLocationList(keyword, searchLongitude, searchLatitude, 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
                 @Override
                 public void onResponse(Call<ResponseKakaoLocationListDTO> call, Response<ResponseKakaoLocationListDTO> response) {
                     if (response.body().getLength() != 0) {
@@ -349,18 +367,7 @@ public class MapFragment extends Fragment {
 
     public void getCategoryLocation(String category){
         if(searchLongitude != "200" && searchLatitude != "200") {
-            MapPoint centerPoint = mapView.getMapCenterPoint();
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(KakaoMapAPI.URL)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build();
-
-            KakaoMapAPI kakaoMapAPI = retrofit.create(KakaoMapAPI.class);
-            kakaoMapAPI.getCategoryLocationList(category, searchLongitude, searchLatitude, 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
+            KakaoRetrofitBuilder.getKakaoMapAPI().getCategoryLocationList(category, searchLongitude, searchLatitude, 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
                 @Override
                 public void onResponse(Call<ResponseKakaoLocationListDTO> call, Response<ResponseKakaoLocationListDTO> response) {
                     if (response.body().getLength() != 0) {
@@ -386,17 +393,7 @@ public class MapFragment extends Fragment {
     }
 
     public void getSearchXY(String address){
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(KakaoMapAPI.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        KakaoMapAPI kakaoMapAPI = retrofit.create(KakaoMapAPI.class);
-        kakaoMapAPI.getAddressXY(address, 15).enqueue(new Callback<ResponseKakaoXYListDTO>() {
+        KakaoRetrofitBuilder.getKakaoMapAPI().getAddressXY(address, 15).enqueue(new Callback<ResponseKakaoXYListDTO>() {
             @Override
             public void onResponse(Call<ResponseKakaoXYListDTO> call, Response<ResponseKakaoXYListDTO> response) {
                 if (response.body().getDocuments().size() != 0) {
@@ -456,36 +453,5 @@ public class MapFragment extends Fragment {
                 Log.d("실패", "통신 실패: " + t.getMessage());
             }
         });
-    }
-
-    public void setKeywords() {
-        for(int i=0; i<tvTags.length; i++){
-            TextView tv = tvTags[i];
-            String tag = tags[i];
-            int idx = i;
-            tv.setOnClickListener(view -> {
-                mapView.removeAllPOIItems();
-                tagClicked(tv);
-                switch (idx){
-                    case 0: getRecommendLocation(tag);
-                            break;
-                    case 1:
-                    case 4: getKeywordLocation(tag);
-                            break;
-                    case 2:
-                    case 3: getCategoryLocation(tag);
-                            break;
-                }
-            });
-        }
-    }
-
-    public void tagClicked(TextView textView){
-        for(TextView tv: tvTags){
-            tv.setTextColor(getContext().getColor(R.color.black));
-            tv.setBackground(getContext().getDrawable(R.drawable.location_roundedtag));
-        }
-        textView.setTextColor(getContext().getColor(R.color.white));
-        textView.setBackground(getContext().getDrawable(R.drawable.location_roundedtag_green));
     }
 }

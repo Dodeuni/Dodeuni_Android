@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,9 +43,9 @@ public class Bigtab_infoFragment extends Fragment {
         transaction2.replace(R.id.ss_tab1_container, fragment1_1);
         transaction2.commit();
 
-        Button btn_info = rootView.findViewById(R.id.btn_changeinfo);
-        Button btn_worry = rootView.findViewById(R.id.btn_worry);
-        Button btn_review = rootView.findViewById(R.id.btn_review);
+        TextView btn_info = rootView.findViewById(R.id.btn_changeinfo);
+        TextView btn_worry = rootView.findViewById(R.id.btn_worry);
+        TextView btn_review = rootView.findViewById(R.id.btn_review);
 
 
         btn_info.setBackgroundResource(R.drawable.btn_clicked_color);
@@ -55,9 +56,9 @@ public class Bigtab_infoFragment extends Fragment {
             public void onClick(View v) {
                 btn_info.setBackgroundResource(R.drawable.btn_clicked_color);
                 btn_info.setTextColor(Color.WHITE);
-                btn_worry.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_worry.setBackgroundResource(R.drawable.location_roundedtag);
                 btn_worry.setTextColor(Color.BLACK);
-                btn_review.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_review.setBackgroundResource(R.drawable.location_roundedtag);
                 btn_review.setTextColor(Color.BLACK);
 
                 Bundle bundle = new Bundle();
@@ -74,11 +75,11 @@ public class Bigtab_infoFragment extends Fragment {
         btn_worry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_info.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_info.setBackgroundResource(R.drawable.location_roundedtag);
                 btn_info.setTextColor(Color.BLACK);
                 btn_worry.setBackgroundResource(R.drawable.btn_clicked_color);
                 btn_worry.setTextColor(Color.WHITE);
-                btn_review.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_review.setBackgroundResource(R.drawable.location_roundedtag);
                 btn_review.setTextColor(Color.BLACK);
 
                 Bundle bundle = new Bundle();
@@ -98,9 +99,9 @@ public class Bigtab_infoFragment extends Fragment {
         btn_review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btn_info.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_info.setBackgroundResource(R.drawable.location_roundedtag);
                 btn_info.setTextColor(Color.BLACK);
-                btn_worry.setBackgroundResource(R.drawable.custombtn_smallcommunity);
+                btn_worry.setBackgroundResource(R.drawable.location_roundedtag);
                 btn_worry.setTextColor(Color.BLACK);
                 btn_review.setBackgroundResource(R.drawable.btn_clicked_color);
                 btn_review.setTextColor(Color.WHITE);

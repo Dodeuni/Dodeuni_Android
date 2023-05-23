@@ -8,7 +8,7 @@ public class ResponseAlertListDTO {
     private List<AlertDTO> alertList;
     private int length;
 
-    public ResponseAlertListDTO(List<AlertDTO> documents) {
+    public ResponseAlertListDTO(List<AlertDTO> alertList) {
         this.alertList = alertList;
     }
 

@@ -87,8 +87,8 @@ public class Smalltab_reviewFragment extends Fragment {
                                                 response.body().get(i).getNickname(), response.body().get(i).getTitle(),
                                                 response.body().get(i).getContent(),response.body().get(i).getThumbnailUrl(),
                                                 response.body().get(i).getUserId());
-                                        Log.e("내용",response.body().get(i).getContent());
-                                        Log.e("제목",response.body().get(i).getTitle());
+                                        /*Log.e("내용",response.body().get(i).getContent());
+                                        Log.e("제목",response.body().get(i).getTitle());*/
                                         new_regarrayList.add(0,dict_0);
                                     }
                                     regarrayList.clear();

@@ -1,13 +1,13 @@
 package dodeunifront.dodeuni.map.dto;
 
 public class AlertDTO {
-    private int id;
+    private Long id;
     private String main;
     private String sub;
     private String createdDateTime;
     private String alarm;
 
-    public AlertDTO(int id, String main, String sub, String createdDateTime, String alarm){
+    public AlertDTO(Long id, String main, String sub, String createdDateTime, String alarm){
         this.id = id;
         this.main = main;
         this.sub = sub;
@@ -15,10 +15,10 @@ public class AlertDTO {
         this.alarm = alarm;
     }
 
-    public int getId(){
+    public Long getId(){
         return id;
     }
-    public void setId(int id){
+    public void setId(Long id){
         this.id = id;
     }
 

@@ -18,7 +18,6 @@ import dodeunifront.dodeuni.map.dto.response.ResponseAlertListDTO;
 public class AlertRecyclerAdapter extends RecyclerView.Adapter<AlertRecyclerAdapter.ViewHolder> {
     private List<AlertDTO> alertList;
     private int length;
-    MapView mapView;
 
     public AlertRecyclerAdapter(){ }
     public interface OnItemClickListener {
@@ -42,8 +41,8 @@ public class AlertRecyclerAdapter extends RecyclerView.Adapter<AlertRecyclerAdap
         viewHolder.onBind(alertList.get(position));
     }
 
-    public void setAlertList(ResponseAlertListDTO result) {
-        this.alertList = result.getAlertList();
+    public void setAlertList(List<AlertDTO> result) {
+        this.alertList = result;
         length = alertList.size();
     }
 

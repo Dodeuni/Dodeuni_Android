@@ -2,6 +2,8 @@ package dodeunifront.dodeuni.map.api;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 
+import java.util.List;
+
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.dto.AlertDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseAlertListDTO;
@@ -16,7 +18,7 @@ public interface AlertAPI {
     String URL = "http://34.64.117.48:8080";
 
     @GET("/api/alarm")
-    Call<ResponseAlertListDTO> getAlert(
+    Call<List<AlertDTO>> getAlert(
             @Query("userId") long userId
     );
 

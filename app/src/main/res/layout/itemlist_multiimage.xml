@@ -9,5 +9,6 @@
         android:id="@+id/iv_mutiimage"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:scaleType="centerCrop"
         android:layout_marginHorizontal="5dp"/>
 </LinearLayout>

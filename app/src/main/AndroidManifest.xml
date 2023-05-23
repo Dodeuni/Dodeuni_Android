@@ -25,7 +25,8 @@
             android:exported="false"/>
         <activity
             android:name=".community.PostCommunityStoreActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".map.view.LocationPostActivity"
             android:exported="false" />
@@ -71,10 +72,12 @@
             android:exported="false" />
         <activity
             android:name=".community.EditCommunityActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".community.PostCommunityActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".hue.HueActivity"
             android:exported="false"

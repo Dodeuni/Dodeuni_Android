@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.Hue;
+package dodeunifront.dodeuni.hue;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,37 +11,27 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Xml;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.tickaroo.tikxml.TikXml;
-import com.tickaroo.tikxml.retrofit.TikXmlConverterFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
-import dodeunifront.dodeuni.ErrorModel;
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
-import dodeunifront.dodeuni.community.DetailCommunityActivity;
-import dodeunifront.dodeuni.community.PostcommunityAPI;
 import io.github.muddz.styleabletoast.StyleableToast;
-import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

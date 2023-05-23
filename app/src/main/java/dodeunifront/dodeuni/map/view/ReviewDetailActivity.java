@@ -50,11 +50,14 @@ public class ReviewDetailActivity extends AppCompatActivity {
         }
     }
 
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void initTopView(){
         TopView topView = findViewById(R.id.topview_review);
-        topView.setOnButtonClickListener(() -> {
-            finish();
-        });
+        topView.setOnButtonClickListener(() -> finish());
     }
 
     public void getReviewData(){

@@ -8,62 +8,101 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:minHeight="?attr/actionBarSize"
-        android:id="@+id/write_community_toolbar_store"
-        app:titleTextColor="@color/black"
-        android:background="@color/white"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="장터글쓰기"
-            android:layout_gravity="center"
-            android:fontFamily="@font/inter_bold"
-            android:id="@+id/toolbar_title_store"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            />
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="등록"
-            android:layout_gravity="right"
-            android:fontFamily="@font/inter_medium"
-            android:id="@+id/btn_reg_community_store"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            />
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="wrap_content">
 
-    <EditText
+        <dodeunifront.dodeuni.TopView
+            android:id="@+id/topview_post_community"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="장터글쓰기" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_reg_community_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="15dp"
+            app:cardCornerRadius="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/inter_regular"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="15dp"
+                android:background="@color/main_color"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:text="등록" />
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:id="@+id/et_post_title_store"
-        android:fontFamily="@font/inter_medium"
-        android:hint="     제목을 입력해주세요."/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:id="@+id/et_post_content_store"
-        android:hint="     내용을 입력해주세요."
-        android:fontFamily="@font/inter_medium"
-        android:gravity="top"/>
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/btn_addpicture_store"
-        android:layout_gravity="top"
-        app:srcCompat="@drawable/add_picture"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_imageview_post_store"
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:background="@drawable/dialog_radius"
-        android:orientation="horizontal"
-        />
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
+        <EditText
+            android:id="@+id/et_post_title_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:ellipsize="end"
+            android:hint="제목을 입력해주세요."/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
+
+        <EditText
+            android:id="@+id/et_post_content_store"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:gravity="start"
+            android:hint="내용을 입력해주세요." />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <ImageView
+            android:id="@+id/btn_addpicture_store"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="top"
+            android:padding="15dp"
+            android:background="@drawable/community_roundedcamera"
+            android:layout_marginBottom="20dp"
+            app:srcCompat="@drawable/camera_gray" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_imageview_post_store"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:background="@drawable/dialog_radius"
+            android:orientation="horizontal"
+            />
+    </LinearLayout>
 </LinearLayout>

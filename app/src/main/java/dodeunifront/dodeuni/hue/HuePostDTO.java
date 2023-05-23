@@ -1,4 +1,4 @@
-package dodeunifront.dodeuni.Hue;
+package dodeunifront.dodeuni.hue;
 
 public class HuePostDTO {
     String ev_huemessage;

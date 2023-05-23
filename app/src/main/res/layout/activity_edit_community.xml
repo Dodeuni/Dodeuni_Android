@@ -8,35 +8,39 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:id="@+id/edit_community_toolbar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ToolbarTheme"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="글수정하기"
-            android:fontFamily="@font/inter_bold"
-            android:layout_gravity="center"
-            android:id="@+id/toolbar_title"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            />
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="수정"
-            android:fontFamily="@font/inter_regular"
-            android:layout_gravity="right"
+        android:layout_height="wrap_content">
+
+        <dodeunifront.dodeuni.TopView
+            android:id="@+id/topview_edit_community"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="글 수정하기" />
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/btn_edit_editcommunity"
-            android:textSize="20dp"
-            android:textColor="@color/black"
-            />
-    </androidx.appcompat.widget.Toolbar>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="15dp"
+            app:cardCornerRadius="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/inter_regular"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="15dp"
+                android:background="@color/main_color"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:text="수정" />
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,47 +50,83 @@
         android:gravity="center"
         android:layout_marginTop="10dp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/btn_edit_sub"
-            android:layout_width="100dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:backgroundTint="#9D9D9D"
-            android:fontFamily="@font/inter_bold"
-            android:text="세부카테고리"
+            android:layout_margin="20dp"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="15dp"
+            android:layout_gravity="center"
+            android:background="@drawable/location_roundedtag"
             android:textColor="@color/white"
-            android:background="@drawable/selector_radiobutton"
-            />
+            android:textSize="14dp"
+            android:text="정보교환" />
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:fontFamily="@font/inter_regular"
-        android:id="@+id/et_edit_title"
-        android:hint="     제목을 입력해주세요."/>
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        android:id="@+id/et_edit_content"
-        android:hint="     내용을 입력해주세요."
-        android:fontFamily="@font/inter_regular"
-        android:gravity="top"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
+        <EditText
+            android:id="@+id/et_edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:ellipsize="end"
+            android:hint="제목을 입력해주세요."/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_for_lines" />
+
+        <EditText
+            android:id="@+id/et_edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="25dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:gravity="start"
+            android:hint="내용을 입력해주세요." />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
         <ImageView
             android:id="@+id/btn_edit_addpicture"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:background="@drawable/dialog_radius"
-            app:srcCompat="@drawable/add_picture"
-            />
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="top"
+            android:padding="15dp"
+            android:background="@drawable/community_roundedcamera"
+            android:layout_marginBottom="20dp"
+            app:srcCompat="@drawable/camera_gray" />
+
         <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_imageview_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:background="@drawable/dialog_radius"
-        android:orientation="horizontal"
-        />
+            android:id="@+id/rv_imageview_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:background="@drawable/dialog_radius"
+            android:orientation="horizontal"
+            />
+    </LinearLayout>
 
 </LinearLayout>

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -14,18 +13,14 @@ import android.widget.ImageView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import dodeunifront.dodeuni.Hue.HueAPI;
-import dodeunifront.dodeuni.login.LoginAPI;
+import dodeunifront.dodeuni.hue.HueAPI;
 import dodeunifront.dodeuni.login.LoginActivity;
-import dodeunifront.dodeuni.login.UserResponseDTO;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LandingActivity extends AppCompatActivity {
     ImageView imageView;
+    public static Long localUid;
     Gson gson = new GsonBuilder()
             .setLenient()
             .create();
@@ -45,7 +40,8 @@ public class LandingActivity extends AppCompatActivity {
         imageView.startAnimation(ani);
         Handler handler = new Handler();
         SharedPreferences sharedPreferencesLogin = this.getSharedPreferences("autoLogin",MODE_PRIVATE);
-        Long local_uid=sharedPreferencesLogin.getLong("MY_ID",-1);
+        localUid=sharedPreferencesLogin.getLong("MY_ID",-1);
+        DodeuniFirebaseMessagingService.getToken(localUid);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -84,7 +80,7 @@ public class LandingActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();}
 //            }
-        },2000); // 3초 있다 메인액티비티로
+        },1000); // 1초 있다 메인액티비티로
     }
 
     @Override

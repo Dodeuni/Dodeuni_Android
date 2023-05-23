@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
 import dodeunifront.dodeuni.community.DTO.CommentSaveRequestDTO;
 import dodeunifront.dodeuni.community.DTO.CommunityDeatilDTO;
@@ -25,7 +26,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface PostcommunityAPI {
-    String URL = "http://192.168.0.18:8080/";
+    String URL = "http://34.64.117.48:8080";
 
     @Multipart
     @POST("/api/community")

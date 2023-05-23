@@ -28,6 +28,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -45,6 +46,7 @@ import java.util.Map;
 import dodeunifront.dodeuni.ErrorModel;
 import dodeunifront.dodeuni.MainActivity;
 import dodeunifront.dodeuni.R;
+import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
 import dodeunifront.dodeuni.community.DTO.ResponseCommunityDTO;
 import io.github.muddz.styleabletoast.StyleableToast;
@@ -64,7 +66,7 @@ public class PostCommunityMeetActivity extends AppCompatActivity {
     // 사용할 컴포넌트 선언
     EditText title_et, content_et;
     Long userId;
-    Button btn_reg;
+    CardView btn_reg;
     final private String TAG = getClass().getSimpleName();
     Dialog dilaog01;
     String main = "모임";
@@ -87,9 +89,13 @@ public class PostCommunityMeetActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userId = intent.getLongExtra("userId", -1);
 
-        TextView tvs = (TextView)findViewById(R.id.toolbar_title_store);
+        /*TextView tvs = (TextView)findViewById(R.id.toolbar_title_store);
         tvs.setText("모임글쓰기");
-        Toolbar toolbar = findViewById(R.id.write_community_toolbar_store);
+        Toolbar toolbar = findViewById(R.id.write_community_toolbar_store);*/
+
+        TopView topView = findViewById(R.id.topview_post_community);
+        topView.setTitle("모임");
+        topView.setOnButtonClickListener(() -> finish());
 
         title_et = findViewById(R.id.et_post_title_store);
         content_et = findViewById(R.id.et_post_content_store);
@@ -98,9 +104,9 @@ public class PostCommunityMeetActivity extends AppCompatActivity {
         btn_addpic = findViewById(R.id.btn_addpicture_store);
         recyclerView = findViewById(R.id.rv_imageview_post_store);
 
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
-        getSupportActionBar().setTitle("");
+        //getSupportActionBar().setTitle("");
 
         btn_addpic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,9 +132,6 @@ public class PostCommunityMeetActivity extends AppCompatActivity {
                 dilaog01.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dilaog01.setContentView(R.layout.dialog_postcommunity);
                 showDialog01();
-
-
-
             }
         });
     }

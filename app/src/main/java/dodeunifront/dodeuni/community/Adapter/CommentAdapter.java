@@ -21,7 +21,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import dodeunifront.dodeuni.Hue.HueAPI;
+import dodeunifront.dodeuni.hue.HueAPI;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.community.PostcommunityAPI;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
@@ -66,8 +66,10 @@ public class CommentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         ((CommentAdapter.MyViewHolder) viewHolder).content.setText(mdataList.get(position).getContent());
         ((CommentAdapter.MyViewHolder) viewHolder).nickname.setText(mdataList.get(position).getNickname());
         String date_fi = mdataList.get(position).getCreatedDateTime();
-        String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
-        String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+        //String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
+        //String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
+        String createDateTimeParse0 = "날짜";
+        String createDateTimeParse1 = "시간";
         String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
         ((CommentAdapter.MyViewHolder) viewHolder).createdate.setText(createDatTimeresult);
 
@@ -169,5 +171,4 @@ public class CommentAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
         });
     }
-
 }

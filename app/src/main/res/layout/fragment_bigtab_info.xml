@@ -5,49 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-            <androidx.appcompat.widget.AppCompatButton
+            android:paddingHorizontal="20dp">
+            <TextView
                 android:id="@+id/btn_changeinfo"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:background="@drawable/custombtn_smallcommunity"
-                android:layout_gravity="center"
-                android:fontFamily="@font/inter_bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:paddingVertical="8dp"
+                android:elevation="5dp"
+                android:background="@drawable/location_roundedtag"
+                android:textColor="@color/black"
+                android:textSize="14dp"
                 android:text="정보교환" />
 
-            <androidx.appcompat.widget.AppCompatButton
+            <TextView
                 android:id="@+id/btn_worry"
-                android:layout_width="80dp"
-                android:fontFamily="@font/inter_bold"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/custombtn_smallcommunity"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:paddingVertical="8dp"
+                android:elevation="5dp"
+                android:background="@drawable/location_roundedtag"
+                android:textColor="@color/black"
+                android:textSize="14dp"
                 android:text="고민상담" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_gravity="center"
+            <TextView
                 android:id="@+id/btn_review"
-                android:background="@drawable/custombtn_smallcommunity"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_margin="20dp"
+                android:paddingVertical="8dp"
+                android:elevation="5dp"
+                android:background="@drawable/location_roundedtag"
+                android:textColor="@color/black"
+                android:textSize="14dp"
                 android:text="제품후기" />
 
         </LinearLayout>
-    </LinearLayout>
     <FrameLayout
         android:id="@+id/ss_tab1_container"
         android:layout_width="match_parent"

@@ -1,6 +1,4 @@
-package dodeunifront.dodeuni.Hue;
-
-import java.time.LocalDateTime;
+package dodeunifront.dodeuni.hue;
 
 public class HyuResponseDTO {
     private Long id;

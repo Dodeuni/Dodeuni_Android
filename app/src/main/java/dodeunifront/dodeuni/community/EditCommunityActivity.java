@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -41,6 +43,7 @@ import java.util.Map;
 
 import dodeunifront.dodeuni.ErrorModel;
 import dodeunifront.dodeuni.R;
+import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.community.Adapter.EditImageAdapter;
 import dodeunifront.dodeuni.community.Adapter.MultiImageAdapter;
 import dodeunifront.dodeuni.community.DTO.CommentResponseDTO;
@@ -66,7 +69,8 @@ public class EditCommunityActivity extends AppCompatActivity {
     List<String> photo_i = null;
     EditText et_title,et_content;
     RecyclerView rv_edit_photo;
-    Button btn_sub,btn_edit;
+    CardView btn_edit;
+    TextView btn_sub;
     ImageView btn_addphoto;
     ArrayList<MultipartBody.Part> names = new ArrayList<>();
     Map<String, RequestBody> map = new HashMap<>();
@@ -78,12 +82,14 @@ public class EditCommunityActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_community);
-        Toolbar toolbar = findViewById(R.id.edit_community_toolbar);
+        //Toolbar toolbar = findViewById(R.id.edit_community_toolbar);
 
-        setSupportActionBar(toolbar);
+        /*setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("");*/
 
+        TopView topView  = findViewById(R.id.topview_edit_community);
+        topView.setOnButtonClickListener(() -> finish());
 
         intent = getIntent();
         main = intent.getStringExtra("main");
@@ -99,7 +105,7 @@ public class EditCommunityActivity extends AppCompatActivity {
             Uri uri = Uri.parse(photo_i.get(i));
             uriList.add(uri);
         }
-        btn_edit = (Button)findViewById(R.id.btn_edit_editcommunity);
+        btn_edit = findViewById(R.id.btn_edit_editcommunity);
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +122,7 @@ public class EditCommunityActivity extends AppCompatActivity {
         });
         et_content = (EditText) findViewById(R.id.et_edit_content);
         et_title = (EditText) findViewById(R.id.et_edit_title);
-        btn_sub = (Button) findViewById(R.id.btn_edit_sub);
+        btn_sub = findViewById(R.id.btn_edit_sub);
         btn_addphoto = (ImageView) findViewById(R.id.btn_edit_addpicture);
         btn_addphoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,8 +132,6 @@ public class EditCommunityActivity extends AppCompatActivity {
         });
         rv_edit_photo = (RecyclerView)findViewById(R.id.rv_imageview_edit);
         init();
-
-
     }
     public void init(){
         et_content.setText(content);

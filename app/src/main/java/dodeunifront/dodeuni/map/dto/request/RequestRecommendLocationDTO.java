@@ -17,7 +17,7 @@ public class RequestRecommendLocationDTO {
 
     public RequestRecommendLocationDTO(){}
 
-    public RequestRecommendLocationDTO(String name, String category, String address, String contact, double x, double y, int uid){
+    public RequestRecommendLocationDTO(double x, double y, String keyword){
         this.x = x;
         this.y = y;
         this.keyword = keyword;

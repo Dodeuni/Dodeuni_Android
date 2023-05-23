@@ -1,5 +1,6 @@
 package dodeunifront.dodeuni.login;
 
+import dodeunifront.dodeuni.R;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -8,7 +9,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface LoginAPI {
-    String URL = "http://192.168.0.18:8080/";
+    String URL = "http://34.64.117.48:8080";
 
     @POST("auth/login")
     Call<TokenDTO> postDatalogin(

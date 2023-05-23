@@ -31,7 +31,7 @@ public class LocationDetailActivity extends AppCompatActivity {
     LocationDetailView locationDetailView;
     ReviewPreviewRecyclerAdapter mRecyclerAdapter;
     RecyclerView mRecyclerView;
-    TextView tvAddReview;
+    TextView tvAddReview, tvCountReview;
     long locationId;
 
     @Override
@@ -41,6 +41,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         locationDetailView = findViewById(R.id.ldview_detail_map);
         mRecyclerView = findViewById(R.id.rv_detail_preview_list);
         tvAddReview = findViewById(R.id.tv_add_review);
+        tvCountReview = findViewById(R.id.tv_title_review_list);
 
         Intent intent = getIntent();
         locationId = intent.getIntExtra("id", -1);
@@ -62,6 +63,12 @@ public class LocationDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     public void initTopView(){
         TopView topView = findViewById(R.id.topview_detail_map);
         topView.setOnButtonClickListener(() -> {
@@ -74,6 +81,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         locationDetailView.setCategory(locationData.getCategory());
         locationDetailView.setAddress(locationData.getAddress());
         locationDetailView.setContact(locationData.getContact());
+        tvCountReview.setText("리뷰 (" + locationData.getReviewsLength() + ")");
     }
 
     public void getLocationData(){

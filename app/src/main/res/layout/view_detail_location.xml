@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_bold"
         android:textColor="@color/black"
-        android:textSize="20dp"
-        android:text="스타벅스 숙대점" />
+        android:textSize="20dp"/>
 
     <TextView
         android:id="@+id/tv_location_detail_category"
@@ -22,8 +21,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter_regular"
         android:textColor="@color/light_gray"
-        android:textSize="14dp"
-        android:text="카페/베이커리" />
+        android:textSize="14dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,8 +42,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/inter_regular"
             android:textColor="@color/black"
-            android:textSize="14dp"
-            android:text="서울 용산구 청파로47길 100" />
+            android:textSize="14dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +64,6 @@
             android:layout_weight="1"
             android:fontFamily="@font/inter_regular"
             android:textColor="@color/black"
-            android:textSize="14dp"
-            android:text="02-710-9114" />
+            android:textSize="14dp" />
     </LinearLayout>
 </LinearLayout>

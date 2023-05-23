@@ -7,34 +7,24 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.FrameLayout;
-import android.widget.Toast;
 
-import dodeunifront.dodeuni.Hue.HueAPI;
-import dodeunifront.dodeuni.Hue.HueActivity;
+import dodeunifront.dodeuni.alert.AlertActivity;
+import dodeunifront.dodeuni.hue.HueAPI;
+import dodeunifront.dodeuni.hue.HueActivity;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import dodeunifront.dodeuni.community.CommunityFragment;
 import dodeunifront.dodeuni.map.view.MapFragment;
@@ -45,13 +35,7 @@ import com.kakao.util.maps.helper.Utility;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import dodeunifront.dodeuni.community.CommunityFragment;
-import dodeunifront.dodeuni.login.LoginAPI;
-import dodeunifront.dodeuni.login.UserResponseDTO;
 import dodeunifront.dodeuni.mypage.MypageFragment;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -146,10 +130,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar (toolbar); //액티비티의 앱바(App Bar)로 지정
         bottomNavigationView.setSelectedItemId(R.id.menu_community);
-
-
-
-
     }
 
     private void init() {
@@ -218,12 +198,16 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId ()) {
             case R.id.menu_hue:
-                Intent intent = new Intent(this,HueActivity.class);
-                intent.putExtra("userId",userId);
-                startActivity (intent);
+                Intent intent1 = new Intent(this,HueActivity.class);
+                intent1.putExtra("userId",userId);
+                startActivity (intent1);
+                return true;
+            case R.id.menu_alarm:
+                Intent intent2 = new Intent(this, AlertActivity.class);
+                startActivity(intent2);
                 return true;
             default:
-                return super.onOptionsItemSelected (item);
+                return super.onOptionsItemSelected(item);
         }
     }
     public String getKeyHashBase64(Context context) {

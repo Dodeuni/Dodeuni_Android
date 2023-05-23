@@ -85,7 +85,7 @@ public class LandingActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();}
             }
-        },1000); // 1초 있다 메인액티비티로
+        },500); // 1초 있다 메인액티비티로
     }
 
     @Override

@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
-import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -32,7 +31,6 @@ import java.util.List;
 import dodeunifront.dodeuni.LandingActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.CurrentLocation;
-import dodeunifront.dodeuni.map.MarkerEventListener;
 import dodeunifront.dodeuni.retroifit.KakaoRetrofitBuilder;
 import dodeunifront.dodeuni.map.adapter.KakaoLocationRecyclerAdapter;
 import dodeunifront.dodeuni.map.adapter.RecommendLocationRecyclerAdapter;
@@ -166,7 +164,6 @@ public class MapFragment extends Fragment {
         mapView.setPOIItemEventListener(markerEventListener);
         mapViewContainer = v.findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
-
         moveToCurrentLocation();
     }
 
@@ -187,9 +184,7 @@ public class MapFragment extends Fragment {
         mRecyclerView.setAdapter(mkeywordRecyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         mkeywordRecyclerAdapter.setLocationResult(kakaoSearchResult);
-        mkeywordRecyclerAdapter.setOnItemClickListener((locationData) -> {
-            moveToKakaoLocationDetail(locationData);
-        });
+        mkeywordRecyclerAdapter.setOnItemClickListener((locationData) -> moveToKakaoLocationDetail(locationData));
     }
 
     public void setRecommendMarkers(){

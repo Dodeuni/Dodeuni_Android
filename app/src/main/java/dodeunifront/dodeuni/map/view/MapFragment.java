@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -30,6 +32,7 @@ import java.util.List;
 import dodeunifront.dodeuni.LandingActivity;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.map.CurrentLocation;
+import dodeunifront.dodeuni.map.MarkerEventListener;
 import dodeunifront.dodeuni.retroifit.KakaoRetrofitBuilder;
 import dodeunifront.dodeuni.map.adapter.KakaoLocationRecyclerAdapter;
 import dodeunifront.dodeuni.map.adapter.RecommendLocationRecyclerAdapter;
@@ -47,14 +50,7 @@ import retrofit2.Response;
 
 public class MapFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    boolean isKakaoMarkers = false;
     private View v;
     private ViewGroup mapViewContainer;
     private MapView mapView;
@@ -74,21 +70,17 @@ public class MapFragment extends Fragment {
     TextView tvTags[];
     String[] tags = {"", "아동발달", "PS3", "SC4", "어린이병원"};
     RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
+    MarkerEventListener markerEventListener = new MarkerEventListener();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         getCurrentLocation();
         currentLongitude = currentGeocoord.getLongitude() + "";
         currentLatitude = currentGeocoord.getLatitude() + "";
         searchLongitude = currentLongitude;
         searchLatitude = currentLatitude;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -113,6 +105,13 @@ public class MapFragment extends Fragment {
             startActivity(intent);
         });
 
+        btnLocationSearch.setOnClickListener(view -> clickedSearch());
+
+        editSearch.setOnKeyListener((v, keyCode, event) -> {
+            if(keyCode == KeyEvent.KEYCODE_ENTER) clickedSearch();
+            return true;
+        });
+
         btnCurrentLocation.setOnClickListener(view -> moveToCurrentLocation());
         return v;
     }
@@ -121,7 +120,6 @@ public class MapFragment extends Fragment {
     public void onStart() {
         super.onStart();
         getRecommendLocation();
-        setSearchBtn();
         tagClicked(tvTags[0]);
         setKeywords();
     }
@@ -165,6 +163,7 @@ public class MapFragment extends Fragment {
 
     private void initMapView(){
         mapView = new MapView(getContext());
+        mapView.setPOIItemEventListener(markerEventListener);
         mapViewContainer = v.findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
 
@@ -194,13 +193,15 @@ public class MapFragment extends Fragment {
     }
 
     public void setRecommendMarkers(){
-        for(ResponseRecommendLocationDTO info: recommendResult){
+        for(int i=0; i<recommendResult.size(); i++){
+            ResponseRecommendLocationDTO info = recommendResult.get(i);
             double lon = info.getY();
             double lat = info.getX();
             MapPOIItem marker = new MapPOIItem();
             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(lon, lat);
             marker.setItemName(info.getName());
             marker.setMapPoint(mapPoint);
+            marker.setTag(i);
             marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             marker.setCustomImageResourceId(R.drawable.location_green_midium);
             mapView.addPOIItem(marker);
@@ -208,41 +209,41 @@ public class MapFragment extends Fragment {
     }
 
     public void setKeywordMarkers(){
-        for(KakaoLocationDTO info: kakaoSearchResult.getDocuments()){
+        for(int i=0; i<kakaoSearchResult.getDocuments().size(); i++){
+            KakaoLocationDTO info = kakaoSearchResult.getDocuments().get(i);
             double lon = Double.parseDouble(info.getY());
             double lat = Double.parseDouble(info.getX());
             MapPOIItem marker = new MapPOIItem();
             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(lon, lat);
             marker.setItemName(info.getPlaceName());
             marker.setMapPoint(mapPoint);
+            marker.setTag(i);
             marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             marker.setCustomImageResourceId(R.drawable.location_green_midium);
             mapView.addPOIItem(marker);
         }
     }
 
-    public void setSearchBtn(){
-        btnLocationSearch.setOnClickListener(view -> {
-            tagClicked(tvTags[0]);
-            mapView.removeAllPOIItems();
-            mRecommendRecyclerAdapter = new RecommendLocationRecyclerAdapter();
-            mRecyclerView.setAdapter(mRecommendRecyclerAdapter);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-            String keyword = editSearch.getText().toString();
-            tagClicked(tvTags[0]);
-            if(keyword.length() != 0){
-                tags[0] = keyword;
-                getSearchXY(keyword);
-                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
-            } else {
-                tags[0] = "";
-                searchLatitude = currentGeocoord.getLatitude() + "";
-                searchLongitude = currentGeocoord.getLongitude() + "";
-                getRecommendLocation();
-            }
-        });
+    public void clickedSearch(){
+        tagClicked(tvTags[0]);
+        mapView.removeAllPOIItems();
+        mRecommendRecyclerAdapter = new RecommendLocationRecyclerAdapter();
+        mRecyclerView.setAdapter(mRecommendRecyclerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        String keyword = editSearch.getText().toString();
+        tagClicked(tvTags[0]);
+        if(keyword.length() != 0){
+            tags[0] = keyword;
+            getSearchXY(keyword);
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
+        } else {
+            tags[0] = "";
+            searchLatitude = currentGeocoord.getLatitude() + "";
+            searchLongitude = currentGeocoord.getLongitude() + "";
+            getRecommendLocation();
+        }
     }
 
     public void setKeywords() {
@@ -283,11 +284,9 @@ public class MapFragment extends Fragment {
     }
 
     public void getRecommendLocation(){
-        System.out.println("1------searchLongitude: " + searchLongitude + " searchLatitude: " + searchLatitude);
         if(searchLongitude != "200" && searchLatitude != "200") {
             recommendRequest.setX(Double.parseDouble(searchLongitude));
             recommendRequest.setY(Double.parseDouble(searchLatitude));
-            System.out.println("2------searchLongitude: " + recommendRequest.getX() + " searchLatitude: " + Double.parseDouble(searchLatitude));
             recommendRequest.setKeyword("");
             retrofitBuilder.getLocationAPI().postRecommendList(recommendRequest).enqueue(new Callback<List<ResponseRecommendLocationDTO>>() {
                 @Override
@@ -299,6 +298,7 @@ public class MapFragment extends Fragment {
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
                         initRecyclerViewWithRecommend();
                         setRecommendMarkers();
+                        isKakaoMarkers = false;
                     } else {
                         Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_SHORT).show();
                     }
@@ -309,7 +309,6 @@ public class MapFragment extends Fragment {
                 }
             });
         } else {
-            System.out.println("3------searchLongitude: " + searchLongitude + " searchLatitude: " + searchLatitude);
             Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_LONG).show();
         }
     }
@@ -326,6 +325,7 @@ public class MapFragment extends Fragment {
                         double latitude = Double.parseDouble(kakaoSearchResult.getDocuments().get(0).getY()) - 0.002;
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
                         setKeywordMarkers();
+                        isKakaoMarkers = true;
                         initRecyclerViewWithKeyword();
                         Log.d("성공", kakaoSearchResult.getDocuments().get(0).getAddress());
                     } else {
@@ -353,6 +353,7 @@ public class MapFragment extends Fragment {
                         double latitude = Double.parseDouble(kakaoSearchResult.getDocuments().get(0).getY()) - 0.002;
                         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
                         setKeywordMarkers();
+                        isKakaoMarkers = true;
                         initRecyclerViewWithKeyword();
                     } else {
                         Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_SHORT).show();
@@ -419,4 +420,31 @@ public class MapFragment extends Fragment {
             }
         });
     }
+
+    public class MarkerEventListener implements MapView.POIItemEventListener {
+        @Override
+        public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+        }
+
+        @Override
+        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+            if(isKakaoMarkers) {
+                moveToKakaoLocationDetail(kakaoSearchResult.getDocuments().get(mapPOIItem.getTag()));
+            } else {
+                Intent intent = new Intent(getContext(), LocationDetailActivity.class);
+                intent.putExtra("id", recommendResult.get(mapPOIItem.getTag()).getId());
+                startActivity(intent);
+            }
+
+        }
+
+        @Override
+        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+        }
+
+        @Override
+        public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+        }
+    }
+
 }

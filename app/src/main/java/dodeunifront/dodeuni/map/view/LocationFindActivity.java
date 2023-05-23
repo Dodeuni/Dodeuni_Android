@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -70,7 +71,7 @@ public class LocationFindActivity extends AppCompatActivity {
         initMapView();
         initTopView();
 
-        setSearchBtn();
+        btnSearch.setOnClickListener(view -> clickedSearch());
 
         btnCurrentLocation.setOnClickListener(view -> {
             moveToCurrentLocation();
@@ -122,7 +123,7 @@ public class LocationFindActivity extends AppCompatActivity {
         });
     }
 
-    public void setSearchBtn(){
+    public void clickedSearch(){
         btnSearch.setOnClickListener(view -> {
             mapView.removeAllPOIItems();
             String keyword = editSearch.getText().toString();

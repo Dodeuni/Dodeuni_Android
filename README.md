@@ -32,5 +32,5 @@ ex) 현재 로컬 컴퓨터의 ip주소값이 172.20.20.144 이고 플라스크�
 ## 👩🏻‍💻 도드니 팀 안드로이드 개발자 
 | 김예은 | 서묘진 |
 | :-: | :-: |
-| [@GaGa-Kim](https://github.com/kimyenida) | [@cutehumanS2](https://github.com/nrj022) |
+| [@kimyenida](https://github.com/kimyenida) | [@nrj022](https://github.com/nrj022) |
 |<img src="https://github.com/kimyenida.png" style="width:150px; height:150px;">|<img src="https://github.com/nrj022.png" style="width:150px; height:150px;">|

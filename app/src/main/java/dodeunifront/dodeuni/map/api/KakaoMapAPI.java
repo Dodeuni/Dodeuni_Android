@@ -10,8 +10,10 @@ import retrofit2.http.Query;
 
 public interface KakaoMapAPI {
     String URL = "https://dapi.kakao.com/";
+    String key = "982406bc0a8d7e13dea460aad667ef33";
 
-    @Headers({"Authorization: KakaoAK 982406bc0a8d7e13dea460aad667ef33"})
+
+    @Headers({"Authorization: KakaoAK " + key})
     @GET("v2/local/search/keyword.json")
     Call<ResponseKakaoLocationListDTO> getKeywordLocationList(
             @Query("query") String query,
@@ -21,7 +23,7 @@ public interface KakaoMapAPI {
             @Query("sort") String sort
     );
 
-    @Headers({"Authorization: KakaoAK 982406bc0a8d7e13dea460aad667ef33"})
+    @Headers({"Authorization: KakaoAK " + key})
     @GET("v2/local/search/category.json")
     Call<ResponseKakaoLocationListDTO> getCategoryLocationList(
             @Query("category_group_code") String category_group_code,
@@ -31,7 +33,7 @@ public interface KakaoMapAPI {
             @Query("sort") String sort
     );
 
-    @Headers({"Authorization: KakaoAK 982406bc0a8d7e13dea460aad667ef33"})
+    @Headers({"Authorization: KakaoAK " + key})
     @GET("v2/local/search/address.json")
     Call<ResponseKakaoXYListDTO> getAddressXY(
             @Query("query") String address,

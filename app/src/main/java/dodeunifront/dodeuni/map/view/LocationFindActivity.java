@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -18,8 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -28,16 +27,13 @@ import net.daum.mf.map.api.MapView;
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.map.CurrentLocation;
-import dodeunifront.dodeuni.map.MarkerEventListener;
 import dodeunifront.dodeuni.map.adapter.KakaoLocationRecyclerAdapter;
-import dodeunifront.dodeuni.map.api.KakaoMapAPI;
 import dodeunifront.dodeuni.map.dto.KakaoLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseKakaoLocationListDTO;
+import dodeunifront.dodeuni.retroifit.KakaoRetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LocationFindActivity extends AppCompatActivity {
 
@@ -51,7 +47,6 @@ public class LocationFindActivity extends AppCompatActivity {
     ResponseKakaoLocationListDTO searchResult;
     BottomSheetBehavior<View> bottomSheet;
     CurrentLocation.Geocoord currentGeocoord;
-    MarkerEventListener markerEventListener = new MarkerEventListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +65,13 @@ public class LocationFindActivity extends AppCompatActivity {
         initMapView();
         initTopView();
 
-        setSearchBtn();
-
-        btnCurrentLocation.setOnClickListener(view -> {
-            moveToCurrentLocation();
+        btnSearch.setOnClickListener(view -> clickedSearch());
+        editSearch.setOnKeyListener((v, keyCode, event) -> {
+            if(keyCode == KeyEvent.KEYCODE_ENTER) clickedSearch();
+            return true;
         });
+
+        btnCurrentLocation.setOnClickListener(view -> moveToCurrentLocation());
     }
 
     public void onBackPressed() {
@@ -98,7 +95,6 @@ public class LocationFindActivity extends AppCompatActivity {
 
     public void initMapView(){
         mapView = new MapView(this);
-        mapView.setPOIItemEventListener(markerEventListener);
         mapViewContainer = findViewById(R.id.map_location_view);
         mapViewContainer.addView(mapView);
         moveToCurrentLocation();
@@ -110,42 +106,29 @@ public class LocationFindActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
         mRecyclerAdapter.setLocationResult(searchResult);
         mRecyclerAdapter.setOnItemClickListener((locationData) -> {
-            Intent intent = new Intent(this, LocationPostActivity.class);
-            intent.putExtra("name", locationData.getPlaceName());
-            intent.putExtra("category", locationData.getCategory());
-            intent.putExtra("address", locationData.getAddress());
-            intent.putExtra("phone", locationData.getPhone());
-            intent.putExtra("x", locationData.getX());
-            intent.putExtra("y", locationData.getY());
-            startActivity(intent);
-            finish();
-            Toast.makeText(this, "clicked: " + locationData.getPlaceName(), Toast.LENGTH_LONG).show();
+            moveToPostLocation(locationData);
         });
     }
 
-    public void setSearchBtn(){
-        btnSearch.setOnClickListener(view -> {
-            mapView.removeAllPOIItems();
-            String keyword = editSearch.getText().toString();
-            if(keyword.length() != 0){
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
-                searchKeyword(keyword);
-            }
-        });
+    public void clickedSearch(){
+        mapView.removeAllPOIItems();
+        String keyword = editSearch.getText().toString();
+        if(keyword.length() != 0){
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            bottomSheet.setState(BottomSheetBehavior.STATE_EXPANDED);
+            searchKeyword(keyword);
+        }
     }
 
     public void setMarkers(){
         MapPOIItem marker = new MapPOIItem();
-        for(int i=0; i<searchResult.getDocuments().size(); i++){
-            KakaoLocationDTO info = searchResult.getDocuments().get(i);
+        for(KakaoLocationDTO info: searchResult.getDocuments()){
             double lon = Double.parseDouble(info.getY());
             double lat = Double.parseDouble(info.getX());
             MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(lon, lat);
             marker.setItemName(info.getPlaceName());
             marker.setMapPoint(mapPoint);
-            marker.setTag(i);
             marker.setMarkerType(MapPOIItem.MarkerType.CustomImage);
             marker.setCustomImageResourceId(R.drawable.location_green_midium);
             mapView.addPOIItem(marker);
@@ -164,19 +147,21 @@ public class LocationFindActivity extends AppCompatActivity {
         }
     }
 
+    public void moveToPostLocation(KakaoLocationDTO locationData){
+        Intent intent = new Intent(this, LocationPostActivity.class);
+        intent.putExtra("name", locationData.getPlaceName());
+        intent.putExtra("category", locationData.getCategory());
+        intent.putExtra("address", locationData.getAddress());
+        intent.putExtra("phone", locationData.getPhone());
+        intent.putExtra("x", locationData.getX());
+        intent.putExtra("y", locationData.getY());
+        startActivity(intent);
+        finish();
+    }
+
     public void searchKeyword(String keyword){
         MapPoint centerPoint = mapView.getMapCenterPoint();
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(KakaoMapAPI.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        KakaoMapAPI kakaoMapAPI = retrofit.create(KakaoMapAPI.class);
-        kakaoMapAPI.getKeywordLocationList(keyword, centerPoint.getMapPointGeoCoord().longitude+"", centerPoint.getMapPointGeoCoord().latitude+"", 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
+        KakaoRetrofitBuilder.getKakaoMapAPI().getKeywordLocationList(keyword, centerPoint.getMapPointGeoCoord().longitude+"", centerPoint.getMapPointGeoCoord().latitude+"", 15, "distance").enqueue(new Callback<ResponseKakaoLocationListDTO>() {
             @Override
             public void onResponse(Call<ResponseKakaoLocationListDTO> call, Response<ResponseKakaoLocationListDTO> response) {
                 if (response.body().getLength() != 0) {
@@ -188,7 +173,8 @@ public class LocationFindActivity extends AppCompatActivity {
                     initRecyclerView();
                     Log.d("성공", searchResult.getDocuments().get(0).getAddress());
                 } else {
-
+                    Toast.makeText(getApplicationContext(), "검색 결과 없음", Toast.LENGTH_SHORT).show();
+                    editSearch.setText("");
                 }
             }
             @Override

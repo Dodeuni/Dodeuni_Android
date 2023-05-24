@@ -65,8 +65,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:ellipsize="end"
-            android:hint="제목을 입력해주세요."
-            android:text="수내역 근처 사시는 분들" />
+            android:hint="제목을 입력해주세요." />
 
         <View
             android:layout_width="match_parent"
@@ -83,8 +82,7 @@
             android:ems="10"
             android:inputType="textMultiLine"
             android:gravity="start"
-            android:hint="내용을 입력해주세요."
-            android:text="분당 수내역 근처에 복지센터가 생겼다네요! 근처사시는분들은 함 가보세요~ 저는 오늘 가봤는데 좋더라구요 ㅎㅎ" />
+            android:hint="내용을 입력해주세요." />
     </LinearLayout>
 
 </LinearLayout>

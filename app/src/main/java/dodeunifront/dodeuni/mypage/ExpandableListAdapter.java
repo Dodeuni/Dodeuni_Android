@@ -84,7 +84,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 if (item.invisibleChildren == null) {
                     itemController.btn_expand_toggle.setImageResource(R.drawable.exitbutton);
                 } else {
-                    itemController.btn_expand_toggle.setImageResource(R.drawable.point);
+                    itemController.btn_expand_toggle.setImageResource(R.drawable.img_down_arrow);
                 }
                 itemController.btn_expand_toggle.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -102,7 +102,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                                 count++;
                             }
                             notifyItemRangeRemoved(pos + 1, count);
-                            itemController.btn_expand_toggle.setImageResource(R.drawable.point);
+                            itemController.btn_expand_toggle.setImageResource(R.drawable.img_down_arrow);
                         } else {
                             int pos = data.indexOf(itemController.refferalItem);
                             int index = pos + 1;
@@ -125,6 +125,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 TextView itemTextView_ = (TextView) holder.itemView;
 //                itemTextView_.setText(data.get(position).uri);
                 itemTextView_.setText("바로가기");
+                itemTextView_.setTextSize(14);
                 String ss = data.get(position).uri;
                 itemTextView_.setOnClickListener(new View.OnClickListener() {
                     @Override

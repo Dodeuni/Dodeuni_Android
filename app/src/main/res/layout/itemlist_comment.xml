@@ -29,6 +29,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:text="잉뿌엔피"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:fontFamily="@font/inter_regular"
                     android:id="@+id/tv_community_comment_writer"
                     android:textColor="@color/black"

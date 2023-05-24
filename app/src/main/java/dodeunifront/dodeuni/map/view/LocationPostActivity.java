@@ -52,6 +52,7 @@ public class LocationPostActivity extends AppCompatActivity {
         initTopView();
 
         enrollBtn.setOnClickListener(view -> {
+            Toast.makeText(this, "장소를 등록중입니다", Toast.LENGTH_LONG).show();
             postLocation();
         });
     }

@@ -41,6 +41,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_bold"
             android:textSize="14dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:text="알림 타이틀" />
     </LinearLayout>

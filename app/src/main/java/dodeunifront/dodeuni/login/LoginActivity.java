@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(NidProfileResponse nidProfileResponse) {
                 String userId = nidProfileResponse.getProfile().getId();
-                String name = "묘진";
+                String name = nidProfileResponse.getProfile().getName();
                 String email = nidProfileResponse.getProfile().getEmail().toString();
                 values[0] = userId;
                 values[1] = name;

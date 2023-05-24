@@ -324,7 +324,8 @@ public class MapFragment extends Fragment {
                     recommendResult = response.body();
                 if (response.body() != null) {
                     setRecommendMarkers();
-                    Log.d("성공", recommendResult.get(0).getX() + " ");
+                    Log.d("성공", recommendResult + " ");
+//                    Log.d("성공", recommendResult.get(0).getX() + " ");
                 } else {
                     Toast.makeText(getContext(), "검색 결과 없음", Toast.LENGTH_SHORT).show();
                 }

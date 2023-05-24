@@ -12,7 +12,6 @@ public interface KakaoMapAPI {
     String URL = "https://dapi.kakao.com/";
     String key = "982406bc0a8d7e13dea460aad667ef33";
 
-
     @Headers({"Authorization: KakaoAK " + key})
     @GET("v2/local/search/keyword.json")
     Call<ResponseKakaoLocationListDTO> getKeywordLocationList(

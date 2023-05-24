@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -27,6 +28,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import dodeunifront.dodeuni.community.CommunityFragment;
+import dodeunifront.dodeuni.map.CurrentLocation;
 import dodeunifront.dodeuni.map.view.MapFragment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setLocationPermission();
         Log.i("HASH", "Key Hash: " + getKeyHashBase64(this));
         init(); //객체 정의
         SettingListener(); //리스너 등록
@@ -227,5 +230,9 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-
+    public void setLocationPermission(){
+        final LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        CurrentLocation currentLocation = new CurrentLocation(lm, this);
+        currentLocation.setPermission();
+    }
 }

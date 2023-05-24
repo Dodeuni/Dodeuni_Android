@@ -74,10 +74,6 @@ public class MapFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getCurrentLocation();
-        currentLongitude = currentGeocoord.getLongitude() + "";
-        currentLatitude = currentGeocoord.getLatitude() + "";
-        searchLongitude = currentLongitude;
-        searchLatitude = currentLatitude;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -95,6 +91,17 @@ public class MapFragment extends Fragment {
         tvListTitle = v.findViewById(R.id.tv_title_location_list);
         TextView tvLocationNew = v.findViewById(R.id.tv_location_new);
         tvTags = new TextView[]{tvRecommend, tvCenter, tvKinder, tvSchool, tvSpecialS};
+
+        if(currentGeocoord == null){
+            currentLongitude = "200";
+            currentLatitude = "200";
+        } else {
+            currentLongitude = currentGeocoord.getLongitude() + "" ;
+            currentLatitude = currentGeocoord.getLatitude() + "";
+        }
+
+        searchLongitude = currentLongitude;
+        searchLatitude = currentLatitude;
 
         initMapView();
         initBottomSheet();
@@ -148,8 +155,8 @@ public class MapFragment extends Fragment {
         final LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         CurrentLocation currentLocation = new CurrentLocation(lm, getActivity());
         currentGeocoord = currentLocation.getCurrentLocation();
-        Log.d("LOCATION",  "위도 : " + currentGeocoord.getLongitude() + "\n" +
-                "경도 : " + currentGeocoord.getLatitude());
+        /*Log.d("LOCATION",  "위도 : " + currentGeocoord.getLongitude() + "\n" +
+                "경도 : " + currentGeocoord.getLatitude());*/
     }
 
     public void initBottomSheet(){

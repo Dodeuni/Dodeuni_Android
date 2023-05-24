@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -46,11 +47,8 @@ public class CurrentLocation {
     }
 
     public Geocoord getCurrentLocation(){
-        if (Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{
-                    android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        } else {
+        if (Build.VERSION.SDK_INT < 23 ||
+                ContextCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // 가장최근 위치정보 가져오기
             Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location != null) {
@@ -68,6 +66,8 @@ public class CurrentLocation {
                     10000,
                     1,
                     gpsLocationListener);
+        } else {
+            Toast.makeText(activity, "위치 권한 없음", Toast.LENGTH_SHORT).show();
         }
         return null;
     }
@@ -80,13 +80,16 @@ public class CurrentLocation {
         this.activity = activity;
     }
 
+    public void setPermission(){
+        if (Build.VERSION.SDK_INT >= 23 &&
+                ContextCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{
+                    android.Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+    }
+
     final LocationListener gpsLocationListener = new LocationListener() {
         public void onLocationChanged(Location location) {
-            // 위치 리스너는 위치정보를 전달할 때 호출되므로 onLocationChanged()메소드 안에 위지청보를 처리를 작업을 구현 해야합니다.
-            String provider = location.getProvider();  // 위치정보
-            double longitude = location.getLongitude(); // 위도
-            double latitude = location.getLatitude(); // 경도
-            //Log.d("LOCATION LISTENER CLASS" ,"위치정보 : " + provider + "\n" + "위도 : " + longitude + "\n" + "경도 : " + latitude);
         } public void onStatusChanged(String provider, int status, Bundle extras) {
 
         } public void onProviderEnabled(String provider) {

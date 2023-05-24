@@ -116,7 +116,6 @@ public class LocationDetailActivity extends AppCompatActivity {
     }
 
     public void initRecyclerView(){
-        System.out.println("리뷰 개수: " + locationData.getReviews().size());
         mRecyclerAdapter = new ReviewPreviewRecyclerAdapter();
         mRecyclerView.setAdapter(mRecyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false));
@@ -125,7 +124,6 @@ public class LocationDetailActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ReviewDetailActivity.class);
             intent.putExtra("id", locationData.getId());
             startActivity(intent);
-            Toast.makeText(this, "clicked: " + locationData.getTitle(), Toast.LENGTH_LONG).show();
         });
     }
 

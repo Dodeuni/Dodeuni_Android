@@ -60,7 +60,7 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/inter_regular"
-                android:textSize="14dp"
+                android:textSize="16dp"
                 android:text="닉네임" />
 
             <TextView

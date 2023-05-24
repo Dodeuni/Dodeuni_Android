@@ -8,26 +8,20 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
-import dodeunifront.dodeuni.map.api.LocationAPI;
-import dodeunifront.dodeuni.map.api.ReviewAPI;
-import dodeunifront.dodeuni.map.dto.response.ResponseDetailLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseReviewDTO;
+import dodeunifront.dodeuni.retroifit.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ReviewDetailActivity extends AppCompatActivity {
 
     ResponseReviewDTO reviewData;
     long reviewId;
     TextView tvTitle, tvContent, tvTime, tvNickname;
+    RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,18 +55,7 @@ public class ReviewDetailActivity extends AppCompatActivity {
     }
 
     public void getReviewData(){
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ReviewAPI.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        ReviewAPI reviewAPI = retrofit.create(ReviewAPI.class);
-        System.out.println(reviewId);
-        reviewAPI.getReviewDetail(reviewId).enqueue(new Callback<ResponseReviewDTO>() {
+        retrofitBuilder.getReviewAPI().getReviewDetail(reviewId).enqueue(new Callback<ResponseReviewDTO>() {
             @Override
             public void onResponse(Call<ResponseReviewDTO> call, Response<ResponseReviewDTO> response) {
                 if (response.body() != null) {
@@ -92,9 +75,13 @@ public class ReviewDetailActivity extends AppCompatActivity {
     }
 
     public void initTextView(){
+        int idx = reviewData.getCreatedDateTime().indexOf('T');
+        System.out.println("createdDate: " + reviewData.getCreatedDateTime());
+        String date = reviewData.getCreatedDateTime().substring(0, idx);
+        String time = reviewData.getCreatedDateTime().substring(idx+1, idx+6);
         tvTitle.setText(reviewData.getTitle());
         tvContent.setText(reviewData.getContent());
-        tvTime.setText(reviewData.getCreatedDateTime());
+        tvTime.setText(date + " " + time);
         tvNickname.setText(reviewData.getNickname());
     }
 }

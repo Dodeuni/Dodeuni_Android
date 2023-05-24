@@ -106,7 +106,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
         nickname =detail.getStringExtra("nickname");
         position = detail.getIntExtra("position",-99);
 
-        btn_write_menu.setVisibility(View.INVISIBLE);
+        btn_write_menu.setVisibility(View.VISIBLE);
         if(main_writer_userid==login_userId){
             btn_write_menu.setVisibility(View.VISIBLE);
         }

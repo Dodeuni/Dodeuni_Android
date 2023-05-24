@@ -20,7 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import dodeunifront.dodeuni.alert.AlertActivity;
-import dodeunifront.dodeuni.map.api.AlertAPI;
+import dodeunifront.dodeuni.alert.AlertAPI;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

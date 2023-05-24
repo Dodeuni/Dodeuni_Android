@@ -43,25 +43,28 @@ public class ReviewPreviewRecyclerAdapter extends RecyclerView.Adapter<ReviewPre
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView title, content, nickname, time;
+        private final TextView tvTitle, tvContent, tvNickname, tvTime;
         private View view;
 
         public ViewHolder(View view) {
             super(view);
             this.view = view;
 
-            title = (TextView) view.findViewById(R.id.tv_preview_review_title);
-            content = (TextView) view.findViewById(R.id.tv_preview_review_content);
-            nickname = (TextView) view.findViewById(R.id.tv_preview_review_nickname);
-            time = (TextView) view.findViewById(R.id.tv_preview_review_title);
+            tvTitle = view.findViewById(R.id.tv_preview_review_title);
+            tvContent = view.findViewById(R.id.tv_preview_review_content);
+            tvNickname = view.findViewById(R.id.tv_preview_review_nickname);
+            tvTime = view.findViewById(R.id.tv_preview_review_time);
         }
 
         void onBind(ResponseReviewDTO review){
-            System.out.println("리뷰 제목: " + review.getTitle());
+            int idx = review.getCreatedDateTime().indexOf('T');
+            String date = review.getCreatedDateTime().substring(0, idx);
+            String time = review.getCreatedDateTime().substring(idx+1, idx+6);
             view.setOnClickListener(v -> mItemClickListener.onItemClicked(review));
-            title.setText(review.getTitle());
-            content.setText(review.getContent());
-            nickname.setText(review.getNickname());
+            tvTitle.setText(review.getTitle());
+            tvContent.setText(review.getContent());
+            tvNickname.setText(review.getNickname());
+            tvTime.setText(date);
         }
     }
     // Return the size of your dataset (invoked by the layout manager)

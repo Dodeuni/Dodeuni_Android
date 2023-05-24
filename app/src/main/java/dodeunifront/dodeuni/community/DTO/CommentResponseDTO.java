@@ -13,8 +13,10 @@ public class CommentResponseDTO {
     private Long cid;
     private Long uid;
     private String nickname;
-
-    public CommentResponseDTO(Long id, String content, Long step, Long pid, String modifiedDateTime, String createdDateTime, Long cid, Long uid, String nickname) {
+    Long loginuserid;
+    int pans;
+    public CommentResponseDTO(Long id, String content, Long step, Long pid, String modifiedDateTime, String createdDateTime, Long cid, Long uid, String nickname,
+                              Long loginuserid) {
         this.id = id;
         this.content = content;
         this.step = step;
@@ -24,14 +26,36 @@ public class CommentResponseDTO {
         this.cid = cid;
         this.uid = uid;
         this.nickname = nickname;
+        this.loginuserid = loginuserid;
     }
 
-    public CommentResponseDTO(String content, String createdDateTime, String nickname) {
+    public CommentResponseDTO(Long id,String content, String createdDateTime, String nickname,Long loginuserid, Long uid,int pans,
+                              Long cid) {
         this.content = content;
         this.createdDateTime = createdDateTime;
         this.nickname = nickname;
+        this.loginuserid = loginuserid;
+        this.uid = uid;
+        this.pans = pans;
+        this.id = id;
+        this.cid = cid;
     }
 
+    public int getPans() {
+        return pans;
+    }
+
+    public void setPans(int pans) {
+        this.pans = pans;
+    }
+
+    public Long getLoginuserid() {
+        return loginuserid;
+    }
+
+    public void setLoginuserid(Long loginuserid) {
+        this.loginuserid = loginuserid;
+    }
 
     public Long getId() {
         return id;

@@ -122,18 +122,21 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     photo_i = datas.getPhotoUrl();
                     title = datas.getTitle();
                     content = datas.getContent();
-
+                    btn_write_menu.setVisibility(View.VISIBLE);
+                    if(datas.getUserId()!=login_userId){
+                        btn_write_menu.setVisibility(View.INVISIBLE);
+                    } else{
+                        btn_write_menu.setVisibility(View.VISIBLE);
+                    }
                     topView.setTitle(datas.getSub());
                     tv_title_community_detail.setText(datas.getTitle());
                     tv_content_community_detail.setText(datas.getContent());
                     tv_community_detail_writer.setText(datas.getNickname());
                     String date_fi = datas.getCreatedDateTime();
-                    //String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
-                    //String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
-                    String createDateTimeParse0 = "날짜";
-                    String createDateTimeParse1 = "시간";
-                    String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
-                    tv_time_community_detail.setText(createDatTimeresult);
+                    int idx = date_fi.indexOf('T');
+                    String date = date_fi.substring(0, idx);
+                    String time = date_fi.substring(idx+1, idx+6);
+                    tv_time_community_detail.setText(date + " " + time);
                     if(photo_i!= null)
                     {
                         datailImageAdapter = new DatailImageAdapter(datas.getPhotoUrl(), getApplicationContext());
@@ -169,7 +172,7 @@ public class DetailCommunityActivity extends AppCompatActivity {
                             String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
 
                             CommentResponseDTO dict_0 = new CommentResponseDTO(datas.getId(),datas.getContent(),datas.getStep(),datas.getPid(),
-                                    createDatTimeresult,datas.getCreatedDateTime(),datas.getCid(),datas.getUid(),datas.getNickname());
+                                    createDatTimeresult,datas.getCreatedDateTime(),datas.getCid(),datas.getUid(),datas.getNickname(),login_userId);
                             commentResponseDTOArrayList.add(dict_0);
                             commentAdapter.notifyItemInserted(0);
                         }
@@ -199,9 +202,6 @@ public class DetailCommunityActivity extends AppCompatActivity {
                     View customView = layoutInflater.inflate(R.layout.itemlist_comment, null);
                     btn_comment_menu=  ((ImageView)customView.findViewById(R.id.btn_comment_menu));
 
-                    if(cid == uid){
-                        btn_comment_menu.setVisibility(View.VISIBLE);
-                    }
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(comment_et.getWindowToken(), 0);
@@ -214,12 +214,18 @@ public class DetailCommunityActivity extends AppCompatActivity {
                         public void onResponse(Call<List<CommentResponseDTO>> call, Response<List<CommentResponseDTO>> response) {
                             if(response.isSuccessful()){
                                 if (response.body() != null){
-                                    Log.e("hey~~~",response.body().get(0).getNickname());
-                                    CommentResponseDTO dict_0 = new CommentResponseDTO(text,
+                                    Log.e("hey~~~uid",response.body().get(0).getUid()+"");
+                                    Log.e("hey~~~pid",response.body().get(0).getPid()+"");
+                                    Log.e("hey~~~cid",response.body().get(0).getCid()+"");
+
+                                    Log.e("hey~~~logint",login_userId+"");
+                                    CommentResponseDTO dict_0 = new CommentResponseDTO(response.body().get(0).getId(),text,
                                             response.body().get(0).getCreatedDateTime(),
-                                            nickname);
+                                            nickname,login_userId,response.body().get(0).getUid(),1,
+                                            response.body().get(0).getCid());
                                     commentResponseDTOArrayList.add(dict_0);
                                     commentAdapter.notifyDataSetChanged();
+                                    btn_comment_menu.setVisibility(View.VISIBLE);
                                 }
                                 else {Log.e("hey~~~","het~~~~~~~~~");
 

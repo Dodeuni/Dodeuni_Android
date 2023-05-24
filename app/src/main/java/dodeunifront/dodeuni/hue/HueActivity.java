@@ -54,7 +54,6 @@ public class HueActivity extends AppCompatActivity {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     Retrofit retrofitfeel = new Retrofit.Builder()
-//            .client(okHttpClient)
             .baseUrl(HuefeelAPI.URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
@@ -114,7 +113,10 @@ public class HueActivity extends AppCompatActivity {
                             Log.e("userid",response.body().get(i).getUid()+"");
                             Log.e("content",response.body().get(i).getContent()+"");
                             String dd = response.body().get(i).getCreatedDateTime();
-                            String ddp = dd.substring(dd.indexOf("T")+1,dd.indexOf("."));
+                            //String ddp = dd.substring(dd.indexOf("T")+1,dd.indexOf("."));
+                            int idx = dd.indexOf('T');
+                            String date = dd.substring(0, idx);
+                            String time = dd.substring(idx+1, idx+6);
 
                             int viewType = 0;
                             if(response.body().get(i).getUid() == userId){
@@ -123,7 +125,7 @@ public class HueActivity extends AppCompatActivity {
                                 viewType = ViewType.LEFT_CHAT;
                             }
                             HuePostDTO huePostDTO = new HuePostDTO(response.body().get(i).getContent(),
-                                    ddp,viewType);
+                                    date + " " + time,viewType);
                             huearrayList.add(huePostDTO);
 
                             hueAdapter.notifyItemInserted(0);

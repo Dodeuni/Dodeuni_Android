@@ -3,6 +3,5 @@
     <!-- 배경색 -->
     <solid android:color="#ffffff"/>
     <!-- 모서리 둥글게-->
-    <corners android:radius="50dp"/>
-
+    <corners android:topLeftRadius="25dp" android:topRightRadius="25dp"/>
 </shape>

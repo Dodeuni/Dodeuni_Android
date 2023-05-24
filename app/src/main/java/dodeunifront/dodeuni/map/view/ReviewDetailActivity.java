@@ -76,7 +76,6 @@ public class ReviewDetailActivity extends AppCompatActivity {
 
     public void initTextView(){
         int idx = reviewData.getCreatedDateTime().indexOf('T');
-        System.out.println("createdDate: " + reviewData.getCreatedDateTime());
         String date = reviewData.getCreatedDateTime().substring(0, idx);
         String time = reviewData.getCreatedDateTime().substring(idx+1, idx+6);
         tvTitle.setText(reviewData.getTitle());

@@ -110,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="5dp"
-        android:background="@drawable/dialog_radius"
+        android:background="@drawable/mypage_radius"
         android:padding="15dp"
         android:orientation="vertical">
 

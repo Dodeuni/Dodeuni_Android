@@ -23,6 +23,7 @@ import dodeunifront.dodeuni.map.dto.request.RequestEnrollReviewDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseDetailLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseEnrollLocationDTO;
 import dodeunifront.dodeuni.map.dto.response.ResponseReviewDTO;
+import dodeunifront.dodeuni.retroifit.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +40,7 @@ public class ReviewPostActivity extends AppCompatActivity {
     CardView enrollBtn;
     String title, content;
     int locationId;
+    RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,18 +81,7 @@ public class ReviewPostActivity extends AppCompatActivity {
     }
 
     public void getLocationData(){
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(LocationAPI.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        LocationAPI locationAPI = retrofit.create(LocationAPI.class);
-        System.out.println(locationId);
-        locationAPI.getLocationDetail(locationId).enqueue(new Callback<ResponseDetailLocationDTO>() {
+        retrofitBuilder.getLocationAPI().getLocationDetail(locationId).enqueue(new Callback<ResponseDetailLocationDTO>() {
             @Override
             public void onResponse(Call<ResponseDetailLocationDTO> call, Response<ResponseDetailLocationDTO> response) {
                 if (response.body() != null) {
@@ -115,14 +106,6 @@ public class ReviewPostActivity extends AppCompatActivity {
     }
 
     public void postLocation(){
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ReviewAPI.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
 
         title = editTitle.getText().toString();
         content = editContent.getText().toString();
@@ -132,12 +115,12 @@ public class ReviewPostActivity extends AppCompatActivity {
             reviewData.setTitle(title);
             reviewData.setContent(content);
             reviewData.setPid(locationId);
-            ReviewAPI reviewAPI = retrofit.create(ReviewAPI.class);
-            reviewAPI.postReview(reviewData).enqueue(new Callback<ResponseReviewDTO>() {
+            retrofitBuilder.getReviewAPI().postReview(reviewData).enqueue(new Callback<ResponseReviewDTO>() {
                 @Override
                 public void onResponse(Call<ResponseReviewDTO> call, Response<ResponseReviewDTO> response) {
                     if (response.body() != null) {
                         reviewResultData = response.body();
+                        Toast.makeText(getApplicationContext(), "장소를 등록중입니다", Toast.LENGTH_LONG).show();
                         finish();
                     } else {
                         Log.d("성공", "데이터없음");

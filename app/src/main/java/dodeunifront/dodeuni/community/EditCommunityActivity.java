@@ -104,6 +104,17 @@ public class EditCommunityActivity extends AppCompatActivity {
         for(int i=0;i<photo_i.size();i++){
             Uri uri = Uri.parse(photo_i.get(i));
             uriList.add(uri);
+//            String juldapath = getRealPathFromURI(uri);
+//            Log.e("uris 리스트는 ",uri.toString()+"절대는"+juldapath);
+//            File file = new File(juldapath);
+//            if (!file.exists()) {       // 원하는 경로에 폴더가 있는지 확인
+//                file.mkdirs();    // 하위폴더를 포함한 폴더를 전부 생성
+//            }
+//            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//            Log.e("과연과연과연과연",""+file.getName());
+//
+//            MultipartBody.Part uploadFile = MultipartBody.Part.createFormData("photo", file.getName() ,requestBody);
+//            names.add(uploadFile);
         }
         btn_edit = findViewById(R.id.btn_edit_editcommunity);
         btn_edit.setOnClickListener(new View.OnClickListener() {
@@ -124,12 +135,13 @@ public class EditCommunityActivity extends AppCompatActivity {
         et_title = (EditText) findViewById(R.id.et_edit_title);
         btn_sub = findViewById(R.id.btn_edit_sub);
         btn_addphoto = (ImageView) findViewById(R.id.btn_edit_addpicture);
-        btn_addphoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                displayFileChoose();
-            }
-        });
+        btn_addphoto.setClickable(false);
+//        btn_addphoto.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                displayFileChoose();
+//            }
+//        });
         rv_edit_photo = (RecyclerView)findViewById(R.id.rv_imageview_edit);
         init();
     }

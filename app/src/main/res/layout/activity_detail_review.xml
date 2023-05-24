@@ -43,6 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:fontFamily="@font/inter_regular"
                     android:textColor="@color/light_gray"
                     android:textSize="10dp" />

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,6 +19,7 @@ import dodeunifront.dodeuni.R;
 import dodeunifront.dodeuni.TopView;
 import dodeunifront.dodeuni.community.DetailCommunityActivity;
 import dodeunifront.dodeuni.map.dto.AlertDTO;
+import dodeunifront.dodeuni.retroifit.RetrofitBuilder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +31,7 @@ public class AlertActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     AlertRecyclerAdapter mAlertRecyclerAdapter;
     List<AlertDTO> alertListResult;
+    RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,25 +61,14 @@ public class AlertActivity extends AppCompatActivity {
     }
 
     public void getAlertList(){
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(AlertAPI.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-
-        AlertAPI alertAPI = retrofit.create(AlertAPI.class);
-        System.out.println("Local Uid: " + LandingActivity.localUid);
-        alertAPI.getAlert(LandingActivity.localUid).enqueue(new Callback<List<AlertDTO>>() {
+        retrofitBuilder.getAlertAPI().getAlert(LandingActivity.localUid).enqueue(new Callback<List<AlertDTO>>() {
             @Override
             public void onResponse(Call<List<AlertDTO>> call, Response<List<AlertDTO>> response) {
                 if (response.body() != null) {
                     alertListResult = response.body();
                     initRecyclerView();
-                    Log.d("성공", alertListResult.get(0).getAlarm());
                 } else {
+                    Toast.makeText(getApplicationContext(), "알립 없음", Toast.LENGTH_LONG).show();
                     Log.d("ALERT: No Result", "검색 결과 없음");
                 }
             }

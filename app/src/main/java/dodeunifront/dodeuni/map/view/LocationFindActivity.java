@@ -113,6 +113,7 @@ public class LocationFindActivity extends AppCompatActivity {
     public void clickedSearch(){
         mapView.removeAllPOIItems();
         String keyword = editSearch.getText().toString();
+        editSearch.setText("");
         if(keyword.length() != 0){
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);

@@ -61,10 +61,13 @@ public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int po
         String date_fi = mdataList.get(position).getCreatedDateTime();
         //String createDateTimeParse0 = date_fi.substring(0,date_fi.indexOf("T"));
         //String createDateTimeParse1 = date_fi.substring(date_fi.indexOf("T")+1,date_fi.indexOf("."));
-        String createDateTimeParse0 = "날짜";
-        String createDateTimeParse1 = "시간";
-        String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
-        ((MyViewHolder) viewHolder).createdate.setText(createDatTimeresult);
+        int idx = date_fi.indexOf('T');
+        String date = date_fi.substring(0, idx);
+        String time = date_fi.substring(idx+1, idx+6);
+//        String createDateTimeParse0 = "날짜";
+//        String createDateTimeParse1 = "시간";
+//        String createDatTimeresult = createDateTimeParse0 +" "+createDateTimeParse1;
+        ((MyViewHolder) viewHolder).createdate.setText(date + " " + time);
         Glide.with(viewHolder.itemView)
             .load(mdataList.get(position).getThumbnailUrl())
             .into(((MyViewHolder) viewHolder).imageView);

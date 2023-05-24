@@ -64,7 +64,7 @@ public class MapFragment extends Fragment {
     KakaoLocationRecyclerAdapter mkeywordRecyclerAdapter;
     List<ResponseRecommendLocationDTO> recommendResult;
     RequestRecommendLocationDTO recommendRequest = new RequestRecommendLocationDTO();
-    TextView tvRecommend, tvCenter, tvKinder, tvSchool, tvSpecialS;
+    TextView tvRecommend, tvCenter, tvKinder, tvSchool, tvSpecialS, tvListTitle;
     TextView tvTags[];
     String[] tags = {"", "아동발달", "PS3", "SC4", "어린이병원"};
     RetrofitBuilder retrofitBuilder = new RetrofitBuilder();
@@ -92,6 +92,7 @@ public class MapFragment extends Fragment {
         tvKinder = v.findViewById(R.id.tv_kindergarden_tag);
         tvSchool = v.findViewById(R.id.tv_school_tag);
         tvSpecialS = v.findViewById(R.id.tv_special_school_tag);
+        tvListTitle = v.findViewById(R.id.tv_title_location_list);
         TextView tvLocationNew = v.findViewById(R.id.tv_location_new);
         tvTags = new TextView[]{tvRecommend, tvCenter, tvKinder, tvSchool, tvSpecialS};
 
@@ -226,6 +227,7 @@ public class MapFragment extends Fragment {
         mRecyclerView.setAdapter(mRecommendRecyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         String keyword = editSearch.getText().toString();
+        editSearch.setText("");
         tagClicked(tvTags[0]);
         if(keyword.length() != 0){
             tags[0] = keyword;

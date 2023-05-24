@@ -43,21 +43,23 @@
 
                         <TextView
                             android:id="@+id/tv_title_community_detail"
-                            android:layout_width="wrap_content"
+                            android:layout_width="290dp"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/inter_bold"
                             android:textColor="@color/black"
                             android:textSize="20dp"
                             android:text="" />
 
+
                         <TextView
                             android:id="@+id/tv_time_community_detail"
-                            android:layout_width="wrap_content"
+                            android:layout_width="60dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
+                            android:layout_gravity="center"
                             android:fontFamily="@font/inter_regular"
-                            android:layout_weight="1"
-                            android:text=""
+                            android:text="2023-05-24 06:16"
+                            android:gravity="center"
                             android:textColor="@color/light_gray"
                             android:textSize="10dp" />
 
@@ -66,7 +68,7 @@
                             android:layout_height="20dp"
                             android:onClick="popupclicks"
                             android:id="@+id/btn_write_menu"
-                            android:layout_gravity="center_vertical"
+                            android:layout_gravity="end"
                             android:background="@drawable/menu"/>
                     </LinearLayout>
 

@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="세부 카테고리는 수정할 수 없습니다."
+        android:text="세부 카테고리와 사진은 수정할 수 없습니다."
         android:layout_gravity="center"
         android:fontFamily="@font/inter_regular"
         android:gravity="center"
@@ -116,6 +116,7 @@
             android:layout_gravity="top"
             android:padding="15dp"
             android:background="@drawable/community_roundedcamera"
+            android:backgroundTint="#9C9C9C"
             android:layout_marginBottom="20dp"
             app:srcCompat="@drawable/camera_gray" />
 
